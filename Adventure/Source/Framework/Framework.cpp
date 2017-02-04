@@ -7,12 +7,14 @@ Framework::Framework()
 	  mFPSText(*mFonts.getFont(mySFML::Class::FontName::ARIAL), sf::Vector2f(2.f, 0.f), "FPS: ", 12u, sf::Color::White),
 	  mUtilizationText(*mFonts.getFont(mySFML::Class::FontName::ARIAL), sf::Vector2f(2.f, 10.f), "Util: ", 12u, sf::Color::White)
 {
-	srand(time(0));
+	srand(static_cast<unsigned int>(time(0)));
 
 	pRenderWindow = new sf::RenderWindow(sf::VideoMode(1440, 900), "Adventure");
 	pRenderWindow->setFramerateLimit(60);
 
 	mFPSClock.restart();
+
+	mStackOfGameStates.push(new GameState::MainMenuState);
 }
 
 //Destructor
@@ -45,7 +47,40 @@ void Framework::handleEvents()
 
 void Framework::update()
 {
+	GameState::GameStateChange gameStateChange = mStackOfGameStates.top()->getGameStateChange();
+	switch (gameStateChange)
+	{
+	case GameState::GameStateChange::POP:
+		delete mStackOfGameStates.top();
+		mStackOfGameStates.pop();
+		break;
 
+	case GameState::GameStateChange::PUSH_MAIN_MENU_STATE:
+		mStackOfGameStates.push(new GameState::MainMenuState);
+		break;
+
+	case GameState::GameStateChange::PUSH_PLAYING_STATE:
+		mStackOfGameStates.push(new GameState::PlayingState);
+		break;
+
+	case GameState::GameStateChange::REPLACE_MAIN_MENU_STATE:
+		delete mStackOfGameStates.top();
+		mStackOfGameStates.pop();
+		mStackOfGameStates.push(new GameState::MainMenuState);
+		break;
+
+	case GameState::GameStateChange::REPLACE_PLAYING_STATE:
+		delete mStackOfGameStates.top();
+		mStackOfGameStates.pop();
+		mStackOfGameStates.push(new GameState::PlayingState);
+		break;
+	}
+	if (mStackOfGameStates.empty())
+	{
+		throw "Stack of GameStates is empty!";
+	}
+
+	mStackOfGameStates.top()->update(mFrametime, pRenderWindow);
 }
 
 void Framework::render()
@@ -54,6 +89,7 @@ void Framework::render()
 	
 	pRenderWindow->draw(*mFPSText.pointer);
 	pRenderWindow->draw(*mUtilizationText.pointer);
+	mStackOfGameStates.top()->render(pRenderWindow);
 
 	sf::Time timeBeforeRendering = mFPSClock.getElapsedTime();
 	pRenderWindow->display();
@@ -90,12 +126,20 @@ void Framework::determineFrametime()
 //Run
 void Framework::run()
 {
-	while (pRenderWindow->isOpen())
+	try
 	{
-		determineFrametime();
-		handleEvents();
-		update();
-		render();
+		while (pRenderWindow->isOpen())
+		{
+			determineFrametime();
+			handleEvents();
+			update();
+			render();
+		}
+	}
+	catch (char* text) //Breaks the While-Loop, if the Stack of GameStates is empty!
+	{
+		pRenderWindow->close();
+		std::cout << text << std::endl;
 	}
 }
 

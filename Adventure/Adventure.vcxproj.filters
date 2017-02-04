@@ -28,6 +28,12 @@
     <Filter Include="Quelldateien\Math">
       <UniqueIdentifier>{28179b93-9e73-44ac-bc4b-ac8da92824ea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headerdateien\GameState">
+      <UniqueIdentifier>{cd4b4361-8892-4d35-a13a-292b63d5ec4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\GameState">
+      <UniqueIdentifier>{f09259c4-c814-4629-abd1-79a5641b2b3b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -54,6 +60,15 @@
     <ClInclude Include="..\..\..\Libraries\ourVectors.hpp">
       <Filter>Headerdateien\Math</Filter>
     </ClInclude>
+    <ClInclude Include="Source\GameState\GameState.hpp">
+      <Filter>Headerdateien\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameState\MainMenuState.hpp">
+      <Filter>Headerdateien\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameState\PlayingState.hpp">
+      <Filter>Headerdateien\GameState</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -70,6 +85,15 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Visual Studio Stuff\Libraries\myUsefulMath.cpp">
       <Filter>Quelldateien\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameState\GameState.cpp">
+      <Filter>Quelldateien\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameState\MainMenuState.cpp">
+      <Filter>Quelldateien\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameState\PlayingState.cpp">
+      <Filter>Quelldateien\GameState</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

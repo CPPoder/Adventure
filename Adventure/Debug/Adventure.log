@@ -1,3 +1,4 @@
-﻿  Framework.cpp
-c:\users\udo\documents\github\adventure\adventure\source\framework\framework.cpp(10): warning C4244: "Argument": Konvertierung von "time_t" in "unsigned int", möglicher Datenverlust
+﻿  MainMenuState.cpp
+  Framework.cpp
+  Code wird generiert...
   Adventure.vcxproj -> C:\Users\Udo\Documents\GitHub\Adventure\Debug\Adventure.exe

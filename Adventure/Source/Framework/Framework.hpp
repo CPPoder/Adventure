@@ -2,9 +2,15 @@
 #define FRAMEWORK_HPP
 
 #include <iostream>
+#include <stack>
+
 #include "SFML\Graphics.hpp"
 
 #include "mySFMLVectorFunctions.hpp"
+
+#include "Source\GameState\GameState.hpp"
+#include "Source\GameState\MainMenuState.hpp"
+#include "Source\GameState\PlayingState.hpp"
 
 
 class Framework
@@ -24,6 +30,9 @@ private:
 	float mUtilization = 0.f;
 	mySFML::Class::Text mFPSText;
 	mySFML::Class::Text mUtilizationText;
+
+	//GameState
+	std::stack<GameState::GameState*> mStackOfGameStates;
 
 private:
 	void determineFrametime();
