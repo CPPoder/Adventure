@@ -8,6 +8,7 @@
 
 #include "mySFMLVectorFunctions.hpp"
 
+#include "Source\Framework\EventManager.hpp"
 #include "Source\GameState\GameState.hpp"
 #include "Source\GameState\MainMenuState.hpp"
 #include "Source\GameState\PlayingState.hpp"

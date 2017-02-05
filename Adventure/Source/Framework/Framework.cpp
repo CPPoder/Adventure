@@ -31,6 +31,7 @@ void Framework::handleEvents()
 	sf::Event mEvent;
 	while (pRenderWindow->pollEvent(mEvent))
 	{
+		//Handle immediately
 		if (mEvent.type == sf::Event::EventType::Closed)
 		{
 			pRenderWindow->close();
@@ -42,6 +43,26 @@ void Framework::handleEvents()
 				pRenderWindow->close();
 			}
 		}
+		
+		//Pass the Events through to the EventManager
+		EventManager::reset();
+		if (mEvent.type == sf::Event::EventType::MouseButtonPressed)
+		{
+			EventManager::setPressedMouseEvent(EventManager::MouseInfo(mEvent.mouseButton.button, sf::Vector2i(mEvent.mouseButton.x, mEvent.mouseButton.y)));
+		}
+		if (mEvent.type == sf::Event::EventType::MouseButtonReleased)
+		{
+			EventManager::setReleasedMouseEvent(EventManager::MouseInfo(mEvent.mouseButton.button, sf::Vector2i(mEvent.mouseButton.x, mEvent.mouseButton.y)));
+		}
+		if (mEvent.type == sf::Event::EventType::KeyPressed)
+		{
+			EventManager::setPressedKeyEvent(EventManager::KeyInfo(mEvent.key.code, mEvent.key.control, mEvent.key.alt, mEvent.key.shift, mEvent.key.system));
+		}
+		if (mEvent.type == sf::Event::EventType::KeyReleased)
+		{
+			EventManager::setReleasedKeyEvent(EventManager::KeyInfo(mEvent.key.code, mEvent.key.control, mEvent.key.alt, mEvent.key.shift, mEvent.key.system));
+		}
+
 	}
 }
 
@@ -120,6 +141,7 @@ void Framework::determineFrametime()
 		timeSinceLastSecond = sf::seconds(0.f);
 		renderTimeSinceLastSecond = sf::seconds(0.f);
 	}
+
 }
 
 

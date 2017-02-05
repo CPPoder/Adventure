@@ -155,10 +155,14 @@
     <ClInclude Include="..\..\..\Visual Studio Stuff\Libraries\myUsefulMath.hpp" />
     <ClInclude Include="..\..\..\Visual Studio Stuff\Libraries\ourMatrices.hpp" />
     <ClInclude Include="..\..\..\Visual Studio Stuff\Libraries\ourVectors.hpp" />
+    <ClInclude Include="Source\ControlElements\Button.hpp" />
+    <ClInclude Include="Source\Framework\EventManager.hpp" />
     <ClInclude Include="Source\Framework\Framework.hpp" />
+    <ClInclude Include="Source\GameState\EditorState.hpp" />
     <ClInclude Include="Source\GameState\GameState.hpp" />
     <ClInclude Include="Source\GameState\MainMenuState.hpp" />
     <ClInclude Include="Source\GameState\PlayingState.hpp" />
+    <ClInclude Include="Source\Game\Editor.hpp" />
     <ClInclude Include="Source\Game\World.hpp" />
     <ClInclude Include="Source\Tile\TileContents.hpp" />
     <ClInclude Include="Source\Tile\TileSquare.hpp" />
@@ -171,11 +175,15 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\Visual Studio Stuff\Libraries\mySFMLVectorFunctions.cpp" />
     <ClCompile Include="..\..\..\Visual Studio Stuff\Libraries\myUsefulMath.cpp" />
+    <ClCompile Include="Source\ControlElements\Button.cpp" />
+    <ClCompile Include="Source\Framework\EventManager.cpp" />
     <ClCompile Include="Source\Framework\Framework.cpp" />
     <ClCompile Include="Source\Framework\main.cpp" />
+    <ClCompile Include="Source\GameState\EditorState.cpp" />
     <ClCompile Include="Source\GameState\GameState.cpp" />
     <ClCompile Include="Source\GameState\MainMenuState.cpp" />
     <ClCompile Include="Source\GameState\PlayingState.cpp" />
+    <ClCompile Include="Source\Game\Editor.cpp" />
     <ClCompile Include="Source\Game\World.cpp" />
     <ClCompile Include="Source\Tile\TileMap.cpp" />
     <ClCompile Include="Source\Tile\TileSquare.cpp" />

@@ -46,6 +46,12 @@
     <Filter Include="Quelldateien\Tile">
       <UniqueIdentifier>{9b3febed-18c9-4713-b9ce-5beb3c89e442}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headerdateien\ControlElements">
+      <UniqueIdentifier>{e5511dbc-87ec-42a5-969e-57d2e7aaae44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\ControlElements">
+      <UniqueIdentifier>{760fda2e-bd64-42fb-af3c-a2546c3d9de8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -99,6 +105,18 @@
     <ClInclude Include="Source\Tile\TileSquare.hpp">
       <Filter>Headerdateien\Tile</Filter>
     </ClInclude>
+    <ClInclude Include="Source\GameState\EditorState.hpp">
+      <Filter>Headerdateien\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Editor.hpp">
+      <Filter>Headerdateien\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\EventManager.hpp">
+      <Filter>Headerdateien\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ControlElements\Button.hpp">
+      <Filter>Headerdateien\ControlElements</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -136,6 +154,18 @@
     </ClCompile>
     <ClCompile Include="Source\Tile\TileSquare.cpp">
       <Filter>Quelldateien\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameState\EditorState.cpp">
+      <Filter>Quelldateien\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Editor.cpp">
+      <Filter>Quelldateien\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework\EventManager.cpp">
+      <Filter>Quelldateien\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ControlElements\Button.cpp">
+      <Filter>Quelldateien\ControlElements</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
