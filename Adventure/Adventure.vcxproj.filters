@@ -34,6 +34,18 @@
     <Filter Include="Quelldateien\GameState">
       <UniqueIdentifier>{f09259c4-c814-4629-abd1-79a5641b2b3b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headerdateien\Game">
+      <UniqueIdentifier>{682fb0e2-5914-41b4-aa99-809ba6a52dbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\Game">
+      <UniqueIdentifier>{d7ba155c-e78b-4766-9a65-29a4da83ed34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Tile">
+      <UniqueIdentifier>{36942853-2446-422f-8008-9fcf517fa2fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\Tile">
+      <UniqueIdentifier>{9b3febed-18c9-4713-b9ce-5beb3c89e442}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -48,18 +60,6 @@
     <ClInclude Include="Source\Framework\Framework.hpp">
       <Filter>Headerdateien\Framework</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Libraries\mySFMLVectorFunctions.hpp">
-      <Filter>Headerdateien\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Libraries\myUsefulMath.hpp">
-      <Filter>Headerdateien\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Libraries\ourMatrices.hpp">
-      <Filter>Headerdateien\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Libraries\ourVectors.hpp">
-      <Filter>Headerdateien\Math</Filter>
-    </ClInclude>
     <ClInclude Include="Source\GameState\GameState.hpp">
       <Filter>Headerdateien\GameState</Filter>
     </ClInclude>
@@ -68,6 +68,36 @@
     </ClInclude>
     <ClInclude Include="Source\GameState\PlayingState.hpp">
       <Filter>Headerdateien\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\World.hpp">
+      <Filter>Headerdateien\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Tile\TileType.hpp">
+      <Filter>Headerdateien\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Tile\TileMap.hpp">
+      <Filter>Headerdateien\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Tile\TileContents.hpp">
+      <Filter>Headerdateien\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Tile\TileSquares.hpp">
+      <Filter>Headerdateien\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Visual Studio Stuff\Libraries\mySFMLVectorFunctions.hpp">
+      <Filter>Headerdateien\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Visual Studio Stuff\Libraries\myUsefulMath.hpp">
+      <Filter>Headerdateien\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Visual Studio Stuff\Libraries\ourMatrices.hpp">
+      <Filter>Headerdateien\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Visual Studio Stuff\Libraries\ourVectors.hpp">
+      <Filter>Headerdateien\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Tile\TileSquare.hpp">
+      <Filter>Headerdateien\Tile</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -80,12 +110,6 @@
     <ClCompile Include="Source\Framework\main.cpp">
       <Filter>Quelldateien\Framework</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Visual Studio Stuff\Libraries\mySFMLVectorFunctions.cpp">
-      <Filter>Quelldateien\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Visual Studio Stuff\Libraries\myUsefulMath.cpp">
-      <Filter>Quelldateien\Math</Filter>
-    </ClCompile>
     <ClCompile Include="Source\GameState\GameState.cpp">
       <Filter>Quelldateien\GameState</Filter>
     </ClCompile>
@@ -94,6 +118,24 @@
     </ClCompile>
     <ClCompile Include="Source\GameState\PlayingState.cpp">
       <Filter>Quelldateien\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\World.cpp">
+      <Filter>Quelldateien\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Tile\TileMap.cpp">
+      <Filter>Quelldateien\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Tile\TileSquares.cpp">
+      <Filter>Quelldateien\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Visual Studio Stuff\Libraries\mySFMLVectorFunctions.cpp">
+      <Filter>Quelldateien\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Visual Studio Stuff\Libraries\myUsefulMath.cpp">
+      <Filter>Quelldateien\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Tile\TileSquare.cpp">
+      <Filter>Quelldateien\Tile</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

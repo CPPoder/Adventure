@@ -151,14 +151,20 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\Libraries\mySFMLVectorFunctions.hpp" />
-    <ClInclude Include="..\..\..\Libraries\myUsefulMath.hpp" />
-    <ClInclude Include="..\..\..\Libraries\ourMatrices.hpp" />
-    <ClInclude Include="..\..\..\Libraries\ourVectors.hpp" />
+    <ClInclude Include="..\..\..\Visual Studio Stuff\Libraries\mySFMLVectorFunctions.hpp" />
+    <ClInclude Include="..\..\..\Visual Studio Stuff\Libraries\myUsefulMath.hpp" />
+    <ClInclude Include="..\..\..\Visual Studio Stuff\Libraries\ourMatrices.hpp" />
+    <ClInclude Include="..\..\..\Visual Studio Stuff\Libraries\ourVectors.hpp" />
     <ClInclude Include="Source\Framework\Framework.hpp" />
     <ClInclude Include="Source\GameState\GameState.hpp" />
     <ClInclude Include="Source\GameState\MainMenuState.hpp" />
     <ClInclude Include="Source\GameState\PlayingState.hpp" />
+    <ClInclude Include="Source\Game\World.hpp" />
+    <ClInclude Include="Source\Tile\TileContents.hpp" />
+    <ClInclude Include="Source\Tile\TileSquare.hpp" />
+    <ClInclude Include="Source\Tile\TileSquares.hpp" />
+    <ClInclude Include="Source\Tile\TileType.hpp" />
+    <ClInclude Include="Source\Tile\TileMap.hpp" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -170,6 +176,10 @@
     <ClCompile Include="Source\GameState\GameState.cpp" />
     <ClCompile Include="Source\GameState\MainMenuState.cpp" />
     <ClCompile Include="Source\GameState\PlayingState.cpp" />
+    <ClCompile Include="Source\Game\World.cpp" />
+    <ClCompile Include="Source\Tile\TileMap.cpp" />
+    <ClCompile Include="Source\Tile\TileSquare.cpp" />
+    <ClCompile Include="Source\Tile\TileSquares.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

@@ -85,11 +85,11 @@ void Framework::update()
 
 void Framework::render()
 {
-	pRenderWindow->clear(mySFML::Color::randColor());
+	pRenderWindow->clear(sf::Color(20, 20, 20));
 	
+	mStackOfGameStates.top()->render(pRenderWindow);
 	pRenderWindow->draw(*mFPSText.pointer);
 	pRenderWindow->draw(*mUtilizationText.pointer);
-	mStackOfGameStates.top()->render(pRenderWindow);
 
 	sf::Time timeBeforeRendering = mFPSClock.getElapsedTime();
 	pRenderWindow->display();
