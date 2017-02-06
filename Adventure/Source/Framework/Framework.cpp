@@ -29,6 +29,7 @@ Framework::~Framework()
 void Framework::handleEvents()
 {
 	sf::Event mEvent;
+	EventManager::reset();
 	while (pRenderWindow->pollEvent(mEvent))
 	{
 		//Handle immediately
@@ -45,7 +46,6 @@ void Framework::handleEvents()
 		}
 		
 		//Pass the Events through to the EventManager
-		EventManager::reset();
 		if (mEvent.type == sf::Event::EventType::MouseButtonPressed)
 		{
 			EventManager::setPressedMouseEvent(EventManager::MouseInfo(mEvent.mouseButton.button, sf::Vector2i(mEvent.mouseButton.x, mEvent.mouseButton.y)));
@@ -106,7 +106,7 @@ void Framework::update()
 
 void Framework::render()
 {
-	pRenderWindow->clear(sf::Color(20, 20, 20));
+	pRenderWindow->clear(sf::Color::Black);
 	
 	mStackOfGameStates.top()->render(pRenderWindow);
 	pRenderWindow->draw(*mFPSText.pointer);

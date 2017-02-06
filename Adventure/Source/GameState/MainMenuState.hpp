@@ -2,6 +2,8 @@
 #define MAINMENUSTATE_HPP
 
 #include "Source\GameState\GameState.hpp"
+#include "Source\Game\MainMenu.hpp"
+
 
 
 namespace GameState
@@ -10,7 +12,7 @@ namespace GameState
 	class MainMenuState final : public GameState
 	{
 	private:
-
+		MainMenu mMainMenu;
 
 	public:
 		virtual void update(sf::Time const & frametime, sf::RenderWindow* renderWindow) override;
