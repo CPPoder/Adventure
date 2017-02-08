@@ -12,7 +12,7 @@ namespace GameState
 	class EditorState final : public GameState
 	{
 	private:
-		//Editor
+		Editor mEditor;
 
 	public:
 		EditorState();

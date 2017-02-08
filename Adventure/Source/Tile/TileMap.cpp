@@ -5,6 +5,10 @@ TileMap::TileMap()
 {
 
 }
+TileMap::TileMap(std::string const & openFilePath)
+{
+	this->loadFromFile(openFilePath);
+}
 TileMap::~TileMap()
 {
 
@@ -80,6 +84,33 @@ void TileMap::loadFromFile(std::string const & path)
 		}
 		mMatrixOfTileContents.push_back(vecOfTileContents);
 	}
+}
+
+void TileMap::saveToFile(std::string const & path) const
+{
+	std::ofstream outFileStream(path, std::ios_base::trunc);
+
+	bool firstVec = true;
+	for (auto vec : mMatrixOfTileContents)
+	{
+		if (!firstVec)
+		{
+			outFileStream << std::endl;
+		}
+		bool firstTile = true;
+		for (auto tileContents : vec)
+		{
+			if (!firstTile)
+			{
+				outFileStream << " ";
+			}
+			outFileStream << static_cast<int>(tileContents.tileType);
+			firstTile = false;
+		}
+		firstVec = false;;
+	}
+
+	outFileStream.close();
 }
 
 unsigned int TileMap::getYSize() const

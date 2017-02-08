@@ -16,8 +16,21 @@ namespace GameState
 
 	GameStateChange MainMenuState::getGameStateChange() const
 	{
-		//return GameStateChange::PUSH_PLAYING_STATE;
-		return GameStateChange::NO_CHANGE;
+		switch (mMainMenu.mOutgoingEvent)
+		{
+		case MainMenu::OutgoingEvent::NO_EVENT:
+			return GameStateChange::NO_CHANGE;
+			break;
+		case MainMenu::OutgoingEvent::START_GAME:
+			return GameStateChange::REPLACE_PLAYING_STATE;
+			break;
+		case MainMenu::OutgoingEvent::START_EDITOR:
+			return GameStateChange::REPLACE_EDITOR_STATE;
+			break;
+		case MainMenu::OutgoingEvent::EXIT:
+			return GameStateChange::POP;
+			break;
+		}
 	}
 
 }

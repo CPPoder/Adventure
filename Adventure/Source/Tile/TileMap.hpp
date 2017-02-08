@@ -19,6 +19,7 @@ private:
 
 public:
 	TileMap();
+	TileMap(std::string const & openFilePath);
 	~TileMap();
 
 	TileContents& at(unsigned int x, unsigned int y);
@@ -29,6 +30,7 @@ public:
 
 
 	void loadFromFile(std::string const & path);
+	void saveToFile(std::string const & path) const;
 
 	unsigned int getYSize() const;
 	unsigned int getXSizeAt(unsigned int y) const;

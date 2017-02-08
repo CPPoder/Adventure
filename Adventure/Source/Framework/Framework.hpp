@@ -12,6 +12,7 @@
 #include "Source\GameState\GameState.hpp"
 #include "Source\GameState\MainMenuState.hpp"
 #include "Source\GameState\PlayingState.hpp"
+#include "Source\GameState\EditorState.hpp"
 
 
 class Framework

@@ -14,7 +14,7 @@ class World
 {
 private:
 	TileMap mTileMap;
-	TileSquares* pTileSquares;
+	TileSquares mTileSquares;
 
 
 public:

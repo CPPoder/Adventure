@@ -9,7 +9,7 @@ Framework::Framework()
 {
 	srand(static_cast<unsigned int>(time(0)));
 
-	pRenderWindow = new sf::RenderWindow(sf::VideoMode(1440, 900), "Adventure");
+	pRenderWindow = new sf::RenderWindow(sf::VideoMode(1000, 800), "Adventure");
 	pRenderWindow->setFramerateLimit(60);
 
 	mFPSClock.restart();
@@ -84,6 +84,10 @@ void Framework::update()
 		mStackOfGameStates.push(new GameState::PlayingState);
 		break;
 
+	case GameState::GameStateChange::PUSH_EDITOR_STATE:
+		mStackOfGameStates.push(new GameState::EditorState);
+		break;
+
 	case GameState::GameStateChange::REPLACE_MAIN_MENU_STATE:
 		delete mStackOfGameStates.top();
 		mStackOfGameStates.pop();
@@ -94,6 +98,12 @@ void Framework::update()
 		delete mStackOfGameStates.top();
 		mStackOfGameStates.pop();
 		mStackOfGameStates.push(new GameState::PlayingState);
+		break;
+
+	case GameState::GameStateChange::REPLACE_EDITOR_STATE:
+		delete mStackOfGameStates.top();
+		mStackOfGameStates.pop();
+		mStackOfGameStates.push(new GameState::EditorState);
 		break;
 	}
 	if (mStackOfGameStates.empty())
