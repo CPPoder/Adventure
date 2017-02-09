@@ -37,7 +37,7 @@ sf::Texture* TileSquare::sTextureAtlasOfTiles = nullptr;
 
 void TileSquare::initialize()
 {
-	sInitialized = false;
+	sInitialized = true;
 	sTextureAtlasOfTiles = new sf::Texture;
 	sTextureAtlasOfTiles->loadFromFile("./Data/Textures/TextureAtlas_Tile.png");
 }
