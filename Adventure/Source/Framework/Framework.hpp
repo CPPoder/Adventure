@@ -32,6 +32,7 @@ private:
 	float mUtilization = 0.f;
 	mySFML::Class::Text mFPSText;
 	mySFML::Class::Text mUtilizationText;
+	bool mShowFPS = true;
 
 	//GameState
 	std::stack<GameState::GameState*> mStackOfGameStates;

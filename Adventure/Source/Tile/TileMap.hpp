@@ -28,6 +28,8 @@ public:
 	TileContents const & at(unsigned int x, unsigned int y) const;
 	TileContents const & at(sf::Vector2u const & pos) const;
 
+	void setAt(TileContents const & tileContents, unsigned int x, unsigned int y);
+	void setAt(TileContents const & tileContents, sf::Vector2u const & pos);
 
 	void loadFromFile(std::string const & path);
 	void saveToFile(std::string const & path) const;

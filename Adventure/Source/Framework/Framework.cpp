@@ -43,6 +43,10 @@ void Framework::handleEvents()
 			{
 				pRenderWindow->close();
 			}
+			if (mEvent.key.code == sf::Keyboard::Key::Space)
+			{
+				mShowFPS = !mShowFPS;
+			}
 		}
 		
 		//Pass the Events through to the EventManager
@@ -119,8 +123,11 @@ void Framework::render()
 	pRenderWindow->clear(sf::Color::Black);
 	
 	mStackOfGameStates.top()->render(pRenderWindow);
-	pRenderWindow->draw(*mFPSText.pointer);
-	pRenderWindow->draw(*mUtilizationText.pointer);
+	if (mShowFPS)
+	{
+		pRenderWindow->draw(*mFPSText.pointer);
+		pRenderWindow->draw(*mUtilizationText.pointer);
+	}
 
 	sf::Time timeBeforeRendering = mFPSClock.getElapsedTime();
 	pRenderWindow->display();

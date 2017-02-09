@@ -189,6 +189,7 @@
     <ClCompile Include="Source\Game\Editor.cpp" />
     <ClCompile Include="Source\Game\MainMenu.cpp" />
     <ClCompile Include="Source\Game\World.cpp" />
+    <ClCompile Include="Source\Tile\TileContents.cpp" />
     <ClCompile Include="Source\Tile\TileMap.cpp" />
     <ClCompile Include="Source\Tile\TileSquare.cpp" />
     <ClCompile Include="Source\Tile\TileSquares.cpp" />

@@ -10,6 +10,9 @@ class TileContents
 public:
 	TileType tileType;
 
+	TileContents() = default;
+	TileContents(TileType _tileType);
+
 	friend std::ostream& operator<<(std::ostream& oStream, TileContents const & tileContents)
 	{
 		oStream << static_cast<int>(tileContents.tileType);

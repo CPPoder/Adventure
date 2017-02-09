@@ -179,5 +179,8 @@
     <ClCompile Include="Source\ControlElements\ButtonSettings.cpp">
       <Filter>Quelldateien\ControlElements</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Tile\TileContents.cpp">
+      <Filter>Quelldateien\Tile</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

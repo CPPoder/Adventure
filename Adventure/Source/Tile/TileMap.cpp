@@ -32,6 +32,42 @@ TileContents const & TileMap::at(sf::Vector2u const & pos) const
 	return mMatrixOfTileContents.at(pos.y).at(pos.x);
 }
 
+
+void TileMap::setAt(TileContents const & tileContents, unsigned int x, unsigned int y)
+{
+	//Insert empty vectors if y is too large
+	unsigned int ySize = this->getYSize();
+	if (y >= ySize)
+	{
+		unsigned int yDiff = y - ySize;
+		for (unsigned int i = 0; i < yDiff + 1; ++i)
+		{
+			mMatrixOfTileContents.push_back(std::vector<TileContents>());
+		}
+		mMatrixOfTileContents.shrink_to_fit();
+	}
+
+	//Insert void TileContents into vector at y if x is too large
+	unsigned int xSize = this->getXSizeAt(y);
+	if (x >= xSize)
+	{
+		unsigned int xDiff = x - xSize;
+		for (unsigned int i = 0; i < xDiff + 1; ++i)
+		{
+			mMatrixOfTileContents.at(y).push_back(TileContents(TileType::VOID));
+		}
+	}
+	mMatrixOfTileContents.at(y).shrink_to_fit();
+
+	//Do actual set job
+	this->at(x, y) = tileContents;
+}
+void TileMap::setAt(TileContents const & tileContents, sf::Vector2u const & pos)
+{
+	this->setAt(tileContents, pos.x, pos.y);
+}
+
+
 void TileMap::loadFromFile(std::string const & path)
 {
 	//Clear mVectorOfTileContents
