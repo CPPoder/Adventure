@@ -7,7 +7,8 @@ Editor::Editor()
 	: mTileMap("./Data/TileMaps/test.tm"),
 	  mTileSquares(mTileMap),
 	  mMenuScreenWidthRatio(0.3f),
-	  rect(sf::Vector2f(0.f, 0.f), sf::Vector2f(700.f, 700.f), sf::Color::Green, false)
+	  rect(sf::Vector2f(0.f, 0.f), sf::Vector2f(700.f, 700.f), sf::Color::Green, false),
+	  mTextField(sf::Vector2f(50.f, 100.f), sf::Vector2f(150.f, 50.f), "Test! Text!", mySFML::Class::FontName::INFORMAL_ROMAN, 2.f, 24u, true)
 {
 	mTileMap.saveToFile("./Data/TileMaps/out.tm");
 }
@@ -15,6 +16,7 @@ Editor::Editor()
 
 void Editor::update(sf::Time const & frametime, sf::RenderWindow* renderWindow)
 {
+	//Draw Tiles
 	bool leftMousePressed = sf::Mouse::isButtonPressed(sf::Mouse::Button::Left);
 	bool rightMousePressed = sf::Mouse::isButtonPressed(sf::Mouse::Button::Right);
 	sf::Vector2f mouseCoords = renderWindow->mapPixelToCoords(sf::Mouse::getPosition(*renderWindow), this->getTilesView(renderWindow));
@@ -33,11 +35,13 @@ void Editor::update(sf::Time const & frametime, sf::RenderWindow* renderWindow)
 			changedTileMap = true;
 		}
 	}
-
 	if (changedTileMap)
 	{
 		mTileSquares = TileSquares(mTileMap);
 	}
+
+	//TextField
+	mTextField.updateState(renderWindow, &getMenuView(renderWindow));
 }
 
 void Editor::render(sf::RenderWindow* renderWindow)
@@ -45,6 +49,7 @@ void Editor::render(sf::RenderWindow* renderWindow)
 	//Render Menu Stuff
 	renderWindow->setView(this->getMenuView(renderWindow));
 	renderWindow->draw(*rect.pointer);
+	mTextField.render(renderWindow);
 
 	//Render Tile Stuff
 	renderWindow->setView(this->getTilesView(renderWindow));

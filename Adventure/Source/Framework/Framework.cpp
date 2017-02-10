@@ -66,6 +66,10 @@ void Framework::handleEvents()
 		{
 			EventManager::setReleasedKeyEvent(EventManager::KeyInfo(mEvent.key.code, mEvent.key.control, mEvent.key.alt, mEvent.key.shift, mEvent.key.system));
 		}
+		if (mEvent.type == sf::Event::EventType::TextEntered)
+		{
+			EventManager::setTextEnteredEvent(mEvent.text.unicode);
+		}
 
 	}
 }

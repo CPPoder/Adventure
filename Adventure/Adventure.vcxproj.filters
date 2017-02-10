@@ -123,6 +123,12 @@
     <ClInclude Include="Source\ControlElements\ButtonSettings.hpp">
       <Filter>Headerdateien\ControlElements</Filter>
     </ClInclude>
+    <ClInclude Include="Source\ControlElements\TextField.hpp">
+      <Filter>Headerdateien\ControlElements</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ControlElements\TextFieldSettings.hpp">
+      <Filter>Headerdateien\ControlElements</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -181,6 +187,12 @@
     </ClCompile>
     <ClCompile Include="Source\Tile\TileContents.cpp">
       <Filter>Quelldateien\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ControlElements\TextField.cpp">
+      <Filter>Quelldateien\ControlElements</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ControlElements\TextFieldSettings.cpp">
+      <Filter>Quelldateien\ControlElements</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

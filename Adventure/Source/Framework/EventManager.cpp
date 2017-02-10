@@ -16,6 +16,8 @@ bool EventManager::checkForEvent(EventType eventType)
 		return mIsMousePressed;
 	case EventType::MOUSE_RELEASED:
 		return mIsMouseReleased;
+	case EventType::TEXT_ENTERED:
+		return mIsTextEntered;
 	}
 }
 
@@ -35,7 +37,10 @@ EventManager::KeyInfo EventManager::getReleasedKeyInfo()
 {
 	return EventManager::KeyInfo(mReleasedKey, mReleasedKeyWithControl, mReleasedKeyWithAlt, mReleasedKeyWithShift, mReleasedKeyWithSystem);
 }
-
+std::string EventManager::getTextEnteredText()
+{
+	return mText;
+}
 
 
 
@@ -48,6 +53,7 @@ void EventManager::reset()
 	mIsKeyReleased = false;
 	mIsMousePressed = false;
 	mIsMouseReleased = false;
+	mIsTextEntered = false;
 }
 void EventManager::setPressedMouseEvent(EventManager::MouseInfo mouseInfo)
 {
@@ -80,7 +86,11 @@ void EventManager::setReleasedKeyEvent(EventManager::KeyInfo keyInfo)
 	mReleasedKeyWithShift = keyInfo.shift;
 	mReleasedKeyWithSystem = keyInfo.system;
 }
-
+void EventManager::setTextEnteredEvent(sf::String const & text)
+{
+	mIsTextEntered = true;
+	mText = text;
+}
 
 
 
@@ -116,3 +126,6 @@ bool				EventManager::mReleasedKeyWithAlt		=	false;
 bool				EventManager::mReleasedKeyWithShift		=	false;
 bool				EventManager::mReleasedKeyWithSystem	=	false;
 
+//TextEntered
+bool				EventManager::mIsTextEntered			=	false;
+std::string			EventManager::mText						=	"";

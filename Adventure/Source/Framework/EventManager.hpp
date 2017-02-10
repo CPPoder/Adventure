@@ -4,6 +4,7 @@
 #include "SFML\Graphics.hpp"
 
 #include <iostream>
+#include <string>
 
 
 class EventManager
@@ -15,6 +16,7 @@ public:
 		MOUSE_RELEASED,
 		KEY_PRESSED,
 		KEY_RELEASED,
+		TEXT_ENTERED,
 
 		NUM_OF_EVENT_TYPES
 	};
@@ -73,6 +75,10 @@ private:
 	static bool					mReleasedKeyWithShift;
 	static bool					mReleasedKeyWithSystem;
 
+	//TextEntered
+	static bool					mIsTextEntered;
+	static std::string			mText;
+
 
 public:
 	//Delete Constructors, since EventManager is not meant to be instantiated!
@@ -90,6 +96,7 @@ public:
 	static MouseInfo getReleasedMouseInfo();
 	static KeyInfo getPressedKeyInfo();
 	static KeyInfo getReleasedKeyInfo();
+	static std::string getTextEnteredText();
 
 
 	////////
@@ -100,6 +107,7 @@ public:
 	static void setReleasedMouseEvent(MouseInfo mouseInfo);
 	static void setPressedKeyEvent(KeyInfo keyInfo);
 	static void setReleasedKeyEvent(KeyInfo keyInfo);
+	static void setTextEnteredEvent(sf::String const & text);
 
 
 

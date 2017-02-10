@@ -5,6 +5,7 @@
 
 #include "Source\Tile\TileMap.hpp"
 #include "Source\Tile\TileSquares.hpp"
+#include "Source\ControlElements\TextField.hpp"
 
 
 
@@ -18,6 +19,8 @@ private:
 
 	TileType mLeftMouseTileType = TileType::DIRT;
 	TileType mRightMouseTileType = TileType::GRAS;
+
+	TextField mTextField;
 
 public:
 	Editor();

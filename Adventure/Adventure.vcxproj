@@ -157,6 +157,8 @@
     <ClInclude Include="..\..\..\Visual Studio Stuff\Libraries\ourVectors.hpp" />
     <ClInclude Include="Source\ControlElements\Button.hpp" />
     <ClInclude Include="Source\ControlElements\ButtonSettings.hpp" />
+    <ClInclude Include="Source\ControlElements\TextField.hpp" />
+    <ClInclude Include="Source\ControlElements\TextFieldSettings.hpp" />
     <ClInclude Include="Source\Framework\EventManager.hpp" />
     <ClInclude Include="Source\Framework\Framework.hpp" />
     <ClInclude Include="Source\GameState\EditorState.hpp" />
@@ -179,6 +181,8 @@
     <ClCompile Include="..\..\..\Visual Studio Stuff\Libraries\myUsefulMath.cpp" />
     <ClCompile Include="Source\ControlElements\Button.cpp" />
     <ClCompile Include="Source\ControlElements\ButtonSettings.cpp" />
+    <ClCompile Include="Source\ControlElements\TextField.cpp" />
+    <ClCompile Include="Source\ControlElements\TextFieldSettings.cpp" />
     <ClCompile Include="Source\Framework\EventManager.cpp" />
     <ClCompile Include="Source\Framework\Framework.cpp" />
     <ClCompile Include="Source\Framework\main.cpp" />
