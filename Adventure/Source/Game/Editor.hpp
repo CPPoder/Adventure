@@ -22,6 +22,9 @@ private:
 
 	TextField mTextField;
 
+	sf::View mMenuView;
+	sf::View mTilesView;
+
 public:
 	Editor();
 	~Editor();
@@ -30,8 +33,8 @@ public:
 	void render(sf::RenderWindow* renderWindow);
 
 private:
-	sf::View getMenuView(sf::RenderWindow* renderWindow);
-	sf::View getTilesView(sf::RenderWindow* renderWindow);
+	sf::View getInitialMenuView(sf::RenderWindow const * renderWindow) const;
+	sf::View getInitialTilesView(sf::RenderWindow const * renderWindow) const;
 
 
 

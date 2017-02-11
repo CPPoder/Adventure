@@ -64,6 +64,13 @@ void Framework::handleEvents()
 		{
 			EventManager::setReleasedMouseEvent(EventManager::MouseInfo(mEvent.mouseButton.button, sf::Vector2i(mEvent.mouseButton.x, mEvent.mouseButton.y)));
 		}
+		if (mEvent.type == sf::Event::EventType::MouseWheelScrolled)
+		{
+			if (mEvent.mouseWheelScroll.wheel == sf::Mouse::Wheel::VerticalWheel)
+			{
+				EventManager::setMouseWheelScrolledEvent(EventManager::MouseWheelInfo(mEvent.mouseWheelScroll.delta, sf::Vector2i(mEvent.mouseWheelScroll.x, mEvent.mouseWheelScroll.y)));
+			}
+		}
 		if (mEvent.type == sf::Event::EventType::KeyPressed)
 		{
 			EventManager::setPressedKeyEvent(EventManager::KeyInfo(mEvent.key.code, mEvent.key.control, mEvent.key.alt, mEvent.key.shift, mEvent.key.system));
@@ -191,4 +198,14 @@ void Framework::run()
 		std::cout << text << std::endl;
 	}
 }
+
+
+//Get RenderWindow
+sf::RenderWindow const * Framework::getRenderWindow()
+{
+	return pRenderWindow;
+}
+
+//Initialize pRenderWindow
+sf::RenderWindow * Framework::pRenderWindow = nullptr;
 

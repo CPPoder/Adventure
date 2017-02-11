@@ -19,7 +19,7 @@ class Framework
 {
 private:
 	//RenderWindow
-	sf::RenderWindow *pRenderWindow;
+	static sf::RenderWindow *pRenderWindow;
 
 	//Fonts
 	mySFML::Class::Fonts mFonts;
@@ -49,6 +49,9 @@ public:
 	~Framework();
 
 	void run();
+
+public:
+	static sf::RenderWindow const * getRenderWindow();
 
 };
 

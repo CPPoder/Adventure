@@ -17,6 +17,7 @@ public:
 		KEY_PRESSED,
 		KEY_RELEASED,
 		TEXT_ENTERED,
+		MOUSE_WHEEL_SCROLLED,
 
 		NUM_OF_EVENT_TYPES
 	};
@@ -28,6 +29,17 @@ public:
 
 		MouseInfo(sf::Mouse::Button const & _button, sf::Vector2i const & _position)
 			: button(_button), position(_position)
+		{
+		}
+	};
+
+	struct MouseWheelInfo
+	{
+		float delta;
+		sf::Vector2i position;
+
+		MouseWheelInfo(float _delta, sf::Vector2i const & _position)
+			: delta(_delta), position(_position)
 		{
 		}
 	};
@@ -58,6 +70,10 @@ private:
 	static sf::Mouse::Button	mReleasedMouseButton;
 	static sf::Vector2i			mReleasedMousePosition;
 
+	//Mouse Wheel Scrolled
+	static bool					mIsMouseWheelScrolled;
+	static float				mMouseWheelScrolledDelta;
+	static sf::Vector2i			MMouseWheelScrolledPosition;
 
 	//KeyPressed
 	static bool					mIsKeyPressed;
@@ -94,6 +110,7 @@ public:
 	static bool checkForEvent(EventType eventType);
 	static MouseInfo getPressedMouseInfo();
 	static MouseInfo getReleasedMouseInfo();
+	static MouseWheelInfo getMouseWheelScrolledInfo();
 	static KeyInfo getPressedKeyInfo();
 	static KeyInfo getReleasedKeyInfo();
 	static std::string getTextEnteredText();
@@ -105,6 +122,7 @@ public:
 	static void reset();
 	static void setPressedMouseEvent(MouseInfo mouseInfo);
 	static void setReleasedMouseEvent(MouseInfo mouseInfo);
+	static void setMouseWheelScrolledEvent(MouseWheelInfo mouseWheelInfo);
 	static void setPressedKeyEvent(KeyInfo keyInfo);
 	static void setReleasedKeyEvent(KeyInfo keyInfo);
 	static void setTextEnteredEvent(sf::String const & text);

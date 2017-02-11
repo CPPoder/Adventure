@@ -12,6 +12,8 @@ bool EventManager::checkForEvent(EventType eventType)
 		return mIsKeyPressed;
 	case EventType::KEY_RELEASED:
 		return mIsKeyReleased;
+	case EventType::MOUSE_WHEEL_SCROLLED:
+		return mIsMouseWheelScrolled;
 	case EventType::MOUSE_PRESSED:
 		return mIsMousePressed;
 	case EventType::MOUSE_RELEASED:
@@ -28,6 +30,10 @@ EventManager::MouseInfo EventManager::getPressedMouseInfo()
 EventManager::MouseInfo EventManager::getReleasedMouseInfo()
 {
 	return EventManager::MouseInfo(mReleasedMouseButton, mReleasedMousePosition);
+}
+EventManager::MouseWheelInfo EventManager::getMouseWheelScrolledInfo()
+{
+	return EventManager::MouseWheelInfo(mMouseWheelScrolledDelta, MMouseWheelScrolledPosition);
 }
 EventManager::KeyInfo EventManager::getPressedKeyInfo()
 {
@@ -51,6 +57,7 @@ void EventManager::reset()
 {
 	mIsKeyPressed = false;
 	mIsKeyReleased = false;
+	mIsMouseWheelScrolled = false;
 	mIsMousePressed = false;
 	mIsMouseReleased = false;
 	mIsTextEntered = false;
@@ -66,6 +73,12 @@ void EventManager::setReleasedMouseEvent(EventManager::MouseInfo mouseInfo)
 	mIsMouseReleased = true;
 	mReleasedMouseButton = mouseInfo.button;
 	mReleasedMousePosition = mouseInfo.position;
+}
+void EventManager::setMouseWheelScrolledEvent(EventManager::MouseWheelInfo mouseWheelInfo)
+{
+	mIsMouseWheelScrolled = true;
+	mMouseWheelScrolledDelta = mouseWheelInfo.delta;
+	MMouseWheelScrolledPosition = mouseWheelInfo.position;
 }
 void EventManager::setPressedKeyEvent(EventManager::KeyInfo keyInfo)
 {
@@ -100,32 +113,38 @@ void EventManager::setTextEnteredEvent(sf::String const & text)
 //Initialize Static Membervariables
 
 //Mouse Pressed
-bool				EventManager::mIsMousePressed			=	false;
-sf::Mouse::Button	EventManager::mPressedMouseButton		=	sf::Mouse::Button::Left;
-sf::Vector2i		EventManager::mPressedMousePosition		=	sf::Vector2i();
+bool				EventManager::mIsMousePressed				=	false;
+sf::Mouse::Button	EventManager::mPressedMouseButton			=	sf::Mouse::Button::Left;
+sf::Vector2i		EventManager::mPressedMousePosition			=	sf::Vector2i();
 
 //Mouse Released
-bool				EventManager::mIsMouseReleased			=	false;
-sf::Mouse::Button	EventManager::mReleasedMouseButton		=	sf::Mouse::Button::Left;
-sf::Vector2i		EventManager::mReleasedMousePosition	=	sf::Vector2i();
+bool				EventManager::mIsMouseReleased				=	false;
+sf::Mouse::Button	EventManager::mReleasedMouseButton			=	sf::Mouse::Button::Left;
+sf::Vector2i		EventManager::mReleasedMousePosition		=	sf::Vector2i();
+
+
+//Mouse Wheel Scrolled
+bool				EventManager::mIsMouseWheelScrolled			=	false;
+float				EventManager::mMouseWheelScrolledDelta		=	0.f;
+sf::Vector2i		EventManager::MMouseWheelScrolledPosition	=	sf::Vector2i();
 
 
 //KeyPressed
-bool				EventManager::mIsKeyPressed				=	false;
-sf::Keyboard::Key	EventManager::mPressedKey				=	sf::Keyboard::Key::A;
-bool				EventManager::mPressedKeyWithControl	=	false;
-bool				EventManager::mPressedKeyWithAlt		=	false;
-bool				EventManager::mPressedKeyWithShift		=	false;
-bool				EventManager::mPressedKeyWithSystem		=	false;
+bool				EventManager::mIsKeyPressed					=	false;
+sf::Keyboard::Key	EventManager::mPressedKey					=	sf::Keyboard::Key::A;
+bool				EventManager::mPressedKeyWithControl		=	false;
+bool				EventManager::mPressedKeyWithAlt			=	false;
+bool				EventManager::mPressedKeyWithShift			=	false;
+bool				EventManager::mPressedKeyWithSystem			=	false;
 
 //KeyReleased
-bool				EventManager::mIsKeyReleased			=	false;
-sf::Keyboard::Key	EventManager::mReleasedKey				=	sf::Keyboard::Key::A;
-bool				EventManager::mReleasedKeyWithControl	=	false;
-bool				EventManager::mReleasedKeyWithAlt		=	false;
-bool				EventManager::mReleasedKeyWithShift		=	false;
-bool				EventManager::mReleasedKeyWithSystem	=	false;
+bool				EventManager::mIsKeyReleased				=	false;
+sf::Keyboard::Key	EventManager::mReleasedKey					=	sf::Keyboard::Key::A;
+bool				EventManager::mReleasedKeyWithControl		=	false;
+bool				EventManager::mReleasedKeyWithAlt			=	false;
+bool				EventManager::mReleasedKeyWithShift			=	false;
+bool				EventManager::mReleasedKeyWithSystem		=	false;
 
 //TextEntered
-bool				EventManager::mIsTextEntered			=	false;
-std::string			EventManager::mText						=	"";
+bool				EventManager::mIsTextEntered				=	false;
+std::string			EventManager::mText							=	"";
