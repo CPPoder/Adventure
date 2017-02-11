@@ -3,7 +3,7 @@
 
 World::World()
 	: mTileMap("./Data/TileMaps/test.tm"),
-	  mTileSquares(mTileMap)
+	  mTileVertexArray(mTileMap)
 {
 }
 
@@ -18,6 +18,6 @@ void World::update(sf::Time const & frametime, sf::RenderWindow* renderWindow)
 
 void World::render(sf::RenderWindow* renderWindow)
 {
-	mTileSquares.render(renderWindow);
+	mTileVertexArray.render(renderWindow);
 }
 

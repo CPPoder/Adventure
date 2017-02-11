@@ -6,7 +6,6 @@
 
 Editor::Editor()
 	: mTileMap("./Data/TileMaps/test.tm"),
-	  //mTileSquares(mTileMap),
 	  mTileVertexArray(mTileMap),
 	  mMenuScreenWidthRatio(0.3f),
 	  rect(sf::Vector2f(0.f, 0.f), sf::Vector2f(700.f, 700.f), sf::Color::Green, false),
@@ -64,7 +63,7 @@ void Editor::update(sf::Time const & frametime, sf::RenderWindow* renderWindow)
 	bool changedTileMap = false;
 	if (mouseCoords.x > 0.f && mouseCoords.y > 0.f)
 	{
-		sf::Vector2u squareNumber = static_cast<sf::Vector2u>(mouseCoords / static_cast<float>(TileSquare::sSizeOfATile));
+		sf::Vector2u squareNumber = static_cast<sf::Vector2u>(mouseCoords / static_cast<float>(TileMap::sSizeOfATile));
 		if (leftMousePressed && !rightMousePressed)
 		{
 			mTileMap.setAt(mLeftMouseTileType, squareNumber);
@@ -78,7 +77,6 @@ void Editor::update(sf::Time const & frametime, sf::RenderWindow* renderWindow)
 	}
 	if (changedTileMap)
 	{
-		//mTileSquares = TileSquares(mTileMap);
 		mTileVertexArray.setTileMap(mTileMap);
 	}
 
@@ -98,7 +96,6 @@ void Editor::render(sf::RenderWindow* renderWindow)
 
 	//Render Tile Stuff
 	renderWindow->setView(mTilesView);
-	//mTileSquares.render(renderWindow);
 	mTileVertexArray.render(renderWindow);
 
 	//Reset Initial View

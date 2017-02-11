@@ -4,7 +4,7 @@
 #include "SFML\Graphics.hpp"
 
 #include "Source\Tile\TileMap.hpp"
-#include "Source\Tile\TileSquares.hpp"
+#include "Source\Tile\TileVertexArray.hpp"
 
 #include "mySFMLVectorFunctions.hpp"
 
@@ -14,7 +14,7 @@ class World
 {
 private:
 	TileMap mTileMap;
-	TileSquares mTileSquares;
+	TileVertexArray mTileVertexArray;
 
 
 public:
