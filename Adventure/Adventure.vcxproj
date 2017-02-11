@@ -161,6 +161,7 @@
     <ClInclude Include="Source\ControlElements\TextFieldSettings.hpp" />
     <ClInclude Include="Source\Framework\EventManager.hpp" />
     <ClInclude Include="Source\Framework\Framework.hpp" />
+    <ClInclude Include="Source\Framework\TextureManager.hpp" />
     <ClInclude Include="Source\GameState\EditorState.hpp" />
     <ClInclude Include="Source\GameState\GameState.hpp" />
     <ClInclude Include="Source\GameState\MainMenuState.hpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="Source\Tile\TileSquares.hpp" />
     <ClInclude Include="Source\Tile\TileType.hpp" />
     <ClInclude Include="Source\Tile\TileMap.hpp" />
+    <ClInclude Include="Source\Tile\TileVertexArray.hpp" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -186,6 +188,7 @@
     <ClCompile Include="Source\Framework\EventManager.cpp" />
     <ClCompile Include="Source\Framework\Framework.cpp" />
     <ClCompile Include="Source\Framework\main.cpp" />
+    <ClCompile Include="Source\Framework\TextureManager.cpp" />
     <ClCompile Include="Source\GameState\EditorState.cpp" />
     <ClCompile Include="Source\GameState\GameState.cpp" />
     <ClCompile Include="Source\GameState\MainMenuState.cpp" />
@@ -197,6 +200,7 @@
     <ClCompile Include="Source\Tile\TileMap.cpp" />
     <ClCompile Include="Source\Tile\TileSquare.cpp" />
     <ClCompile Include="Source\Tile\TileSquares.cpp" />
+    <ClCompile Include="Source\Tile\TileVertexArray.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

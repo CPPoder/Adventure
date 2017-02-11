@@ -13,6 +13,7 @@
 #include "Source\GameState\MainMenuState.hpp"
 #include "Source\GameState\PlayingState.hpp"
 #include "Source\GameState\EditorState.hpp"
+#include "Source\Framework\TextureManager.hpp"
 
 
 class Framework

@@ -14,6 +14,8 @@ Framework::Framework()
 
 	mFPSClock.restart();
 
+	TextureManager::Init();
+
 	mStackOfGameStates.push(new GameState::MainMenuState);
 }
 

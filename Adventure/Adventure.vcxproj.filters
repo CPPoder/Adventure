@@ -129,6 +129,12 @@
     <ClInclude Include="Source\ControlElements\TextFieldSettings.hpp">
       <Filter>Headerdateien\ControlElements</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Tile\TileVertexArray.hpp">
+      <Filter>Headerdateien\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\TextureManager.hpp">
+      <Filter>Headerdateien\Framework</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -193,6 +199,12 @@
     </ClCompile>
     <ClCompile Include="Source\ControlElements\TextFieldSettings.cpp">
       <Filter>Quelldateien\ControlElements</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Tile\TileVertexArray.cpp">
+      <Filter>Quelldateien\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework\TextureManager.cpp">
+      <Filter>Quelldateien\Framework</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

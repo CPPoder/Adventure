@@ -4,7 +4,8 @@
 #include "SFML\Graphics.hpp"
 
 #include "Source\Tile\TileMap.hpp"
-#include "Source\Tile\TileSquares.hpp"
+//#include "Source\Tile\TileSquares.hpp"
+#include "Source\Tile\TileVertexArray.hpp"
 #include "Source\ControlElements\TextField.hpp"
 
 
@@ -13,7 +14,8 @@ class Editor
 {
 private:
 	TileMap mTileMap;
-	TileSquares mTileSquares;
+	//TileSquares mTileSquares;
+	TileVertexArray mTileVertexArray;
 	mySFML::Class::RectShape rect;
 	float mMenuScreenWidthRatio;
 

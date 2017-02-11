@@ -6,7 +6,8 @@
 
 Editor::Editor()
 	: mTileMap("./Data/TileMaps/test.tm"),
-	  mTileSquares(mTileMap),
+	  //mTileSquares(mTileMap),
+	  mTileVertexArray(mTileMap),
 	  mMenuScreenWidthRatio(0.3f),
 	  rect(sf::Vector2f(0.f, 0.f), sf::Vector2f(700.f, 700.f), sf::Color::Green, false),
 	  mTextField(sf::Vector2f(50.f, 100.f), sf::Vector2f(150.f, 50.f), "Te", mySFML::Class::FontName::INFORMAL_ROMAN, 2.f, 24u, true),
@@ -77,7 +78,8 @@ void Editor::update(sf::Time const & frametime, sf::RenderWindow* renderWindow)
 	}
 	if (changedTileMap)
 	{
-		mTileSquares = TileSquares(mTileMap);
+		//mTileSquares = TileSquares(mTileMap);
+		mTileVertexArray.setTileMap(mTileMap);
 	}
 
 	//TextField
@@ -96,7 +98,8 @@ void Editor::render(sf::RenderWindow* renderWindow)
 
 	//Render Tile Stuff
 	renderWindow->setView(mTilesView);
-	mTileSquares.render(renderWindow);
+	//mTileSquares.render(renderWindow);
+	mTileVertexArray.render(renderWindow);
 
 	//Reset Initial View
 	renderWindow->setView(initialView);

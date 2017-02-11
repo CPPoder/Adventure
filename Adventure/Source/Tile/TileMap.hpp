@@ -39,6 +39,9 @@ public:
 
 	void outputOnTerminal() const;
 
+public:
+	static constexpr unsigned int sSizeOfATile = 32u;
+
 
 
 };
