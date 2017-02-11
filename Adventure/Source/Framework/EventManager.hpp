@@ -22,6 +22,15 @@ public:
 		NUM_OF_EVENT_TYPES
 	};
 
+	enum class TextMode
+	{
+		UNFILTERED,
+		FILTER_FOR_ASCII,
+		FILTER_FOR_PRINTABLE_ASCII,
+
+		NUM_OF_TEXT_MODES
+	};
+
 	struct MouseInfo
 	{
 		sf::Mouse::Button button;
@@ -93,7 +102,7 @@ private:
 
 	//TextEntered
 	static bool					mIsTextEntered;
-	static std::string			mText;
+	static sf::String			mText;
 
 
 public:
@@ -113,7 +122,7 @@ public:
 	static MouseWheelInfo getMouseWheelScrolledInfo();
 	static KeyInfo getPressedKeyInfo();
 	static KeyInfo getReleasedKeyInfo();
-	static std::string getTextEnteredText();
+	static std::string getTextEnteredText(TextMode textMode = TextMode::UNFILTERED);
 
 
 	////////

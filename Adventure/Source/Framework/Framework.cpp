@@ -81,7 +81,7 @@ void Framework::handleEvents()
 		}
 		if (mEvent.type == sf::Event::EventType::TextEntered)
 		{
-			EventManager::setTextEnteredEvent(mEvent.text.unicode);
+			EventManager::setTextEnteredEvent(sf::String(mEvent.text.unicode));
 		}
 
 	}
@@ -179,17 +179,46 @@ void Framework::determineFrametime()
 }
 
 
+#define MEASURE_TIMES 0
+
 //Run
 void Framework::run()
 {
 	try
 	{
+#if MEASURE_TIMES
+		sf::Clock measureTimesClock;
+		measureTimesClock.restart();
+		sf::Time detFTime;
+		sf::Time handETime;
+		sf::Time updTime;
+		sf::Time rendTime;
+#endif
 		while (pRenderWindow->isOpen())
 		{
+#if MEASURE_TIMES
+			measureTimesClock.restart();
+#endif
 			determineFrametime();
+#if MEASURE_TIMES
+			detFTime = measureTimesClock.restart();
+#endif
 			handleEvents();
+#if MEASURE_TIMES
+			handETime = measureTimesClock.restart();
+#endif
 			update();
+#if MEASURE_TIMES
+			updTime = measureTimesClock.restart();
+#endif
 			render();
+#if MEASURE_TIMES
+			rendTime = measureTimesClock.restart();
+			std::cout << "Determine Frametime: " << detFTime.asMicroseconds() << " mms\n";
+			std::cout << "Handle Events: " << handETime.asMicroseconds() << " mms\n";
+			std::cout << "Update: " << updTime.asMicroseconds() << " mms\n";
+			std::cout << "Render: " << rendTime.asMicroseconds() << " mms" << std::endl;
+#endif
 		}
 	}
 	catch (char* text) //Breaks the While-Loop, if the Stack of GameStates is empty!

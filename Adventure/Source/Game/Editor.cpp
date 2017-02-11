@@ -9,7 +9,7 @@ Editor::Editor()
 	  mTileSquares(mTileMap),
 	  mMenuScreenWidthRatio(0.3f),
 	  rect(sf::Vector2f(0.f, 0.f), sf::Vector2f(700.f, 700.f), sf::Color::Green, false),
-	  mTextField(sf::Vector2f(50.f, 100.f), sf::Vector2f(150.f, 50.f), "Test! Text!", mySFML::Class::FontName::INFORMAL_ROMAN, 2.f, 24u, true),
+	  mTextField(sf::Vector2f(50.f, 100.f), sf::Vector2f(150.f, 50.f), "Te", mySFML::Class::FontName::INFORMAL_ROMAN, 2.f, 24u, true),
 	  mMenuView(this->getInitialMenuView(Framework::getRenderWindow())),
 	  mTilesView(this->getInitialTilesView(Framework::getRenderWindow()))
 {

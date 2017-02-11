@@ -15,8 +15,8 @@ TextField::TextField(sf::Vector2f const & position, sf::Vector2f const & size, s
 	this->setInternalObjectsPositions();
 	this->setInternalObjectsColors();
 
-	mBlinkingLineRect.pointer->setPosition(this->calculateBlinkingLinePosition());
-	mBlinkingLineRect.pointer->setSize(this->calculateBlinkingLineSize());
+	//mBlinkingLineRect.pointer->setPosition(this->calculateBlinkingLinePosition());
+	//mBlinkingLineRect.pointer->setSize(this->calculateBlinkingLineSize());
 
 	mRectangleShape.setSize(mSize);
 	mRectangleShape.setOutlineThickness(outlineThickness);
@@ -70,13 +70,29 @@ void TextField::updateState(sf::RenderWindow* renderWindow, sf::View const * vie
 		}
 
 		//Change String
-		if (mTextFieldState == TextFieldState::BLINKING && EventManager::checkForEvent(EventManager::EventType::TEXT_ENTERED))
+		if (mTextFieldState == TextFieldState::BLINKING)
 		{
-			std::string enteredText = EventManager::getTextEnteredText();
-			std::string existingText = mText.getString();
-			existingText.append(enteredText);
-			mText.setString(existingText);
-			this->setInternalObjectsPositions();
+			if (EventManager::checkForEvent(EventManager::EventType::TEXT_ENTERED))
+			{
+				std::string enteredText = EventManager::getTextEnteredText(EventManager::TextMode::FILTER_FOR_PRINTABLE_ASCII);
+				std::string existingText = mText.getString();
+				existingText.append(enteredText);
+				mText.setString(existingText);
+				this->setInternalObjectsPositions();
+			}
+			if (EventManager::checkForEvent(EventManager::EventType::KEY_PRESSED))
+			{
+				if (EventManager::getPressedKeyInfo().key == sf::Keyboard::Key::BackSpace)
+				{
+					std::string existingText = mText.getString();
+					if (!existingText.empty())
+					{
+						existingText.pop_back();
+					}
+					mText.setString(existingText);
+					this->setInternalObjectsPositions();
+				}
+			}
 		}
 	}
 }
@@ -164,6 +180,9 @@ void TextField::setInternalObjectsPositions()
 {
 	mRectangleShape.setPosition(mPosition);
 	mText.setPosition(this->calculateTextPosition());
+	mBlinkingLineRect.pointer->setPosition(this->calculateBlinkingLinePosition());
+	mBlinkingLineRect.pointer->setSize(this->calculateBlinkingLineSize());
+
 }
 void TextField::setInternalObjectsColors()
 {
