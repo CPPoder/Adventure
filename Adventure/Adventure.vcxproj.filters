@@ -87,9 +87,6 @@
     <ClInclude Include="Source\Tile\TileContents.hpp">
       <Filter>Headerdateien\Tile</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Tile\TileSquares.hpp">
-      <Filter>Headerdateien\Tile</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Visual Studio Stuff\Libraries\mySFMLVectorFunctions.hpp">
       <Filter>Headerdateien\Math</Filter>
     </ClInclude>
@@ -101,9 +98,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Visual Studio Stuff\Libraries\ourVectors.hpp">
       <Filter>Headerdateien\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Tile\TileSquare.hpp">
-      <Filter>Headerdateien\Tile</Filter>
     </ClInclude>
     <ClInclude Include="Source\GameState\EditorState.hpp">
       <Filter>Headerdateien\GameState</Filter>
@@ -161,17 +155,11 @@
     <ClCompile Include="Source\Tile\TileMap.cpp">
       <Filter>Quelldateien\Tile</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Tile\TileSquares.cpp">
-      <Filter>Quelldateien\Tile</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Visual Studio Stuff\Libraries\mySFMLVectorFunctions.cpp">
       <Filter>Quelldateien\Math</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Visual Studio Stuff\Libraries\myUsefulMath.cpp">
       <Filter>Quelldateien\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Tile\TileSquare.cpp">
-      <Filter>Quelldateien\Tile</Filter>
     </ClCompile>
     <ClCompile Include="Source\GameState\EditorState.cpp">
       <Filter>Quelldateien\GameState</Filter>
