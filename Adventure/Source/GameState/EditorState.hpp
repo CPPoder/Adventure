@@ -16,11 +16,11 @@ namespace GameState
 
 	public:
 		EditorState();
-		~EditorState();
+		virtual ~EditorState() override;
 
 		virtual void update(sf::Time const & frametime, sf::RenderWindow* renderWindow) override;
 		virtual void render(sf::RenderWindow* renderWindow) override;
-		virtual GameStateChange getGameStateChange() const;
+		virtual GameStateChange getGameStateChange() const override;
 
 
 	};

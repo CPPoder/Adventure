@@ -30,6 +30,8 @@ namespace GameState
 	class GameState
 	{
 	public:
+		virtual ~GameState() = default;
+
 		virtual void update(sf::Time const & frametime, sf::RenderWindow* renderWindow) = 0;
 		virtual void render(sf::RenderWindow* renderWindow) = 0;
 		virtual GameStateChange getGameStateChange() const = 0;

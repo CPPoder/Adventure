@@ -10,6 +10,11 @@ Editor::Editor()
 	  rect(sf::Vector2f(0.f, 0.f), sf::Vector2f(700.f, 700.f), sf::Color::Green, false),
 	  mTextField(sf::Vector2f(50.f, 100.f), sf::Vector2f(150.f, 50.f), "Test! Text!", mySFML::Class::FontName::INFORMAL_ROMAN, 2.f, 24u, true)
 {
+	
+}
+
+Editor::~Editor()
+{
 	mTileMap.saveToFile("./Data/TileMaps/out.tm");
 }
 

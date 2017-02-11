@@ -22,6 +22,12 @@ Framework::~Framework()
 {
 	delete pRenderWindow;
 	pRenderWindow = nullptr;
+
+	while (!mStackOfGameStates.empty())
+	{
+		delete mStackOfGameStates.top();
+		mStackOfGameStates.pop();
+	}
 }
 
 

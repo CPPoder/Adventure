@@ -24,6 +24,7 @@ private:
 
 public:
 	Editor();
+	~Editor();
 
 	void update(sf::Time const & frametime, sf::RenderWindow* renderWindow);
 	void render(sf::RenderWindow* renderWindow);
