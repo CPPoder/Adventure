@@ -15,9 +15,9 @@ Editor::Editor()
 	  mLoadButton(mPosOfFirstLoadSaveTextField + sf::Vector2f(mSizeOfLoadSaveTextFields.x, 0.f) + mDistBetweenTextFieldAndButton,										mSizeOfLoadSaveButtons, "Load", mySFML::Class::FontName::ARIAL, 2.f, mCharacterSizeOfButtons),
 	  mSaveButton(mPosOfFirstLoadSaveTextField + mRelDistBetweenLoadSaveTextFilds + sf::Vector2f(mSizeOfLoadSaveTextFields.x, 0.f) + mDistBetweenTextFieldAndButton,	mSizeOfLoadSaveButtons, "Save", mySFML::Class::FontName::ARIAL, 2.f, mCharacterSizeOfButtons),
 	  mTileSquareShapeOfLeftMouseTileType(mPosOfLeftMouseTileTypeSquare, mLeftMouseTileType, 2.f),
-	  mTileSquareShapeOfRightMouseTileType(mPosOfLeftMouseTileTypeSquare + mRelDistBetweenTileTypeSquares, mRightMouseTileType, 2.f)
+	  mTileSquareShapeOfRightMouseTileType(mPosOfLeftMouseTileTypeSquare + mRelDistBetweenTileTypeSquares, mRightMouseTileType, 2.f),
+	  mRectShapeOfSelectionArea(mPosOfSelectionArea, static_cast<sf::Vector2f>(mSizeOfSelectionArea * TileMap::sSizeOfATile), sf::Color::White, false, 2.f)
 {
-	
 }
 
 Editor::~Editor()
@@ -123,6 +123,7 @@ void Editor::render(sf::RenderWindow* renderWindow)
 	mSaveButton.render(renderWindow);
 	mTileSquareShapeOfLeftMouseTileType.render(renderWindow);
 	mTileSquareShapeOfRightMouseTileType.render(renderWindow);
+	renderWindow->draw(*mRectShapeOfSelectionArea.pointer);
 
 	//Render Tile Stuff
 	renderWindow->setView(mTilesView);

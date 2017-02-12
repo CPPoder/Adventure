@@ -16,7 +16,7 @@ private:
 
 
 public:
-	TileSquareShape(sf::Vector2f const & position, TileType tileType, float outlineThickness = 0.f, sf::Color const & outlineColor = sf::Color::Black);
+	TileSquareShape(sf::Vector2f const & position, TileType tileType, float outlineThickness = 0.f, sf::Color const & outlineColor = sf::Color::Black, float scaleFactor = 1.f);
 	void setTileType(TileType tileType);
 	void render(sf::RenderWindow* renderWindow);
 

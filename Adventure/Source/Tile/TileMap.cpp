@@ -84,10 +84,12 @@ bool TileMap::loadFromFile(std::string const & path)
 			std::getline(inputFileStream, line);
 			linesOfFile.push_back(line);
 		}
+		inputFileStream.close();
 	}
 	else
 	{
 		std::cerr << "Could not open File: " << path << std::endl;
+		inputFileStream.close();
 		return false;
 		//throw "TileMap::loadFromFile(std::string const & path) : Could not open File!";
 	}

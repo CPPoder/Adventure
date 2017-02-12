@@ -2,10 +2,11 @@
 #include "Source\Tile\TileSquareShape.hpp"
 
 
-TileSquareShape::TileSquareShape(sf::Vector2f const & position, TileType tileType, float outlineThickness, sf::Color const & outlineColor)
+TileSquareShape::TileSquareShape(sf::Vector2f const & position, TileType tileType, float outlineThickness, sf::Color const & outlineColor, float scaleFactor)
 	: mSquare(position, sf::Vector2f(TileMap::sSizeOfATile, TileMap::sSizeOfATile), sf::Color::White, false, outlineThickness, outlineColor)
 {
 	mSquare.pointer->setTexture(TextureManager::getTexture(TextureManager::TextureName::TILE_TEXTURE_ATLAS));
+	mSquare.pointer->setScale(scaleFactor, scaleFactor);
 	this->setTileType(tileType);
 }
 
