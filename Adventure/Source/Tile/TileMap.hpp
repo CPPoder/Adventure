@@ -41,7 +41,7 @@ public:
 
 public:
 	static constexpr unsigned int sSizeOfATile = 32u;
-
+	static sf::IntRect getTextureRectForTileType(TileType tileType);
 
 
 };

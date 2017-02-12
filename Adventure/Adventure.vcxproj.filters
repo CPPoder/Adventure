@@ -129,6 +129,9 @@
     <ClInclude Include="Source\Framework\TextureManager.hpp">
       <Filter>Headerdateien\Framework</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Tile\TileSquareShape.hpp">
+      <Filter>Headerdateien\Tile</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -193,6 +196,9 @@
     </ClCompile>
     <ClCompile Include="Source\Framework\TextureManager.cpp">
       <Filter>Quelldateien\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Tile\TileSquareShape.cpp">
+      <Filter>Quelldateien\Tile</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

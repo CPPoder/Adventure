@@ -13,7 +13,9 @@ Editor::Editor()
 	  mLoadTextField(mPosOfFirstLoadSaveTextField,										mSizeOfLoadSaveTextFields, "./Data/TileMaps/", mySFML::Class::FontName::ARIAL, 2.f, mCharacterSizeOfTextFields, true, InputBehaviour::BOUNDED_FROM_BELOW, 16u),
 	  mSaveTextField(mPosOfFirstLoadSaveTextField + mRelDistBetweenLoadSaveTextFilds,	mSizeOfLoadSaveTextFields, "./Data/TileMaps/", mySFML::Class::FontName::ARIAL, 2.f, mCharacterSizeOfTextFields, true, InputBehaviour::BOUNDED_FROM_BELOW, 16u),
 	  mLoadButton(mPosOfFirstLoadSaveTextField + sf::Vector2f(mSizeOfLoadSaveTextFields.x, 0.f) + mDistBetweenTextFieldAndButton,										mSizeOfLoadSaveButtons, "Load", mySFML::Class::FontName::ARIAL, 2.f, mCharacterSizeOfButtons),
-	  mSaveButton(mPosOfFirstLoadSaveTextField + mRelDistBetweenLoadSaveTextFilds + sf::Vector2f(mSizeOfLoadSaveTextFields.x, 0.f) + mDistBetweenTextFieldAndButton,	mSizeOfLoadSaveButtons, "Save", mySFML::Class::FontName::ARIAL, 2.f, mCharacterSizeOfButtons)
+	  mSaveButton(mPosOfFirstLoadSaveTextField + mRelDistBetweenLoadSaveTextFilds + sf::Vector2f(mSizeOfLoadSaveTextFields.x, 0.f) + mDistBetweenTextFieldAndButton,	mSizeOfLoadSaveButtons, "Save", mySFML::Class::FontName::ARIAL, 2.f, mCharacterSizeOfButtons),
+	  mTileSquareShapeOfLeftMouseTileType(mPosOfLeftMouseTileTypeSquare, mLeftMouseTileType, 2.f),
+	  mTileSquareShapeOfRightMouseTileType(mPosOfLeftMouseTileTypeSquare + mRelDistBetweenTileTypeSquares, mRightMouseTileType, 2.f)
 {
 	
 }
@@ -119,6 +121,8 @@ void Editor::render(sf::RenderWindow* renderWindow)
 	mSaveTextField.render(renderWindow);
 	mLoadButton.render(renderWindow);
 	mSaveButton.render(renderWindow);
+	mTileSquareShapeOfLeftMouseTileType.render(renderWindow);
+	mTileSquareShapeOfRightMouseTileType.render(renderWindow);
 
 	//Render Tile Stuff
 	renderWindow->setView(mTilesView);

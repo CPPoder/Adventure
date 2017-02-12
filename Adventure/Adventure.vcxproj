@@ -171,6 +171,7 @@
     <ClInclude Include="Source\Game\MainMenu.hpp" />
     <ClInclude Include="Source\Game\World.hpp" />
     <ClInclude Include="Source\Tile\TileContents.hpp" />
+    <ClInclude Include="Source\Tile\TileSquareShape.hpp" />
     <ClInclude Include="Source\Tile\TileType.hpp" />
     <ClInclude Include="Source\Tile\TileMap.hpp" />
     <ClInclude Include="Source\Tile\TileVertexArray.hpp" />
@@ -197,6 +198,7 @@
     <ClCompile Include="Source\Game\World.cpp" />
     <ClCompile Include="Source\Tile\TileContents.cpp" />
     <ClCompile Include="Source\Tile\TileMap.cpp" />
+    <ClCompile Include="Source\Tile\TileSquareShape.cpp" />
     <ClCompile Include="Source\Tile\TileVertexArray.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

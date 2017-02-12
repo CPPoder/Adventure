@@ -172,3 +172,10 @@ void TileMap::outputOnTerminal() const
 		std::cout << std::endl;
 	}
 }
+
+
+sf::IntRect TileMap::getTextureRectForTileType(TileType tileType)
+{
+	return sf::IntRect(static_cast<int>(tileType) * sSizeOfATile, 0, sSizeOfATile, sSizeOfATile);
+}
+

@@ -24,11 +24,6 @@ public:
 
 	void render(sf::RenderWindow* renderWindow) const;
 
-
-public:
-	static sf::IntRect getTextureRectForTileType(TileType tileType);
-
-
 };
 
 

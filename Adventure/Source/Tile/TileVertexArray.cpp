@@ -26,7 +26,7 @@ void TileVertexArray::setTileMap(TileMap const & tileMap)
 		for (unsigned int x = 0; x < xSize; ++x)
 		{
 			TileType tileType = tileMap.at(x, y).tileType;
-			sf::FloatRect textureRect = static_cast<sf::FloatRect>(this->getTextureRectForTileType(tileType));
+			sf::FloatRect textureRect = static_cast<sf::FloatRect>(TileMap::getTextureRectForTileType(tileType));
 			sf::Vector2f textRectPos = sf::Vector2f(textureRect.left, textureRect.top);
 			sf::Vertex vertexUL(static_cast<sf::Vector2f>(sf::Vector2i((x + 0) * TileMap::sSizeOfATile, (y + 0) * TileMap::sSizeOfATile)), sf::Color::White, textRectPos);
 			sf::Vertex vertexDL(static_cast<sf::Vector2f>(sf::Vector2i((x + 0) * TileMap::sSizeOfATile, (y + 1) * TileMap::sSizeOfATile)), sf::Color::White, textRectPos + sf::Vector2f(0.f, textureRect.height));
@@ -43,12 +43,5 @@ void TileVertexArray::setTileMap(TileMap const & tileMap)
 void TileVertexArray::render(sf::RenderWindow* renderWindow) const
 {
 	renderWindow->draw(*pVertexArray, pTextureAtlasOfTiles);
-}
-
-
-
-sf::IntRect TileVertexArray::getTextureRectForTileType(TileType tileType)
-{
-	return sf::IntRect(static_cast<int>(tileType) * TileMap::sSizeOfATile, 0, TileMap::sSizeOfATile, TileMap::sSizeOfATile);
 }
 
