@@ -31,7 +31,7 @@ public:
 	void setAt(TileContents const & tileContents, unsigned int x, unsigned int y);
 	void setAt(TileContents const & tileContents, sf::Vector2u const & pos);
 
-	void loadFromFile(std::string const & path);
+	bool loadFromFile(std::string const & path);
 	void saveToFile(std::string const & path) const;
 
 	unsigned int getYSize() const;

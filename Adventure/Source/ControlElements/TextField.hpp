@@ -17,6 +17,12 @@ enum class TextFieldState
 	INACTIVE
 };
 
+enum class InputBehaviour
+{
+	FREE,
+	BOUNDED_FROM_BELOW
+};
+
 
 class TextField
 {
@@ -24,6 +30,8 @@ private:
 	mySFML::Class::Fonts mFonts;
 
 	TextFieldSettings const * pTextFieldSettings;
+	InputBehaviour mInputBehaviour;
+	unsigned int mInputBehaviourArgument;
 	sf::Vector2f mPosition;
 	sf::Vector2f mSize;
 	TextFieldState mTextFieldState;
@@ -38,7 +46,7 @@ private:
 
 
 public:
-	TextField(sf::Vector2f const & position, sf::Vector2f const & size, std::string const & text, mySFML::Class::FontName fontName, float outlineThickness = 2.f, unsigned int characterSize = 12u, bool active = true, TextFieldSettings const * textFieldSettings = &TextFieldSettings::standardTextFieldSettings);
+	TextField(sf::Vector2f const & position, sf::Vector2f const & size, std::string const & text, mySFML::Class::FontName fontName, float outlineThickness = 2.f, unsigned int characterSize = 12u, bool active = true, InputBehaviour inputBehaviour = InputBehaviour::FREE, unsigned int behaviourArgument = 0, TextFieldSettings const * textFieldSettings = &TextFieldSettings::standardTextFieldSettings);
 	~TextField();
 
 	void updateState(sf::RenderWindow* renderWindow, sf::View const * view = nullptr); //Pointer, beacause I need to have some default argument
@@ -57,6 +65,7 @@ public:
 	bool getIsActive() const;
 	TextFieldState getTextFieldState() const;
 	std::string getTextString() const;
+	unsigned int getTextStringSize() const;
 
 private:
 	void setInternalObjectsPositions();

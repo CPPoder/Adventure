@@ -28,12 +28,23 @@ Button::~Button()
 
 
 //Update
-void Button::updateState(sf::RenderWindow* renderWindow)
+void Button::updateState(sf::RenderWindow* renderWindow, sf::View const * view)
 {
 	if (mButtonState != ButtonState::INACTIVE)
 	{
-		sf::Vector2i mousePos = sf::Mouse::getPosition(*renderWindow);
-		if (mRectangleShape.getGlobalBounds().contains(sf::Vector2f(mousePos)))
+		sf::Vector2f mousePos;
+		if (view == nullptr)
+		{
+			mousePos = static_cast<sf::Vector2f>(sf::Mouse::getPosition(*renderWindow));
+		}
+		else
+		{
+			sf::View initialView = renderWindow->getView();
+			renderWindow->setView(*view);
+			mousePos = renderWindow->mapPixelToCoords(sf::Mouse::getPosition(*renderWindow));
+			renderWindow->setView(initialView);
+		}
+		if (mRectangleShape.getGlobalBounds().contains(mousePos))
 		{
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 			{
@@ -123,7 +134,7 @@ std::string Button::getTextString() const
 {
 	return mText.getString();
 }
-bool Button::getMouseReleasedEventOccured() const
+bool Button::getMouseReleasedEventOccured(sf::RenderWindow* renderWindow, sf::View const * view) const
 {
 	if (mButtonState == ButtonState::INACTIVE)
 	{
@@ -133,8 +144,19 @@ bool Button::getMouseReleasedEventOccured() const
 	{
 		if (EventManager::getReleasedMouseInfo().button == sf::Mouse::Button::Left)
 		{
-			sf::Vector2i mousePos = EventManager::getReleasedMouseInfo().position;
-			if (mRectangleShape.getGlobalBounds().contains(sf::Vector2f(mousePos)))
+			sf::Vector2f mousePos;
+			if (view == nullptr)
+			{
+				mousePos = static_cast<sf::Vector2f>(EventManager::getReleasedMouseInfo().position);
+			}
+			else
+			{
+				sf::View initialView = renderWindow->getView();
+				renderWindow->setView(*view);
+				mousePos = renderWindow->mapPixelToCoords(EventManager::getReleasedMouseInfo().position);
+				renderWindow->setView(initialView);
+			}
+			if (mRectangleShape.getGlobalBounds().contains(mousePos))
 			{
 				return true;
 			}

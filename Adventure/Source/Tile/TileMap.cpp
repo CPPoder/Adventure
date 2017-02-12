@@ -68,7 +68,7 @@ void TileMap::setAt(TileContents const & tileContents, sf::Vector2u const & pos)
 }
 
 
-void TileMap::loadFromFile(std::string const & path)
+bool TileMap::loadFromFile(std::string const & path)
 {
 	//Clear mVectorOfTileContents
 	mMatrixOfTileContents.clear();
@@ -88,7 +88,8 @@ void TileMap::loadFromFile(std::string const & path)
 	else
 	{
 		std::cerr << "Could not open File: " << path << std::endl;
-		throw "TileMap::loadFromFile(std::string const & path) : Could not open File!";
+		return false;
+		//throw "TileMap::loadFromFile(std::string const & path) : Could not open File!";
 	}
 
 	//Use extracted lines and cut into integers and write into vectors
@@ -120,6 +121,8 @@ void TileMap::loadFromFile(std::string const & path)
 		}
 		mMatrixOfTileContents.push_back(vecOfTileContents);
 	}
+
+	return true;
 }
 
 void TileMap::saveToFile(std::string const & path) const

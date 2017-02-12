@@ -5,20 +5,21 @@
 
 
 Editor::Editor()
-	: mTileMap("./Data/TileMaps/test.tm"),
+	: mMenuView(this->getInitialMenuView(Framework::getRenderWindow())),
+	  mTilesView(this->getInitialTilesView(Framework::getRenderWindow())),
+	  mTileMap(),
 	  mTileVertexArray(mTileMap),
-	  mMenuScreenWidthRatio(0.3f),
-	  rect(sf::Vector2f(0.f, 0.f), sf::Vector2f(700.f, 700.f), sf::Color::Green, false),
-	  mTextField(sf::Vector2f(50.f, 100.f), sf::Vector2f(150.f, 50.f), "Te", mySFML::Class::FontName::INFORMAL_ROMAN, 2.f, 24u, true),
-	  mMenuView(this->getInitialMenuView(Framework::getRenderWindow())),
-	  mTilesView(this->getInitialTilesView(Framework::getRenderWindow()))
+	  mMenuBackgroundRectangle(sf::Vector2f(0.f, 0.f), mMenuView.getSize(), sf::Color(70, 40, 10), false, -3.f, sf::Color(50, 30, 5)),
+	  mLoadTextField(mPosOfFirstLoadSaveTextField,										mSizeOfLoadSaveTextFields, "./Data/TileMaps/", mySFML::Class::FontName::ARIAL, 2.f, mCharacterSizeOfTextFields, true, InputBehaviour::BOUNDED_FROM_BELOW, 16u),
+	  mSaveTextField(mPosOfFirstLoadSaveTextField + mRelDistBetweenLoadSaveTextFilds,	mSizeOfLoadSaveTextFields, "./Data/TileMaps/", mySFML::Class::FontName::ARIAL, 2.f, mCharacterSizeOfTextFields, true, InputBehaviour::BOUNDED_FROM_BELOW, 16u),
+	  mLoadButton(mPosOfFirstLoadSaveTextField + sf::Vector2f(mSizeOfLoadSaveTextFields.x, 0.f) + mDistBetweenTextFieldAndButton,										mSizeOfLoadSaveButtons, "Load", mySFML::Class::FontName::ARIAL, 2.f, mCharacterSizeOfButtons),
+	  mSaveButton(mPosOfFirstLoadSaveTextField + mRelDistBetweenLoadSaveTextFilds + sf::Vector2f(mSizeOfLoadSaveTextFields.x, 0.f) + mDistBetweenTextFieldAndButton,	mSizeOfLoadSaveButtons, "Save", mySFML::Class::FontName::ARIAL, 2.f, mCharacterSizeOfButtons)
 {
 	
 }
 
 Editor::~Editor()
 {
-	mTileMap.saveToFile("./Data/TileMaps/out.tm");
 }
 
 
@@ -80,8 +81,30 @@ void Editor::update(sf::Time const & frametime, sf::RenderWindow* renderWindow)
 		mTileVertexArray.setTileMap(mTileMap);
 	}
 
-	//TextField
-	mTextField.updateState(renderWindow, &mMenuView);
+	//Update TextFields
+	mLoadTextField.updateState(renderWindow, &mMenuView);
+	mSaveTextField.updateState(renderWindow, &mMenuView);
+
+	//Update Buttons
+	mLoadButton.updateState(renderWindow);
+	mSaveButton.updateState(renderWindow);
+
+	//Manage Loading and Saving
+	if (mLoadButton.getMouseReleasedEventOccured())
+	{
+		if (mTileMap.loadFromFile(mLoadTextField.getTextString()))
+		{
+			mSaveTextField.setTextString(mLoadTextField.getTextString());
+			mTileVertexArray.setTileMap(mTileMap);
+		}
+	}
+	if (mSaveButton.getMouseReleasedEventOccured())
+	{
+		if (mSaveTextField.getTextStringSize() > 16)
+		{
+			mTileMap.saveToFile(mSaveTextField.getTextString());
+		}
+	}
 }
 
 void Editor::render(sf::RenderWindow* renderWindow)
@@ -91,8 +114,11 @@ void Editor::render(sf::RenderWindow* renderWindow)
 
 	//Render Menu Stuff
 	renderWindow->setView(mMenuView);
-	renderWindow->draw(*rect.pointer);
-	mTextField.render(renderWindow);
+	renderWindow->draw(*mMenuBackgroundRectangle.pointer);
+	mLoadTextField.render(renderWindow);
+	mSaveTextField.render(renderWindow);
+	mLoadButton.render(renderWindow);
+	mSaveButton.render(renderWindow);
 
 	//Render Tile Stuff
 	renderWindow->setView(mTilesView);

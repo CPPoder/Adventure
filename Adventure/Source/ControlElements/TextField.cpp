@@ -3,8 +3,10 @@
 
 
 //Constructor
-TextField::TextField(sf::Vector2f const & position, sf::Vector2f const & size, std::string const & text, mySFML::Class::FontName fontName, float outlineThickness, unsigned int characterSize, bool active, TextFieldSettings const * textFieldSettings)
+TextField::TextField(sf::Vector2f const & position, sf::Vector2f const & size, std::string const & text, mySFML::Class::FontName fontName, float outlineThickness, unsigned int characterSize, bool active, InputBehaviour inputBehaviour, unsigned int behaviourArgument, TextFieldSettings const * textFieldSettings)
 	: pTextFieldSettings(textFieldSettings),
+	  mInputBehaviour(inputBehaviour),
+	  mInputBehaviourArgument(behaviourArgument),
 	  mPosition(position),
 	  mSize(size),
 	  mText(text, *mFonts.getFont(fontName), characterSize),
@@ -61,6 +63,13 @@ void TextField::updateState(sf::RenderWindow* renderWindow, sf::View const * vie
 				}
 			}
 		}
+		if (EventManager::checkForEvent(EventManager::EventType::KEY_RELEASED) && mTextFieldState == TextFieldState::BLINKING)
+		{
+			if (EventManager::getReleasedKeyInfo().key == sf::Keyboard::Key::Return)
+			{
+				this->changeStateTo(TextFieldState::NORMAL);
+			}
+		}
 
 		//Manage Blinking
 		if (mBlinkingClock.getElapsedTime() > mBlinkingTime)
@@ -82,7 +91,8 @@ void TextField::updateState(sf::RenderWindow* renderWindow, sf::View const * vie
 			}
 			if (EventManager::checkForEvent(EventManager::EventType::KEY_PRESSED))
 			{
-				if (EventManager::getPressedKeyInfo().key == sf::Keyboard::Key::BackSpace)
+				bool inputBehaviourAllowsBackSpace = mInputBehaviour == InputBehaviour::FREE || ((mInputBehaviour == InputBehaviour::BOUNDED_FROM_BELOW) && (mText.getString().getSize() > mInputBehaviourArgument));
+				if (EventManager::getPressedKeyInfo().key == sf::Keyboard::Key::BackSpace && inputBehaviourAllowsBackSpace)
 				{
 					std::string existingText = mText.getString();
 					if (!existingText.empty())
@@ -145,6 +155,7 @@ void TextField::setActive(bool active)
 void TextField::setTextString(std::string const & string)
 {
 	mText.setString(string);
+	this->setInternalObjectsPositions();
 }
 
 
@@ -172,6 +183,10 @@ TextFieldState TextField::getTextFieldState() const
 std::string TextField::getTextString() const
 {
 	return mText.getString();
+}
+unsigned int TextField::getTextStringSize() const
+{
+	return mText.getString().getSize();
 }
 
 
@@ -225,7 +240,7 @@ sf::Vector2f TextField::calculateTextPosition() const
 {
 	sf::FloatRect globalBoundsText = mText.getGlobalBounds();
 	sf::Vector2f sizeOfText = sf::Vector2f(globalBoundsText.width, globalBoundsText.height);
-	sf::Vector2f relativePos = (mSize - sizeOfText) / 2.f;
+	sf::Vector2f relativePos(2.f, ((mSize - sizeOfText) / 2.f).y);
 	sf::Vector2f correction = sf::Vector2f(0.f, -sizeOfText.y * 0.4f);
 	return (mPosition + relativePos + correction);
 }

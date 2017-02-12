@@ -9,7 +9,7 @@ Framework::Framework()
 {
 	srand(static_cast<unsigned int>(time(0)));
 
-	pRenderWindow = new sf::RenderWindow(sf::VideoMode(1000, 800), "Adventure");
+	pRenderWindow = new sf::RenderWindow(sf::VideoMode(1000, 800), "Adventure", sf::Style::Close | sf::Style::Titlebar);
 	pRenderWindow->setFramerateLimit(60);
 
 	mFPSClock.restart();

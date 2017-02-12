@@ -28,10 +28,10 @@ void TileVertexArray::setTileMap(TileMap const & tileMap)
 			TileType tileType = tileMap.at(x, y).tileType;
 			sf::FloatRect textureRect = static_cast<sf::FloatRect>(this->getTextureRectForTileType(tileType));
 			sf::Vector2f textRectPos = sf::Vector2f(textureRect.left, textureRect.top);
-			sf::Vertex vertexUL(sf::Vector2f((x + 0) * TileMap::sSizeOfATile, (y + 0) * TileMap::sSizeOfATile), sf::Color::White, textRectPos);
-			sf::Vertex vertexDL(sf::Vector2f((x + 0) * TileMap::sSizeOfATile, (y + 1) * TileMap::sSizeOfATile), sf::Color::White, textRectPos + sf::Vector2f(0.f, textureRect.height));
-			sf::Vertex vertexDR(sf::Vector2f((x + 1) * TileMap::sSizeOfATile, (y + 1) * TileMap::sSizeOfATile), sf::Color::White, textRectPos + sf::Vector2f(textureRect.width, textureRect.height));
-			sf::Vertex vertexUR(sf::Vector2f((x + 1) * TileMap::sSizeOfATile, (y + 0) * TileMap::sSizeOfATile), sf::Color::White, textRectPos + sf::Vector2f(textureRect.width, 0.f));
+			sf::Vertex vertexUL(static_cast<sf::Vector2f>(sf::Vector2i((x + 0) * TileMap::sSizeOfATile, (y + 0) * TileMap::sSizeOfATile)), sf::Color::White, textRectPos);
+			sf::Vertex vertexDL(static_cast<sf::Vector2f>(sf::Vector2i((x + 0) * TileMap::sSizeOfATile, (y + 1) * TileMap::sSizeOfATile)), sf::Color::White, textRectPos + sf::Vector2f(0.f, textureRect.height));
+			sf::Vertex vertexDR(static_cast<sf::Vector2f>(sf::Vector2i((x + 1) * TileMap::sSizeOfATile, (y + 1) * TileMap::sSizeOfATile)), sf::Color::White, textRectPos + sf::Vector2f(textureRect.width, textureRect.height));
+			sf::Vertex vertexUR(static_cast<sf::Vector2f>(sf::Vector2i((x + 1) * TileMap::sSizeOfATile, (y + 0) * TileMap::sSizeOfATile)), sf::Color::White, textRectPos + sf::Vector2f(textureRect.width, 0.f));
 			pVertexArray->append(vertexUL);
 			pVertexArray->append(vertexDL);
 			pVertexArray->append(vertexDR);

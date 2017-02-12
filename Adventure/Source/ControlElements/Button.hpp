@@ -36,7 +36,7 @@ public:
 	Button(sf::Vector2f const & position, sf::Vector2f const & size, std::string const & text, mySFML::Class::FontName fontName, float outlineThickness = 2.f, unsigned int characterSize = 12u, bool active = true, ButtonSettings const * buttonSettings = &ButtonSettings::standardButtonSettings);
 	~Button();
 
-	void updateState(sf::RenderWindow* renderWindow);
+	void updateState(sf::RenderWindow* renderWindow, sf::View const * view = nullptr); //Pointer, beacause I need to have some default argument);
 	void render(sf::RenderWindow* renderWindow);
 
 	void setPosition(sf::Vector2f const & position);
@@ -52,7 +52,7 @@ public:
 	bool getIsActive() const;
 	ButtonState getButtonState() const;
 	std::string getTextString() const;
-	bool getMouseReleasedEventOccured() const;
+	bool getMouseReleasedEventOccured(sf::RenderWindow* renderWindow = nullptr, sf::View const * view = nullptr) const;
 
 
 private:
