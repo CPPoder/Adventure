@@ -84,12 +84,10 @@ bool TileMap::loadFromFile(std::string const & path)
 			std::getline(inputFileStream, line);
 			linesOfFile.push_back(line);
 		}
-		inputFileStream.close();
 	}
 	else
 	{
 		std::cerr << "Could not open File: " << path << std::endl;
-		inputFileStream.close();
 		return false;
 		//throw "TileMap::loadFromFile(std::string const & path) : Could not open File!";
 	}
@@ -99,14 +97,21 @@ bool TileMap::loadFromFile(std::string const & path)
 	for (auto line : linesOfFile)
 	{
 		std::vector<TileType> tileTypeVector;
-		std::stringstream stringStream(line);
-		while (stringStream.good())
+		if (!line.empty())
 		{
-			int intData;
-			stringStream >> intData;
-			tileTypeVector.push_back(static_cast<TileType>(intData));
+			std::stringstream stringStream(line);
+			while (stringStream.good())
+			{
+				int intData;
+				stringStream >> intData; //Here occured an error!!! For "Big.tm" -858993460 occured, because an empty stringstream is somehow good but extraction fails!!!
+				tileTypeVector.push_back(static_cast<TileType>(intData));
+			}
+			matOfTileTypes.push_back(tileTypeVector);
 		}
-		matOfTileTypes.push_back(tileTypeVector);
+		else
+		{
+			matOfTileTypes.push_back(tileTypeVector);
+		}
 	}
 
 	//Combine all extracted data (e.g. TileType, ItemType, Border, ...)
