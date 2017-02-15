@@ -132,6 +132,12 @@
     <ClInclude Include="Source\Tile\TileSquareShape.hpp">
       <Filter>Headerdateien\Tile</Filter>
     </ClInclude>
+    <ClInclude Include="Source\ControlElements\DropDownMenu.hpp">
+      <Filter>Headerdateien\ControlElements</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ControlElements\DropDownMenuSettings.hpp">
+      <Filter>Headerdateien\ControlElements</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -199,6 +205,12 @@
     </ClCompile>
     <ClCompile Include="Source\Tile\TileSquareShape.cpp">
       <Filter>Quelldateien\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ControlElements\DropDownMenu.cpp">
+      <Filter>Quelldateien\ControlElements</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ControlElements\DropDownMenuSettings.cpp">
+      <Filter>Quelldateien\ControlElements</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

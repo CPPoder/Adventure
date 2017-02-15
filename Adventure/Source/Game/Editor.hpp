@@ -50,7 +50,7 @@ private:
 	TileSquareShape mTileSquareShapeOfLeftMouseTileType;
 	TileSquareShape mTileSquareShapeOfRightMouseTileType;
 	sf::Vector2u const mSizeOfSelectionArea					= sf::Vector2u(7u, 10u);
-	sf::Vector2f const mPosOfSelectionArea					= sf::Vector2f(20.f, 300.f);
+	sf::Vector2f const mPosOfSelectionArea					= sf::Vector2f(20.f, 450.f);
 	mySFML::Class::RectShape mRectShapeOfSelectionArea;
 
 	
