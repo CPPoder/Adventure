@@ -16,7 +16,8 @@ Editor::Editor()
 	  mSaveButton(mPosOfFirstLoadSaveTextField + mRelDistBetweenLoadSaveTextFilds + sf::Vector2f(mSizeOfLoadSaveTextFields.x, 0.f) + mDistBetweenTextFieldAndButton,	mSizeOfLoadSaveButtons, "Save", mySFML::Class::FontName::ARIAL, 2.f, mCharacterSizeOfButtons),
 	  mTileSquareShapeOfLeftMouseTileType(mPosOfLeftMouseTileTypeSquare, mLeftMouseTileType, 2.f),
 	  mTileSquareShapeOfRightMouseTileType(mPosOfLeftMouseTileTypeSquare + mRelDistBetweenTileTypeSquares, mRightMouseTileType, 2.f),
-	  mRectShapeOfSelectionArea(mPosOfSelectionArea, static_cast<sf::Vector2f>(mSizeOfSelectionArea * TileMap::sSizeOfATile), sf::Color::White, false, 2.f)
+	  mRectShapeOfSelectionArea(mPosOfSelectionArea, static_cast<sf::Vector2f>(mSizeOfSelectionArea * TileMap::sSizeOfATile), sf::Color::White, false, 2.f),
+	  mDropDownMenu(mPosOfDropDownMenu, mSizeOfSingleDropDownMenuField, mSizeOfDropMenu, {"Option 1", "Option 2" , "Option 3" , "Option 4" , "Option 5" , "Option 6" }, mySFML::Class::FontName::ARIAL)
 {
 }
 
@@ -107,6 +108,9 @@ void Editor::update(sf::Time const & frametime, sf::RenderWindow* renderWindow)
 			mTileMap.saveToFile(mSaveTextField.getTextString());
 		}
 	}
+
+	//Update DropDownMenu
+	mDropDownMenu.update(frametime, renderWindow);
 }
 
 void Editor::render(sf::RenderWindow* renderWindow)
@@ -124,6 +128,7 @@ void Editor::render(sf::RenderWindow* renderWindow)
 	mTileSquareShapeOfLeftMouseTileType.render(renderWindow);
 	mTileSquareShapeOfRightMouseTileType.render(renderWindow);
 	renderWindow->draw(*mRectShapeOfSelectionArea.pointer);
+	mDropDownMenu.render(renderWindow);
 
 	//Render Tile Stuff
 	renderWindow->setView(mTilesView);

@@ -8,6 +8,7 @@
 #include "mySFMLVectorFunctions.hpp"
 
 #include "Source\ControlElements\DropDownMenuSettings.hpp"
+#include "Source\Framework\EventManager.hpp"
 
 #include <vector>
 #include <string>
@@ -30,11 +31,11 @@ private:
 
 	unsigned int mCharacterSize = 12u;
 
-	bool mIsActive;
+	bool mIsActive = true;
 
 	unsigned int mCurrentChoice = 0;
 	float mCurrentPositionInDropMenu = 0.f;
-	bool mIsDropDownMenuOpen = false;
+	bool mIsDropDownMenuOpen = true;
 
 	bool mIsAnyChoiceTouched = false;
 	unsigned int mTouchedChoice = 0;
@@ -42,12 +43,15 @@ private:
 	float mBarSizeRatio;
 	float mBarPosRatio;
 
+	mySFML::Class::RectShape mRectShapeOfActualChoice;
+	mySFML::Class::Text mTextDrawableOfActualChoice;
+
 	std::vector<mySFML::Class::RectShape> mVectorOfRectShapes;
 	std::vector<mySFML::Class::Text> mVectorOfTexts;
 
 
 public:
-	DropDownMenu(sf::Vector2f const & position, sf::Vector2f const & sizeOfSingleField, sf::Vector2f const & sizeOfDropMenu, std::vector<std::string> const & vectorOfChoiceTexts, mySFML::Class::FontName fontName, DropDownMenuSettings const & dropDownMenuSettings = DropDownMenuSettings::standardDropDownMenuSettings);
+	DropDownMenu(sf::Vector2f const & position, sf::Vector2f const & sizeOfSingleField, sf::Vector2f const & sizeOfDropMenu, std::vector<std::string> const & vectorOfChoiceTexts, mySFML::Class::FontName fontName, bool active = true, DropDownMenuSettings const & dropDownMenuSettings = DropDownMenuSettings::standardDropDownMenuSettings);
 	~DropDownMenu();
 
 	void update(sf::Time const & frametime, sf::RenderWindow const * renderWindow);
@@ -76,8 +80,8 @@ public:
 
 private:
 	void setInternalObjects();
-	//void setInternalObjectsPositions();
-	//void setInternalObjectsColors();
+	
+	bool getChoiceRectFromMousePos(sf::Vector2f const & mousePos, unsigned int & choiceRect) const;
 
 	sf::Vector2f constructActualChoiceRectPos() const;
 	sf::Color constructActualChoiceRectFillColor() const;

@@ -8,6 +8,7 @@
 #include "Source\ControlElements\TextField.hpp"
 #include "Source\ControlElements\Button.hpp"
 #include "Source\Tile\TileSquareShape.hpp"
+#include "Source\ControlElements\DropDownMenu.hpp"
 
 
 
@@ -45,13 +46,19 @@ private:
 	Button mSaveButton;
 
 	//Menu Variables (TileType Selection)
-	sf::Vector2f const mPosOfLeftMouseTileTypeSquare		= sf::Vector2f(50.f, 200.f);
+	sf::Vector2f const mPosOfLeftMouseTileTypeSquare		= sf::Vector2f(50.f, 150.f);
 	sf::Vector2f const mRelDistBetweenTileTypeSquares		= sf::Vector2f(50.f, 0.f);
 	TileSquareShape mTileSquareShapeOfLeftMouseTileType;
 	TileSquareShape mTileSquareShapeOfRightMouseTileType;
 	sf::Vector2u const mSizeOfSelectionArea					= sf::Vector2u(7u, 10u);
 	sf::Vector2f const mPosOfSelectionArea					= sf::Vector2f(20.f, 450.f);
 	mySFML::Class::RectShape mRectShapeOfSelectionArea;
+	sf::Vector2f const mPosOfDropDownMenu					= sf::Vector2f(20.f, 250.f);
+	sf::Vector2f const mSizeOfSingleDropDownMenuField		= sf::Vector2f(200.f, 30.f);
+	unsigned int const mNumberOfFieldsInDropMenu			= 4u;
+	sf::Vector2f const mSizeOfDropMenu						= sf::Vector2f(mSizeOfSingleDropDownMenuField.x, mSizeOfSingleDropDownMenuField.y * mNumberOfFieldsInDropMenu);
+	unsigned int const mCharacterSizeOfDropDownMenu			= 14u;
+	DropDownMenu mDropDownMenu;
 
 	
 	
