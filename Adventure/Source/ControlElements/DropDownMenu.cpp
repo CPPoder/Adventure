@@ -11,8 +11,14 @@ DropDownMenu::DropDownMenu(sf::Vector2f const & position, sf::Vector2f const & s
 	  mRectShapeOfActualChoice(),
 	  mTextDrawableOfActualChoice(*pFont, sf::Vector2f()),
 	  mVectorOfChoiceTexts(vectorOfChoiceTexts),
-	  mNumberOfChoices(vectorOfChoiceTexts.size())
+	  mNumberOfChoices(vectorOfChoiceTexts.size()),
+	  mRectShapeOfBarBackground(sf::Vector2f(), sf::Vector2f(), sf::Color::Blue, false, -2.f, sf::Color::Green),
+	  mRectShapeOfBar(sf::Vector2f(), sf::Vector2f(), sf::Color::Red, false, -3.f, sf::Color::White)
 {
+	mTriangle.setPointCount(3u);
+	mTriangle.setOutlineThickness(1.f);
+	mTriangle.rotate(180.f);
+
 	this->setActive(active);
 	this->setInternalObjects();
 }
@@ -26,6 +32,15 @@ DropDownMenu::~DropDownMenu()
 
 void DropDownMenu::update(sf::Time const & frametime, sf::RenderWindow const * renderWindow)
 {
+	
+	if (EventManager::checkForEvent(EventManager::EventType::KEY_RELEASED))
+	{
+		if (EventManager::getReleasedKeyInfo().key == sf::Keyboard::Key::Q)
+		{
+			this->setActive(!this->getIsActive());
+		}
+	}
+
 	if (mIsActive)
 	{
 		//Manage Open/Close DropMenu & Selection of new currentChoice
@@ -41,7 +56,7 @@ void DropDownMenu::update(sf::Time const & frametime, sf::RenderWindow const * r
 				{
 					changeIsDropMenuOpen = true;
 				}
-				else if (mIsDropDownMenuOpen)
+				else if (mIsDropDownMenuOpen && !mRectShapeOfBarBackground.pointer->getGlobalBounds().contains(mousePos) && !mRectShapeOfBar.pointer->getGlobalBounds().contains(mousePos))
 				{
 					changeIsDropMenuOpen = true;
 				}
@@ -79,6 +94,23 @@ void DropDownMenu::update(sf::Time const & frametime, sf::RenderWindow const * r
 		{
 			this->setInternalObjects();
 		}
+
+		//Manage Movement of the Bar
+		if (mIsDropDownMenuOpen && EventManager::checkForEvent(EventManager::EventType::MOUSE_DRAGGED))
+		{
+			EventManager::MouseDraggedInfo draggedInfo = EventManager::getMouseDraggedInfo();
+			if (draggedInfo.button == sf::Mouse::Button::Left)
+			{
+				sf::Vector2f oldMousePos = static_cast<sf::Vector2f>(draggedInfo.oldPosition);
+				if (mRectShapeOfBarBackground.pointer->getGlobalBounds().contains(oldMousePos))
+				{
+					float barMovement = static_cast<float>(draggedInfo.newPosition.y) - oldMousePos.y;
+					mCurrentPositionInDropMenu += barMovement;
+					this->setInternalObjects();
+				}
+			}
+		}
+
 	} //mIsActive
 }
 
@@ -87,6 +119,12 @@ void DropDownMenu::render(sf::RenderWindow * renderWindow)
 	//Draw Stuff in normal View
 	renderWindow->draw(*mRectShapeOfActualChoice.pointer);
 	renderWindow->draw(*mTextDrawableOfActualChoice.pointer);
+	renderWindow->draw(mTriangle);
+	if (mIsDropDownMenuOpen)
+	{
+		renderWindow->draw(*mRectShapeOfBarBackground.pointer);
+		renderWindow->draw(*mRectShapeOfBar.pointer);
+	}
 
 	//Draw Stuff with special View
 	sf::View initialView = renderWindow->getView();
@@ -229,6 +267,13 @@ void DropDownMenu::setInternalObjects()
 	//Set Actually Chosen Rectangle & Text
 	mRectShapeOfActualChoice = mySFML::Class::RectShape(this->constructActualChoiceRectPos(), mSizeOfSingleField, constructActualChoiceRectFillColor(), false, -2.f, constructActualChoiceRectOutlColor());
 	mTextDrawableOfActualChoice = mySFML::Class::Text(*pFont, constructActualChoiceTextPos(), mVectorOfChoiceTexts.at(mCurrentChoice), mCharacterSize, constructActualChoiceTextColor());
+	
+	//Set Triangle
+	mTriangle.setRadius(mSizeOfSingleField.y / 8.f);
+	mTriangle.setOrigin(mTriangle.getRadius(), mTriangle.getRadius());
+	mTriangle.setPosition(mPosition + mSizeOfSingleField + sf::Vector2f(-10.f, -mSizeOfSingleField.y / 2.f));
+	mTriangle.setFillColor(this->constructTriangleBackgroundColor());
+	mTriangle.setOutlineColor(this->constructTriangleOutlineColor());
 
 	//Set all visible Choice Rectangles & Texts if mIsDropDownMenuOpen
 	if (mIsDropDownMenuOpen)
@@ -241,8 +286,19 @@ void DropDownMenu::setInternalObjects()
 		}
 	}
 	
+	//Set BarBackground
+	mRectShapeOfBarBackground.pointer->setPosition(mPosition + mSizeOfSingleField);
+	mRectShapeOfBarBackground.pointer->setSize(sf::Vector2f(mBarWidth, mSizeOfDropMenu.y));
+	mRectShapeOfBarBackground.pointer->setFillColor(this->constructBarBackgroundFillColor());
+	mRectShapeOfBarBackground.pointer->setOutlineColor(this->constructBarBackgroundOutlineColor());
 
 	//Set Bar
+	sf::Vector2f barSize = sf::Vector2f(mBarWidth, mBarSizeRatio * mSizeOfDropMenu.y);
+	mRectShapeOfBar.pointer->setSize(barSize);
+	mRectShapeOfBar.pointer->setOrigin(barSize / 2.f);
+	mRectShapeOfBar.pointer->setPosition(mPosition + mSizeOfSingleField + (barSize / 2.f) + sf::Vector2f(0.f, mBarPosRatio * mSizeOfDropMenu.y));
+	mRectShapeOfBar.pointer->setFillColor(this->constructBarFillColor());
+	mRectShapeOfBar.pointer->setOutlineColor(this->constructBarOutlineColor());
 
 }
 
@@ -369,6 +425,57 @@ sf::Color DropDownMenu::constructChoiceTextColor(unsigned int choiceNumber) cons
 	{
 		return mDropDownMenuSettings.colorSettings.normalDropDownTextColor;
 	}
+}
+
+
+sf::Color DropDownMenu::constructTriangleBackgroundColor() const
+{
+	if (mIsDropDownMenuOpen)
+	{
+		return mDropDownMenuSettings.colorSettings.openTriangleBackgroundColor;
+	}
+	else if (mIsActive)
+	{
+		return mDropDownMenuSettings.colorSettings.closedTriangleBackgroundColor;
+	}
+	else
+	{
+		return mDropDownMenuSettings.colorSettings.inactiveTriangleBackgroundColor;
+	}
+}
+sf::Color DropDownMenu::constructTriangleOutlineColor() const
+{
+	if (mIsDropDownMenuOpen)
+	{
+		return mDropDownMenuSettings.colorSettings.openTriangleOutlineColor;
+	}
+	else if (mIsActive)
+	{
+		return mDropDownMenuSettings.colorSettings.closedTriangleOutlineColor;
+	}
+	else
+	{
+		return mDropDownMenuSettings.colorSettings.inactiveTriangleOutlineColor;
+	}
+}
+
+
+
+sf::Color DropDownMenu::constructBarBackgroundFillColor() const
+{
+	return mDropDownMenuSettings.colorSettings.barBackgroundFillColor;
+}
+sf::Color DropDownMenu::constructBarBackgroundOutlineColor() const
+{
+	return mDropDownMenuSettings.colorSettings.barBackgroundOutlineColor;
+}
+sf::Color DropDownMenu::constructBarFillColor() const
+{
+	return mDropDownMenuSettings.colorSettings.barFillColor;
+}
+sf::Color DropDownMenu::constructBarOutlineColor() const
+{
+	return mDropDownMenuSettings.colorSettings.barOutlineColor;
 }
 
 

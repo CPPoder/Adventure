@@ -29,6 +29,21 @@ struct DropDownMenuSettings
 		sf::Color touchedDropDownOutlineColor;
 		sf::Color touchedDropDownTextColor;
 
+		//Color of Triangle
+		sf::Color closedTriangleBackgroundColor;
+		sf::Color closedTriangleOutlineColor;
+		sf::Color openTriangleBackgroundColor;
+		sf::Color openTriangleOutlineColor;
+		sf::Color inactiveTriangleBackgroundColor;
+		sf::Color inactiveTriangleOutlineColor;
+
+		//Color of Bar
+		sf::Color barBackgroundFillColor;
+		sf::Color barBackgroundOutlineColor;
+		sf::Color barFillColor;
+		sf::Color barOutlineColor;
+
+
 		ColorSettings(
 			sf::Color const & _normalActualChoiceBackgroundColor,
 			sf::Color const & _normalActualChoiceOutlineColor,
@@ -41,7 +56,17 @@ struct DropDownMenuSettings
 			sf::Color const & _normalDropDownTextColor,
 			sf::Color const & _touchedDropDownBackgroundColor,
 			sf::Color const & _touchedDropDownOutlineColor,
-			sf::Color const & _touchedDropDownTextColor
+			sf::Color const & _touchedDropDownTextColor,
+			sf::Color const & _closedTriangleBackgroundColor,
+		    sf::Color const & _closedTriangleOutlineColor,
+		    sf::Color const & _openTriangleBackgroundColor,
+		    sf::Color const & _openTriangleOutlineColor,
+			sf::Color const & _inactiveTriangleBackgroundColor,
+			sf::Color const & _inactiveTriangleOutlineColor,
+			sf::Color const & _barBackgroundFillColor,
+			sf::Color const & _barBackgroundOutlineColor,
+			sf::Color const & _barFillColor,
+			sf::Color const & _barOutlineColor
 		)
 			: normalActualChoiceBackgroundColor(_normalActualChoiceBackgroundColor),
 			normalActualChoiceOutlineColor(_normalActualChoiceOutlineColor),
@@ -54,7 +79,17 @@ struct DropDownMenuSettings
 			normalDropDownTextColor(_normalDropDownTextColor),
 			touchedDropDownBackgroundColor(_touchedDropDownBackgroundColor),
 			touchedDropDownOutlineColor(_touchedDropDownOutlineColor),
-			touchedDropDownTextColor(_touchedDropDownTextColor)
+			touchedDropDownTextColor(_touchedDropDownTextColor),
+			closedTriangleBackgroundColor(_closedTriangleBackgroundColor),
+			closedTriangleOutlineColor(_closedTriangleOutlineColor),
+			openTriangleBackgroundColor(_openTriangleBackgroundColor),
+			openTriangleOutlineColor(_openTriangleOutlineColor),
+			inactiveTriangleBackgroundColor(_inactiveTriangleBackgroundColor),
+			inactiveTriangleOutlineColor(_inactiveTriangleOutlineColor),
+			barBackgroundFillColor(_barBackgroundFillColor),
+			barBackgroundOutlineColor(_barBackgroundOutlineColor),
+			barFillColor(_barFillColor),
+			barOutlineColor(_barOutlineColor)
 		{}
 
 		static const ColorSettings standardColorSettings;

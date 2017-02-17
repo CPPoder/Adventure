@@ -28,6 +28,7 @@ private:
 	sf::Vector2f mPosition;
 	sf::Vector2f mSizeOfSingleField;
 	sf::Vector2f mSizeOfDropMenu;
+	float mBarWidth = 20.f;
 
 	unsigned int mCharacterSize = 12u;
 
@@ -45,9 +46,13 @@ private:
 
 	mySFML::Class::RectShape mRectShapeOfActualChoice;
 	mySFML::Class::Text mTextDrawableOfActualChoice;
+	sf::CircleShape mTriangle;
 
 	std::vector<mySFML::Class::RectShape> mVectorOfRectShapes;
 	std::vector<mySFML::Class::Text> mVectorOfTexts;
+
+	mySFML::Class::RectShape mRectShapeOfBarBackground;
+	mySFML::Class::RectShape mRectShapeOfBar;
 
 
 public:
@@ -98,6 +103,15 @@ private:
 
 	sf::Vector2f constructChoiceTextPos(unsigned int choiceNumber) const;
 	sf::Color constructChoiceTextColor(unsigned int choiceNumber) const;
+
+	sf::Color constructTriangleBackgroundColor() const;
+	sf::Color constructTriangleOutlineColor() const;
+
+	sf::Color constructBarBackgroundFillColor() const;
+	sf::Color constructBarBackgroundOutlineColor() const;
+	sf::Color constructBarFillColor() const;
+	sf::Color constructBarOutlineColor() const;
+
 
 };
 
