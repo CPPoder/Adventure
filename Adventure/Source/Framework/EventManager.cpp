@@ -20,6 +20,8 @@ bool EventManager::checkForEvent(EventType eventType)
 		return mIsMouseReleased;
 	case EventType::TEXT_ENTERED:
 		return mIsTextEntered;
+	case EventType::MOUSE_DRAGGED:
+		return mIsMouseDragged;
 	}
 }
 
@@ -75,6 +77,10 @@ std::string EventManager::getTextEnteredText(TextMode textMode)
 	}
 	}
 }
+EventManager::MouseDraggedInfo EventManager::getMouseDraggedInfo()
+{
+	return EventManager::MouseDraggedInfo(mDraggedButton, mDraggedOldMousePos, mDraggedNewMousePos);
+}
 
 
 
@@ -83,6 +89,12 @@ std::string EventManager::getTextEnteredText(TextMode textMode)
 
 void EventManager::reset()
 {
+	//Fill memory variables with old values
+	mDraggedWasMousePressed = mDraggedIsMousePressed;
+	mDraggedOldMousePos = mDraggedNewMousePos;
+	mDraggedOldMouseButton = mDraggedNewMouseButton;
+
+	//Reset Values
 	mIsKeyPressed = false;
 	mIsKeyReleased = false;
 	mIsMouseWheelScrolled = false;
@@ -90,7 +102,9 @@ void EventManager::reset()
 	mIsMouseReleased = false;
 	mIsTextEntered = false;
 	mText = "";
+	mIsMouseDragged = false;
 }
+
 void EventManager::setPressedMouseEvent(EventManager::MouseInfo mouseInfo)
 {
 	mIsMousePressed = true;
@@ -133,7 +147,22 @@ void EventManager::setTextEnteredEvent(sf::String const & text)
 	mIsTextEntered = true;
 	mText += text;
 }
-
+void EventManager::checkForMouseDragging(sf::RenderWindow const * renderWindow)
+{
+	mDraggedIsMousePressed = sf::Mouse::isButtonPressed(sf::Mouse::Button::Left);
+	if (mDraggedIsMousePressed)
+	{
+		mDraggedNewMousePos = sf::Mouse::getPosition(*renderWindow);
+		mDraggedNewMouseButton = sf::Mouse::Button::Left;
+	}
+	if (mDraggedWasMousePressed && mDraggedIsMousePressed && (mDraggedOldMouseButton == mDraggedNewMouseButton) && (mDraggedOldMousePos != mDraggedNewMousePos))
+	{
+		mIsMouseDragged = true;
+		mDraggedButton = mDraggedOldMouseButton;
+		mDraggedOldMousePos = mDraggedOldMousePos;
+		mDraggedNewMousePos = mDraggedNewMousePos;
+	}
+}
 
 
 
@@ -177,3 +206,15 @@ bool				EventManager::mReleasedKeyWithSystem		=	false;
 //TextEntered
 bool				EventManager::mIsTextEntered				=	false;
 sf::String			EventManager::mText							=	"";
+
+//MouseDragged
+bool				EventManager::mDraggedWasMousePressed		=	false;
+bool				EventManager::mDraggedIsMousePressed		=	false;
+sf::Mouse::Button	EventManager::mDraggedOldMouseButton		=	sf::Mouse::Button::Left;
+sf::Mouse::Button	EventManager::mDraggedNewMouseButton		=	sf::Mouse::Button::Left;
+bool				EventManager::mIsMouseDragged				=	false;
+sf::Mouse::Button	EventManager::mDraggedButton				=	sf::Mouse::Button::Left;
+sf::Vector2i		EventManager::mDraggedOldMousePos			=	sf::Vector2i();
+sf::Vector2i		EventManager::mDraggedNewMousePos			=	sf::Vector2i();
+
+

@@ -18,6 +18,7 @@ public:
 		KEY_RELEASED,
 		TEXT_ENTERED,
 		MOUSE_WHEEL_SCROLLED,
+		MOUSE_DRAGGED,
 
 		NUM_OF_EVENT_TYPES
 	};
@@ -67,6 +68,18 @@ public:
 		}
 	};
 
+	struct MouseDraggedInfo
+	{
+		sf::Mouse::Button button;
+		sf::Vector2i oldPosition;
+		sf::Vector2i newPosition;
+
+		MouseDraggedInfo(sf::Mouse::Button const & _button, sf::Vector2i const & _oldPosition, sf::Vector2i const & _newPosition)
+			: button(_button), oldPosition(_oldPosition), newPosition(_newPosition)
+		{
+		}
+	};
+
 
 private:
 	//Mouse Pressed
@@ -104,6 +117,16 @@ private:
 	static bool					mIsTextEntered;
 	static sf::String			mText;
 
+	//MouseDragged
+	static bool					mDraggedWasMousePressed;
+	static bool					mDraggedIsMousePressed;
+	static sf::Mouse::Button	mDraggedOldMouseButton;
+	static sf::Mouse::Button	mDraggedNewMouseButton;
+	static bool					mIsMouseDragged;
+	static sf::Mouse::Button	mDraggedButton;
+	static sf::Vector2i			mDraggedOldMousePos;
+	static sf::Vector2i			mDraggedNewMousePos;
+
 
 public:
 	//Delete Constructors, since EventManager is not meant to be instantiated!
@@ -123,6 +146,7 @@ public:
 	static KeyInfo getPressedKeyInfo();
 	static KeyInfo getReleasedKeyInfo();
 	static std::string getTextEnteredText(TextMode textMode = TextMode::UNFILTERED);
+	static MouseDraggedInfo getMouseDraggedInfo();
 
 
 	////////
@@ -135,6 +159,7 @@ public:
 	static void setPressedKeyEvent(KeyInfo keyInfo);
 	static void setReleasedKeyEvent(KeyInfo keyInfo);
 	static void setTextEnteredEvent(sf::String const & text);
+	static void checkForMouseDragging(sf::RenderWindow const * renderWindow);
 
 
 

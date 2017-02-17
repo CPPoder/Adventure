@@ -38,6 +38,7 @@ void Framework::handleEvents()
 {
 	sf::Event mEvent;
 	EventManager::reset();
+	EventManager::checkForMouseDragging(pRenderWindow);
 	while (pRenderWindow->pollEvent(mEvent))
 	{
 		//Handle immediately
