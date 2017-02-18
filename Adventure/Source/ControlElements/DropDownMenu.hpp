@@ -112,6 +112,9 @@ private:
 	sf::Color constructBarFillColor() const;
 	sf::Color constructBarOutlineColor() const;
 
+public:
+	bool checkIsMouseOverDropMenu(sf::Vector2f const & mousePos) const;
+
 
 };
 

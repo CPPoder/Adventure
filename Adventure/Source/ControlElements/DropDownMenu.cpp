@@ -96,7 +96,7 @@ void DropDownMenu::update(sf::Time const & frametime, sf::RenderWindow const * r
 		}
 
 		//Manage Movement of the Bar
-		if (mIsDropDownMenuOpen && EventManager::checkForEvent(EventManager::EventType::MOUSE_DRAGGED))
+		if (mIsDropDownMenuOpen && EventManager::checkForEvent(EventManager::EventType::MOUSE_DRAGGED)) //Move Bar With Dragging
 		{
 			EventManager::MouseDraggedInfo draggedInfo = EventManager::getMouseDraggedInfo();
 			if (draggedInfo.button == sf::Mouse::Button::Left)
@@ -108,6 +108,17 @@ void DropDownMenu::update(sf::Time const & frametime, sf::RenderWindow const * r
 					mCurrentPositionInDropMenu += barMovement;
 					this->setInternalObjects();
 				}
+			}
+		}
+		if (mIsDropDownMenuOpen && EventManager::checkForEvent(EventManager::EventType::MOUSE_WHEEL_SCROLLED)) //Move Bar With Scrolling
+		{
+			EventManager::MouseWheelInfo wheelInfo = EventManager::getMouseWheelScrolledInfo();
+			sf::Vector2f mousePos = static_cast<sf::Vector2f>(wheelInfo.position);
+			if (this->checkIsMouseOverDropMenu(mousePos))
+			{
+				float constexpr scrollConstant = 8.f;
+				mCurrentPositionInDropMenu -= scrollConstant * wheelInfo.delta;
+				this->setInternalObjects();
 			}
 		}
 
@@ -130,9 +141,11 @@ void DropDownMenu::render(sf::RenderWindow * renderWindow)
 	sf::View initialView = renderWindow->getView();
 	sf::View dropDownView = initialView;
 	sf::Vector2f windowSize(static_cast<sf::Vector2f>(renderWindow->getSize()));
-	sf::FloatRect wantedViewport(mPosition.x / windowSize.x, mPosition.y + mSizeOfSingleField.y / windowSize.y, mSizeOfDropMenu.x / windowSize.x, mSizeOfDropMenu.y / windowSize.y);
+	sf::FloatRect wantedViewport(mPosition.x / windowSize.x, (mPosition.y + mSizeOfSingleField.y) / windowSize.y, mSizeOfDropMenu.x / windowSize.x, mSizeOfDropMenu.y / windowSize.y);
 	dropDownView.setViewport(wantedViewport);
-	dropDownView.move(mPosition + sf::Vector2f(0.f, mSizeOfSingleField.y));
+	dropDownView.setSize(mSizeOfDropMenu);
+	dropDownView.setCenter(mPosition + sf::Vector2f(0.f, mSizeOfSingleField.y) + mSizeOfDropMenu / 2.f);
+	renderWindow->setView(dropDownView);
 	for (auto& rect : mVectorOfRectShapes)
 	{
 		renderWindow->draw(*rect.pointer);
@@ -255,14 +268,19 @@ void DropDownMenu::setInternalObjects()
 	mVectorOfTexts.clear();
 
 	//Check if mCurrentPositionInDropMenu is still valid
-	if (mCurrentPositionInDropMenu > mNumberOfChoices * mSizeOfSingleField.y)
+	if (mNumberOfChoices == 0u || (mNumberOfChoices * mSizeOfSingleField.y - mSizeOfDropMenu.y < 0.f))
 	{
 		mCurrentPositionInDropMenu = 0.f;
 	}
+	else
+	{
+		mCurrentPositionInDropMenu = myMath::Simple::trim(0.f, mCurrentPositionInDropMenu, mNumberOfChoices * mSizeOfSingleField.y - mSizeOfDropMenu.y); //(mNumberOfChoices - 1) * mSizeOfSingleField.y - mSizeOfDropMenu.y + mSizeOfSingleField.y = mNumberOfChoices * mSizeOfSingleField.y - mSizeOfDropMenu.y
+	}
+	
 
 	//Set internal State describing variables
 	mBarSizeRatio = myMath::Simple::min(mSizeOfDropMenu.y / (mNumberOfChoices * mSizeOfSingleField.y), 1.f);
-	mBarPosRatio = (mCurrentPositionInDropMenu + mSizeOfSingleField.y / 2.f) / (mNumberOfChoices * mSizeOfSingleField.y);
+	mBarPosRatio = mCurrentPositionInDropMenu / (mNumberOfChoices * mSizeOfSingleField.y);
 
 	//Set Actually Chosen Rectangle & Text
 	mRectShapeOfActualChoice = mySFML::Class::RectShape(this->constructActualChoiceRectPos(), mSizeOfSingleField, constructActualChoiceRectFillColor(), false, -2.f, constructActualChoiceRectOutlColor());
@@ -279,7 +297,7 @@ void DropDownMenu::setInternalObjects()
 	if (mIsDropDownMenuOpen)
 	{
 		sf::Vector2u visibilityBounds = this->getBoundsForVisibleRectangles();
-		for (unsigned int i = visibilityBounds.x; i < visibilityBounds.y; ++i)
+		for (unsigned int i = visibilityBounds.x; i <= visibilityBounds.y; ++i)
 		{
 			mVectorOfRectShapes.push_back(mySFML::Class::RectShape(this->constructChoiceRectPos(i), mSizeOfSingleField, this->constructChoiceRectFillColor(i), false, -1.f, this->constructChoiceRectOutlColor(i)));
 			mVectorOfTexts.push_back(mySFML::Class::Text(*pFont, this->constructChoiceTextPos(i), mVectorOfChoiceTexts.at(i), mCharacterSize, this->constructChoiceTextColor(i)));
@@ -374,9 +392,13 @@ sf::Color DropDownMenu::constructActualChoiceTextColor() const
 
 sf::Vector2u DropDownMenu::getBoundsForVisibleRectangles() const
 {
+	if (mNumberOfChoices == 0u) //Ensure mNumberOfChoicese > 0u! Needed in Line 392, where 1 is subtracted!
+	{
+		return sf::Vector2u(0u, 0u);
+	}
 	unsigned int lowerBound = static_cast<unsigned int>(mCurrentPositionInDropMenu / mSizeOfSingleField.y);
 	unsigned int upperBound = static_cast<unsigned int>((mCurrentPositionInDropMenu + mSizeOfDropMenu.y) / mSizeOfSingleField.y);
-	return sf::Vector2u(myMath::Simple::trim(0u, lowerBound, mNumberOfChoices), myMath::Simple::trim(0u, upperBound, mNumberOfChoices));
+	return sf::Vector2u(myMath::Simple::trim(0u, lowerBound, mNumberOfChoices - 1), myMath::Simple::trim(0u, upperBound, mNumberOfChoices - 1));
 }
 
 
@@ -476,6 +498,19 @@ sf::Color DropDownMenu::constructBarFillColor() const
 sf::Color DropDownMenu::constructBarOutlineColor() const
 {
 	return mDropDownMenuSettings.colorSettings.barOutlineColor;
+}
+
+
+bool DropDownMenu::checkIsMouseOverDropMenu(sf::Vector2f const & mousePos) const
+{
+	if (mIsDropDownMenuOpen)
+	{
+		return (mySFML::Comp::smaller(mPosition + sf::Vector2f(0.f, mSizeOfSingleField.y), mousePos) && mySFML::Comp::smaller(mousePos, mPosition + sf::Vector2f(0.f, mSizeOfSingleField.y) + mSizeOfDropMenu));
+	}
+	else
+	{
+		return false;
+	}
 }
 
 

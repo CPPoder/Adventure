@@ -51,13 +51,16 @@ void Editor::update(sf::Time const & frametime, sf::RenderWindow* renderWindow)
 		sf::Vector2f renderWindowSize = static_cast<sf::Vector2f>(renderWindow->getSize());
 		float leftPosOfViewport = tilesViewport.left * renderWindowSize.x;
 		sf::Vector2i mousePos = EventManager::getMouseWheelScrolledInfo().position; //Should be fixpoint
-		sf::Vector2f mousePosRelToTilesViewport = static_cast<sf::Vector2f>(mousePos) - sf::Vector2f(leftPosOfViewport, 0.f);
-		sf::Vector2f centerOfTilesViewport = sf::Vector2f(tilesViewport.width * renderWindowSize.x, tilesViewport.height * renderWindowSize.y) / 2.f;
-		sf::Vector2f correction = (zoomFactor - 1) * (centerOfTilesViewport - mousePosRelToTilesViewport);
-		float viewViewportQuotient = mTilesView.getSize().x / (tilesViewport.width * renderWindowSize.x); //Translates the correction from screenSpace into worldSpace
-		
-		mTilesView.zoom(zoomFactor);
-		mTilesView.move(correction * viewViewportQuotient);
+		if (!mDropDownMenu.checkIsMouseOverDropMenu(static_cast<sf::Vector2f>(mousePos)))
+		{
+			sf::Vector2f mousePosRelToTilesViewport = static_cast<sf::Vector2f>(mousePos) - sf::Vector2f(leftPosOfViewport, 0.f);
+			sf::Vector2f centerOfTilesViewport = sf::Vector2f(tilesViewport.width * renderWindowSize.x, tilesViewport.height * renderWindowSize.y) / 2.f;
+			sf::Vector2f correction = (zoomFactor - 1) * (centerOfTilesViewport - mousePosRelToTilesViewport);
+			float viewViewportQuotient = mTilesView.getSize().x / (tilesViewport.width * renderWindowSize.x); //Translates the correction from screenSpace into worldSpace
+
+			mTilesView.zoom(zoomFactor);
+			mTilesView.move(correction * viewViewportQuotient);
+		}
 	}
 
 	//Draw Tiles With Mouse
