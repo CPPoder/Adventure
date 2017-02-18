@@ -114,6 +114,27 @@ void Editor::update(sf::Time const & frametime, sf::RenderWindow* renderWindow)
 
 	//Update DropDownMenu
 	mDropDownMenu.update(frametime, renderWindow);
+
+	//Change MouseTileType
+	if (EventManager::checkForEvent(EventManager::EventType::MOUSE_PRESSED))
+	{
+		if (EventManager::getPressedMouseInfo().button == sf::Mouse::Button::Left)
+		{
+			sf::Vector2f mousePos = static_cast<sf::Vector2f>(EventManager::getPressedMouseInfo().position);
+			if (mTileSquareShapeOfLeftMouseTileType.getGlobalBounds().contains(mousePos))
+			{
+				mLeftMouseTileType = this->getNextTileType(mLeftMouseTileType);
+				mTileSquareShapeOfLeftMouseTileType.setTileType(mLeftMouseTileType);
+			}
+			if (mTileSquareShapeOfRightMouseTileType.getGlobalBounds().contains(mousePos))
+			{
+				mRightMouseTileType = this->getNextTileType(mRightMouseTileType);
+				mTileSquareShapeOfRightMouseTileType.setTileType(mRightMouseTileType);
+			}
+		}
+		
+
+	}
 }
 
 void Editor::render(sf::RenderWindow* renderWindow)
@@ -166,4 +187,20 @@ sf::View Editor::getInitialTilesView(sf::RenderWindow const * renderWindow) cons
 	
 	return view;
 }
+
+
+TileType Editor::getNextTileType(TileType tileType) const
+{
+	TileType newTileType = static_cast<TileType>(static_cast<int>(tileType) + 1);
+	if (newTileType == TileType::NUM_OF_TILE_TYPES)
+	{
+		return static_cast<TileType>(0);
+	}
+	else
+	{
+		return newTileType;
+	}
+}
+
+
 

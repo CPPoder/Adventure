@@ -6,6 +6,9 @@ enum class TileType
 	VOID,
 	GRAS,
 	DIRT,
+	WATER,
+	BRICK,
+	ICE,
 
 	NUM_OF_TILE_TYPES
 };

@@ -15,6 +15,11 @@ void TileSquareShape::setTileType(TileType tileType)
 	mSquare.pointer->setTextureRect(TileMap::getTextureRectForTileType(tileType));
 }
 
+sf::FloatRect TileSquareShape::getGlobalBounds() const
+{
+	return mSquare.pointer->getGlobalBounds();
+}
+
 void TileSquareShape::render(sf::RenderWindow* renderWindow)
 {
 	renderWindow->draw(*mSquare.pointer);

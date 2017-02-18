@@ -73,6 +73,7 @@ public:
 private:
 	sf::View getInitialMenuView(sf::RenderWindow const * renderWindow) const;
 	sf::View getInitialTilesView(sf::RenderWindow const * renderWindow) const;
+	TileType getNextTileType(TileType tileType) const;
 
 
 
