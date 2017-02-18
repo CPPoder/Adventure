@@ -70,14 +70,12 @@ void TileMap::setAt(TileContents const & tileContents, sf::Vector2u const & pos)
 
 bool TileMap::loadFromFile(std::string const & path)
 {
-	//Clear mVectorOfTileContents
-	mMatrixOfTileContents.clear();
-
 	//Extract lines from File
 	std::ifstream inputFileStream(path);
 	std::vector<std::string> linesOfFile;
 	if (inputFileStream.good())
 	{
+		mMatrixOfTileContents.clear();
 		while (inputFileStream.good())
 		{
 			std::string line;
