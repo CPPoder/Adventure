@@ -170,10 +170,10 @@
     <ClInclude Include="Source\GameState\GameState.hpp" />
     <ClInclude Include="Source\GameState\MainMenuState.hpp" />
     <ClInclude Include="Source\GameState\PlayingState.hpp" />
-    <ClInclude Include="Source\Game\Editor.hpp" />
-    <ClInclude Include="Source\Game\MainMenu.hpp" />
+    <ClInclude Include="Source\Game\GameBases\Editor.hpp" />
+    <ClInclude Include="Source\Game\GameBases\MainMenu.hpp" />
+    <ClInclude Include="Source\Game\GameBases\World.hpp" />
     <ClInclude Include="Source\Game\Player\Player.hpp" />
-    <ClInclude Include="Source\Game\World.hpp" />
     <ClInclude Include="Source\Tile\TileContents.hpp" />
     <ClInclude Include="Source\Tile\TileSquareShape.hpp" />
     <ClInclude Include="Source\Tile\TileType.hpp" />
@@ -200,10 +200,10 @@
     <ClCompile Include="Source\GameState\GameState.cpp" />
     <ClCompile Include="Source\GameState\MainMenuState.cpp" />
     <ClCompile Include="Source\GameState\PlayingState.cpp" />
-    <ClCompile Include="Source\Game\Editor.cpp" />
-    <ClCompile Include="Source\Game\MainMenu.cpp" />
+    <ClCompile Include="Source\Game\GameBases\Editor.cpp" />
+    <ClCompile Include="Source\Game\GameBases\MainMenu.cpp" />
+    <ClCompile Include="Source\Game\GameBases\World.cpp" />
     <ClCompile Include="Source\Game\Player\Player.cpp" />
-    <ClCompile Include="Source\Game\World.cpp" />
     <ClCompile Include="Source\Tile\TileContents.cpp" />
     <ClCompile Include="Source\Tile\TileMap.cpp" />
     <ClCompile Include="Source\Tile\TileSquareShape.cpp" />

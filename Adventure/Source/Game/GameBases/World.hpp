@@ -16,6 +16,7 @@ class World
 private:
 	TileMap mTileMap;
 	TileVertexArray mTileVertexArray;
+	Player mPlayer;
 
 
 public:

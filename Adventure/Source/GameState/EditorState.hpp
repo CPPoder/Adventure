@@ -3,7 +3,7 @@
 
 
 #include "Source\GameState\GameState.hpp"
-#include "Source\Game\Editor.hpp"
+#include "Source\Game\GameBases\Editor.hpp"
 
 
 namespace GameState

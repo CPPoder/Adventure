@@ -2,7 +2,7 @@
 #define PLAYINGSTATE_HPP
 
 #include "Source\GameState\GameState.hpp"
-#include "Source\Game\World.hpp"
+#include "Source\Game\GameBases\World.hpp"
 
 
 namespace GameState

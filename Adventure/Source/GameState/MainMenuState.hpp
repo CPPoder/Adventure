@@ -2,7 +2,7 @@
 #define MAINMENUSTATE_HPP
 
 #include "Source\GameState\GameState.hpp"
-#include "Source\Game\MainMenu.hpp"
+#include "Source\Game\GameBases\MainMenu.hpp"
 
 
 

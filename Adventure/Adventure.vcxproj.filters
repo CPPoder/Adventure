@@ -64,6 +64,12 @@
     <Filter Include="Quelldateien\Game\Player">
       <UniqueIdentifier>{1948364b-4dfd-49c3-9618-45a394828bbd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headerdateien\Game\GameBases">
+      <UniqueIdentifier>{a6316244-4a8f-4ff4-b5e4-4978f2e1aa44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\Game\GameBases">
+      <UniqueIdentifier>{71500854-4a36-4819-b2b8-da302d3bf3e1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -86,9 +92,6 @@
     </ClInclude>
     <ClInclude Include="Source\GameState\PlayingState.hpp">
       <Filter>Headerdateien\GameState</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\World.hpp">
-      <Filter>Headerdateien\Game</Filter>
     </ClInclude>
     <ClInclude Include="Source\Tile\TileType.hpp">
       <Filter>Headerdateien\Tile</Filter>
@@ -114,17 +117,11 @@
     <ClInclude Include="Source\GameState\EditorState.hpp">
       <Filter>Headerdateien\GameState</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Game\Editor.hpp">
-      <Filter>Headerdateien\Game</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Framework\EventManager.hpp">
       <Filter>Headerdateien\Framework</Filter>
     </ClInclude>
     <ClInclude Include="Source\ControlElements\Button.hpp">
       <Filter>Headerdateien\ControlElements</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\MainMenu.hpp">
-      <Filter>Headerdateien\Game</Filter>
     </ClInclude>
     <ClInclude Include="Source\ControlElements\ButtonSettings.hpp">
       <Filter>Headerdateien\ControlElements</Filter>
@@ -156,6 +153,15 @@
     <ClInclude Include="Source\Game\Player\Player.hpp">
       <Filter>Headerdateien\Game\Player</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Game\GameBases\Editor.hpp">
+      <Filter>Headerdateien\Game\GameBases</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\GameBases\MainMenu.hpp">
+      <Filter>Headerdateien\Game\GameBases</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\GameBases\World.hpp">
+      <Filter>Headerdateien\Game\GameBases</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -176,9 +182,6 @@
     <ClCompile Include="Source\GameState\PlayingState.cpp">
       <Filter>Quelldateien\GameState</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Game\World.cpp">
-      <Filter>Quelldateien\Game</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Tile\TileMap.cpp">
       <Filter>Quelldateien\Tile</Filter>
     </ClCompile>
@@ -191,17 +194,11 @@
     <ClCompile Include="Source\GameState\EditorState.cpp">
       <Filter>Quelldateien\GameState</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Game\Editor.cpp">
-      <Filter>Quelldateien\Game</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Framework\EventManager.cpp">
       <Filter>Quelldateien\Framework</Filter>
     </ClCompile>
     <ClCompile Include="Source\ControlElements\Button.cpp">
       <Filter>Quelldateien\ControlElements</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\MainMenu.cpp">
-      <Filter>Quelldateien\Game</Filter>
     </ClCompile>
     <ClCompile Include="Source\ControlElements\ButtonSettings.cpp">
       <Filter>Quelldateien\ControlElements</Filter>
@@ -235,6 +232,15 @@
     </ClCompile>
     <ClCompile Include="Source\Game\Player\Player.cpp">
       <Filter>Quelldateien\Game\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\GameBases\Editor.cpp">
+      <Filter>Quelldateien\Game\GameBases</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\GameBases\MainMenu.cpp">
+      <Filter>Quelldateien\Game\GameBases</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\GameBases\World.cpp">
+      <Filter>Quelldateien\Game\GameBases</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Source\Game\Editor.hpp"
+#include "Source\Game\GameBases\Editor.hpp"
 
 #include "Source\Framework\Framework.hpp"
 
