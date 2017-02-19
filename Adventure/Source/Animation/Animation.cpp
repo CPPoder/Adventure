@@ -70,7 +70,7 @@ void Animation::setOrigin(sf::Vector2f const & origin)
 }
 void Animation::centerOrigin()
 {
-	this->setOrigin(static_cast<sf::Vector2f>(pTextureAtlas->getSize()) / 2.f);
+	this->setOrigin(mSizeOfTextureRect / 2.f);
 }
 void Animation::setPosition(sf::Vector2f const & position)
 {
@@ -115,6 +115,7 @@ void Animation::update(sf::Time const & frametime, sf::RenderWindow const * rend
 void Animation::setTextureAtlas(sf::Texture const * textureAtlas, TextRectPositions const & textRectPositions, sf::Vector2f const & sizeOfTextRect, AnimProgram const & animProgram, AnimState initialAnimState, sf::Time const & animTime)
 {
 	pTextureAtlas = textureAtlas;
+	pSprite->setTexture(*pTextureAtlas);
 	if (!textRectPositions.empty())
 	{
 		mTextRectPositions = textRectPositions;
@@ -156,6 +157,7 @@ void Animation::useAnimationProgram(AnimProgram const & animProgram, AnimState i
 	{
 		mAnimationTime = animTime;
 	}
+	this->setInternalTextureRect();
 	mTimeSinceLastChange = sf::Time::Zero;
 }
 
@@ -165,8 +167,13 @@ void Animation::gotoNextAnimationState()
 {
 	if (++mAnimationProgramState == mCurrentAnimProgram.cend())
 	{
-		mAnimationProgramState == mCurrentAnimProgram.cbegin();
+		mAnimationProgramState = mCurrentAnimProgram.cbegin();
 	}
+	this->setInternalTextureRect();
 }
 
-
+void Animation::setInternalTextureRect()
+{
+	sf::Vector2f textRectPos = mTextRectPositions.at(*mAnimationProgramState);
+	pSprite->setTextureRect(static_cast<sf::IntRect>(sf::FloatRect(textRectPos.x, textRectPos.y, mSizeOfTextureRect.x, mSizeOfTextureRect.y)));
+}

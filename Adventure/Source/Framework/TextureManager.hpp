@@ -14,6 +14,7 @@ public:
 	enum class TextureName
 	{
 		TILE_TEXTURE_ATLAS,
+		PLAYER_TEXTURE_ATLAS,
 
 		NUM_OF_TEXTURE_NAMES
 	};

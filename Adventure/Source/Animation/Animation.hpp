@@ -71,6 +71,7 @@ public:
 
 private:
 	void gotoNextAnimationState();
+	void setInternalTextureRect();
 
 };
 
