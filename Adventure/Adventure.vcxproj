@@ -156,6 +156,7 @@
     <ClInclude Include="..\..\..\Visual Studio Stuff\Libraries\myUsefulMath.hpp" />
     <ClInclude Include="..\..\..\Visual Studio Stuff\Libraries\ourMatrices.hpp" />
     <ClInclude Include="..\..\..\Visual Studio Stuff\Libraries\ourVectors.hpp" />
+    <ClInclude Include="Source\Animation\Animation.hpp" />
     <ClInclude Include="Source\ControlElements\Button.hpp" />
     <ClInclude Include="Source\ControlElements\ButtonSettings.hpp" />
     <ClInclude Include="Source\ControlElements\DropDownMenu.hpp" />
@@ -171,6 +172,7 @@
     <ClInclude Include="Source\GameState\PlayingState.hpp" />
     <ClInclude Include="Source\Game\Editor.hpp" />
     <ClInclude Include="Source\Game\MainMenu.hpp" />
+    <ClInclude Include="Source\Game\Player\Player.hpp" />
     <ClInclude Include="Source\Game\World.hpp" />
     <ClInclude Include="Source\Tile\TileContents.hpp" />
     <ClInclude Include="Source\Tile\TileSquareShape.hpp" />
@@ -183,6 +185,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\Visual Studio Stuff\Libraries\mySFMLVectorFunctions.cpp" />
     <ClCompile Include="..\..\..\Visual Studio Stuff\Libraries\myUsefulMath.cpp" />
+    <ClCompile Include="Source\Animation\Animation.cpp" />
     <ClCompile Include="Source\ControlElements\Button.cpp" />
     <ClCompile Include="Source\ControlElements\ButtonSettings.cpp" />
     <ClCompile Include="Source\ControlElements\DropDownMenu.cpp" />
@@ -199,6 +202,7 @@
     <ClCompile Include="Source\GameState\PlayingState.cpp" />
     <ClCompile Include="Source\Game\Editor.cpp" />
     <ClCompile Include="Source\Game\MainMenu.cpp" />
+    <ClCompile Include="Source\Game\Player\Player.cpp" />
     <ClCompile Include="Source\Game\World.cpp" />
     <ClCompile Include="Source\Tile\TileContents.cpp" />
     <ClCompile Include="Source\Tile\TileMap.cpp" />

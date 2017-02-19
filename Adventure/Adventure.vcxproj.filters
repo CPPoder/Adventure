@@ -52,6 +52,18 @@
     <Filter Include="Quelldateien\ControlElements">
       <UniqueIdentifier>{760fda2e-bd64-42fb-af3c-a2546c3d9de8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headerdateien\Animation">
+      <UniqueIdentifier>{feb770f9-78a3-409d-9129-d4a04c916c7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\Animation">
+      <UniqueIdentifier>{57e47565-dbd7-432c-ac52-6c7ae39538cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Game\Player">
+      <UniqueIdentifier>{311b0332-4c8f-4e83-82c7-fa6731ce38f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\Game\Player">
+      <UniqueIdentifier>{1948364b-4dfd-49c3-9618-45a394828bbd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -138,6 +150,12 @@
     <ClInclude Include="Source\ControlElements\DropDownMenuSettings.hpp">
       <Filter>Headerdateien\ControlElements</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Animation\Animation.hpp">
+      <Filter>Headerdateien\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Player\Player.hpp">
+      <Filter>Headerdateien\Game\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -211,6 +229,12 @@
     </ClCompile>
     <ClCompile Include="Source\ControlElements\DropDownMenuSettings.cpp">
       <Filter>Quelldateien\ControlElements</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Animation\Animation.cpp">
+      <Filter>Quelldateien\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Player\Player.cpp">
+      <Filter>Quelldateien\Game\Player</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
