@@ -4,7 +4,7 @@
 World::World()
 	: mTileMap("./Data/TileMaps/test.tm"),
 	  mTileVertexArray(mTileMap),
-	  mPlayer()
+	  mPlayer(sf::Vector2f(200.f, 200.f))
 {
 }
 

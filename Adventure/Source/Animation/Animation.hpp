@@ -11,13 +11,17 @@
 #include <list>
 
 
-typedef std::vector<sf::Vector2f> TextRectPositions;
-typedef unsigned int AnimState;
-typedef std::list<AnimState> AnimProgram;
+
 
 
 class Animation
 {
+public:
+	typedef std::vector<sf::Vector2f> TextRectPositions;
+	typedef unsigned int AnimState;
+	typedef std::list<AnimState> AnimProgram;
+
+
 private:
 	sf::Texture const * pTextureAtlas;
 

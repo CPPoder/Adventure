@@ -10,7 +10,7 @@ void TextureManager::Init()
 	mMapOfTextures.insert(std::make_pair(TextureManager::TextureName::TILE_TEXTURE_ATLAS, tileTextureAtlas));
 
 	sf::Texture* playerTextureAtlas = new sf::Texture;
-	playerTextureAtlas->loadFromFile("./Data/Textures/TestPlayer.png");
+	playerTextureAtlas->loadFromFile("./Data/Textures/Player_T.png");
 	mMapOfTextures.insert(std::make_pair(TextureManager::TextureName::PLAYER_TEXTURE_ATLAS, playerTextureAtlas));
 }
 
