@@ -42,24 +42,24 @@ enum class PlayerAnimationName
 class Player
 {
 private:
-	float const mVelocity = 200.f;
+	float const mVelocity = 150.f;
 	float const mPixelPerStep = 30.f;
 
 	sf::Vector2f const mSizeOfPlayerTextRect = sf::Vector2f(32.f, 64.f);
 	Animation::TextRectPositions const mPlayerAnimTextRectPositions = { 
-		{ 0.f, 0.f },		{ 32.f, 0.f },		{ 64.f, 0.f },		{ 96.f, 0.f },		//Right
-		{ 0.f, 64.f },		{ 32.f, 64.f },		{ 64.f, 64.f },		{ 96.f, 64.f },		//Up
-		{ 0.f, 128.f },		{ 32.f, 128.f },	{ 64.f, 128.f },	{ 96.f, 128.f },	//Left
-		{ 0.f, 192.f },		{ 32.f, 192.f },	{ 64.f, 192.f },	{ 96.f, 192.f }		//Down
+		{ 0.f, 0.f },		{ 32.f, 0.f },		{ 64.f, 0.f },		//Right
+		{ 0.f, 64.f },		{ 32.f, 64.f },		{ 64.f, 64.f },		//Up
+		{ 0.f, 128.f },		{ 32.f, 128.f },	{ 64.f, 128.f },	//Left
+		{ 0.f, 192.f },		{ 32.f, 192.f },	{ 64.f, 192.f }		//Down
 	};
 	Animation::AnimProgram const mAnimProgramOfStandingRight	=	{ 0u };
-	Animation::AnimProgram const mAnimProgramOfStandingUp		=	{ 4u };
-	Animation::AnimProgram const mAnimProgramOfStandingLeft		=	{ 8u };
-	Animation::AnimProgram const mAnimProgramOfStandingDown		=	{ 12u };
-	Animation::AnimProgram const mAnimProgramOfWalkingRight		=	{ 1u, 2u, 3u, 0u };
-	Animation::AnimProgram const mAnimProgramOfWalkingUp		=	{ 5u, 6u, 7u, 4u };
-	Animation::AnimProgram const mAnimProgramOfWalkingLeft		=	{ 9u, 10u, 11u, 8u };
-	Animation::AnimProgram const mAnimProgramOfWalkingDown		=	{ 13u, 14u, 15u, 12u };
+	Animation::AnimProgram const mAnimProgramOfStandingUp		=	{ 3u };
+	Animation::AnimProgram const mAnimProgramOfStandingLeft		=	{ 6u };
+	Animation::AnimProgram const mAnimProgramOfStandingDown		=	{ 9u };
+	Animation::AnimProgram const mAnimProgramOfWalkingRight		=	{ 1u, 0u, 2u, 0u };
+	Animation::AnimProgram const mAnimProgramOfWalkingUp		=	{ 4u, 3u, 5u, 3u };
+	Animation::AnimProgram const mAnimProgramOfWalkingLeft		=	{ 7u, 6u, 8u, 6u };
+	Animation::AnimProgram const mAnimProgramOfWalkingDown		=	{ 10u, 9u, 11u, 9u };
 
 	PlayerState mPlayerState = PlayerState::STANDING;
 	PlayerDirection mPlayerDirection = PlayerDirection::RIGHT;
