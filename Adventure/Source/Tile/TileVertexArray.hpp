@@ -15,6 +15,7 @@ class TileVertexArray
 private:
 	sf::Texture const *pTextureAtlasOfTiles;
 	sf::VertexArray *pVertexArray;
+	float mEpsilon = 1.0E-04f;
 
 public:
 	TileVertexArray(TileMap const & tileMap);

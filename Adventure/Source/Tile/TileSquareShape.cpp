@@ -3,7 +3,7 @@
 
 
 TileSquareShape::TileSquareShape(sf::Vector2f const & position, TileType tileType, float outlineThickness, sf::Color const & outlineColor, float scaleFactor)
-	: mSquare(position, sf::Vector2f(TileMap::sSizeOfATile, TileMap::sSizeOfATile), sf::Color::White, false, outlineThickness, outlineColor)
+	: mSquare(position, sf::Vector2f(static_cast<float>(TileMap::sSizeOfATile), static_cast<float>(TileMap::sSizeOfATile)), sf::Color::White, false, outlineThickness, outlineColor)
 {
 	mSquare.pointer->setTexture(TextureManager::getTexture(TextureManager::TextureName::TILE_TEXTURE_ATLAS));
 	mSquare.pointer->setScale(scaleFactor, scaleFactor);

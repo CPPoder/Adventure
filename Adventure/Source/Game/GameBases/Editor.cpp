@@ -28,6 +28,14 @@ Editor::~Editor()
 
 void Editor::update(sf::Time const & frametime, sf::RenderWindow* renderWindow)
 {
+	/*
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::N))
+	{
+		int i = 0;
+		++i;
+	}
+	*/
+
 	//Change TilesView
 	if (EventManager::checkForEvent(EventManager::EventType::MOUSE_WHEEL_SCROLLED))
 	{

@@ -43,7 +43,7 @@ class Player
 {
 private:
 	float const mVelocity = 150.f;
-	float const mPixelPerStep = 30.f;
+	float const mPixelPerStep = 20.f;
 
 	sf::Vector2f const mSizeOfPlayerTextRect = sf::Vector2f(32.f, 64.f);
 	Animation::TextRectPositions const mPlayerAnimTextRectPositions = { 
@@ -65,6 +65,7 @@ private:
 	PlayerDirection mPlayerDirection = PlayerDirection::RIGHT;
 	PlayerAnimationName mPlayerAnimationName;
 	Animation mPlayerAnimation;
+	sf::CircleShape mPlayerShadow;
 
 public:
 	Player(sf::Vector2f const & position);
@@ -74,6 +75,8 @@ public:
 	void render(sf::RenderWindow* renderWindow);
 
 	void move(sf::Vector2f const & direction);
+
+	sf::Vector2f getPosition() const;
 
 
 private:

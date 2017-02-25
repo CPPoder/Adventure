@@ -7,6 +7,12 @@ Player::Player(sf::Vector2f const & position)
 	: mPlayerAnimation(TextureManager::TextureName::PLAYER_TEXTURE_ATLAS, mPlayerAnimTextRectPositions, mSizeOfPlayerTextRect, mAnimProgramOfStandingRight, mAnimProgramOfStandingRight.front(), sf::seconds(mPixelPerStep / mVelocity), position)
 {
 	mPlayerAnimationName = PlayerAnimationName::STANDING_RIGHT;
+	float shadowRadius = 10.f;
+	mPlayerShadow.setRadius(shadowRadius);
+	mPlayerShadow.setFillColor(sf::Color(0, 0, 0, 100));
+	mPlayerShadow.setOrigin(shadowRadius, shadowRadius);
+	mPlayerShadow.setPosition(mPlayerAnimation.getPosition() + sf::Vector2f(0.f, 17.f));
+
 }
 Player::~Player()
 {
@@ -21,6 +27,7 @@ void Player::update(sf::Time const & frametime, sf::RenderWindow const * renderW
 }
 void Player::render(sf::RenderWindow* renderWindow)
 {
+	renderWindow->draw(mPlayerShadow);
 	mPlayerAnimation.render(renderWindow);
 }
 
@@ -28,6 +35,13 @@ void Player::render(sf::RenderWindow* renderWindow)
 void Player::move(sf::Vector2f const & direction)
 {
 	mPlayerAnimation.move(direction);
+	mPlayerShadow.move(direction);
+}
+
+
+sf::Vector2f Player::getPosition() const
+{
+	return mPlayerAnimation.getPosition();
 }
 
 

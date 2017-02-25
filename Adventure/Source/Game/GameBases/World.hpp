@@ -17,6 +17,8 @@ private:
 	TileMap mTileMap;
 	TileVertexArray mTileVertexArray;
 	Player mPlayer;
+	sf::View mActualView;
+	sf::View mWantedView;
 
 
 public:
