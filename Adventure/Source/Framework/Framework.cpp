@@ -50,7 +50,7 @@ void Framework::handleEvents()
 		{
 			if (mEvent.key.code == sf::Keyboard::Key::Escape)
 			{
-				pRenderWindow->close();
+				mStackOfGameStates.top()->reactOnESC();
 			}
 			if (mEvent.key.code == sf::Keyboard::Key::Space)
 			{
@@ -92,12 +92,27 @@ void Framework::handleEvents()
 
 void Framework::update()
 {
-	GameState::GameStateChange gameStateChange = mStackOfGameStates.top()->getGameStateChange();
+	GameState::GameStateChange gameStateChange = mStackOfGameStates.top()->pollGameStateChange();
 	switch (gameStateChange)
 	{
 	case GameState::GameStateChange::POP:
 		delete mStackOfGameStates.top();
 		mStackOfGameStates.pop();
+		break;
+
+	case GameState::GameStateChange::POP_TWICE:
+		delete mStackOfGameStates.top();
+		mStackOfGameStates.pop();
+		delete mStackOfGameStates.top();
+		mStackOfGameStates.pop();
+		break;
+
+	case GameState::GameStateChange::POP_TWICE_AND_PUSH_MAIN_MENU_STATE:
+		delete mStackOfGameStates.top();
+		mStackOfGameStates.pop();
+		delete mStackOfGameStates.top();
+		mStackOfGameStates.pop();
+		mStackOfGameStates.push(new GameState::MainMenuState);
 		break;
 
 	case GameState::GameStateChange::PUSH_MAIN_MENU_STATE:
@@ -110,6 +125,10 @@ void Framework::update()
 
 	case GameState::GameStateChange::PUSH_EDITOR_STATE:
 		mStackOfGameStates.push(new GameState::EditorState);
+		break;
+
+	case GameState::GameStateChange::PUSH_PLAYING_MENU_STATE:
+		mStackOfGameStates.push(new GameState::PlayingMenuState);
 		break;
 
 	case GameState::GameStateChange::REPLACE_MAIN_MENU_STATE:
@@ -128,6 +147,12 @@ void Framework::update()
 		delete mStackOfGameStates.top();
 		mStackOfGameStates.pop();
 		mStackOfGameStates.push(new GameState::EditorState);
+		break;
+
+	case GameState::GameStateChange::REPLACE_PLAYING_MENU_STATE:
+		delete mStackOfGameStates.top();
+		mStackOfGameStates.pop();
+		mStackOfGameStates.push(new GameState::PlayingMenuState);
 		break;
 	}
 	if (mStackOfGameStates.empty())

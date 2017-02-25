@@ -1,24 +1,23 @@
-#ifndef MAINMENU_HPP
-#define MAINMENU_HPP
+#ifndef PLAYINGMENU_HPP
+#define PLAYINGMENU_HPP
 
-#include "SFML\Graphics.hpp"
-
-#include "Source\ControlElements\Button.hpp"
 
 #include "mySFMLVectorFunctions.hpp"
 
-class MainMenu
+#include "Source\ControlElements\Button.hpp"
+
+
+class PlayingMenu
 {
 private:
 	mySFML::Class::Fonts mFonts;
 
 	mySFML::Class::Text mHeaderText;
-	Button mPlayButton;
-	Button mEditorButton;
+	Button mContinueButton;
 	Button mExitButton;
 
 public:
-	MainMenu();
+	PlayingMenu();
 
 	void render(sf::RenderWindow* renderWindow);
 	void update(sf::Time const & frametime, sf::RenderWindow* renderWindow);
@@ -26,14 +25,13 @@ public:
 	enum class OutgoingEvent
 	{
 		NO_EVENT,
-		START_GAME,
-		START_EDITOR,
-		EXIT
+		CLOSE_PLAYING_MENU,
+		EXIT_PLAYING_MODE
 	} mOutgoingEvent = OutgoingEvent::NO_EVENT;
 
 };
 
 
 
-#endif //MAINMENU_HPP
+#endif //PLAYINGMENU_HPP
 

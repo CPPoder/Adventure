@@ -1,23 +1,22 @@
-#ifndef MAINMENUSTATE_HPP
-#define MAINMENUSTATE_HPP
+#ifndef PLAYINGMENUSTATE_HPP
+#define PLAYINGMENUSTATE_HPP
 
 #include "Source\GameState\GameState.hpp"
-#include "Source\Game\GameBases\MainMenu.hpp"
-
+#include "Source\Game\GameBases\PlayingMenu.hpp"
 
 
 namespace GameState
 {
 
-	class MainMenuState final : public GameState
+	class PlayingMenuState final : public GameState
 	{
 	private:
-		MainMenu mMainMenu;
+		PlayingMenu mPlayingMenu;
 
-		bool mCloseMainMenu = false;
+		bool mClosePlayingMenu = false;
 
 	public:
-		virtual ~MainMenuState() override;
+		virtual ~PlayingMenuState() override;
 
 		virtual void update(sf::Time const & frametime, sf::RenderWindow* renderWindow) override;
 		virtual void render(sf::RenderWindow* renderWindow) override;
@@ -27,9 +26,11 @@ namespace GameState
 
 	};
 
-}
+
+
+} //Namespace GameState
 
 
 
-#endif //MAINMENUSTATE_HPP
+#endif //PLAYINGMENUSTATE_HPP
 

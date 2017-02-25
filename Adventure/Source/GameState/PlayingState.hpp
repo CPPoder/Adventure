@@ -13,13 +13,16 @@ namespace GameState
 	private:
 		World* pWorld;
 
+		bool mOpenPlayingMenu = false;
+
 	public:
 		PlayingState();
 		virtual ~PlayingState() override;
 
 		virtual void update(sf::Time const & frametime, sf::RenderWindow* renderWindow) override;
 		virtual void render(sf::RenderWindow* renderWindow) override;
-		virtual GameStateChange getGameStateChange() const override;
+		virtual GameStateChange pollGameStateChange() override;
+		virtual void reactOnESC() override;
 
 
 	};

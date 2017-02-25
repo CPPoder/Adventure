@@ -162,6 +162,12 @@
     <ClInclude Include="Source\Game\GameBases\World.hpp">
       <Filter>Headerdateien\Game\GameBases</Filter>
     </ClInclude>
+    <ClInclude Include="Source\GameState\PlayingMenuState.hpp">
+      <Filter>Headerdateien\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\GameBases\PlayingMenu.hpp">
+      <Filter>Headerdateien\Game\GameBases</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -240,6 +246,12 @@
       <Filter>Quelldateien\Game\GameBases</Filter>
     </ClCompile>
     <ClCompile Include="Source\Game\GameBases\World.cpp">
+      <Filter>Quelldateien\Game\GameBases</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameState\PlayingMenuState.cpp">
+      <Filter>Quelldateien\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\GameBases\PlayingMenu.cpp">
       <Filter>Quelldateien\Game\GameBases</Filter>
     </ClCompile>
   </ItemGroup>

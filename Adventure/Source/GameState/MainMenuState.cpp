@@ -18,23 +18,35 @@ namespace GameState
 		mMainMenu.render(renderWindow);
 	}
 
-	GameStateChange MainMenuState::getGameStateChange() const
+	GameStateChange MainMenuState::pollGameStateChange()
 	{
-		switch (mMainMenu.mOutgoingEvent)
+		if (!mCloseMainMenu)
 		{
-		case MainMenu::OutgoingEvent::NO_EVENT:
-			return GameStateChange::NO_CHANGE;
-			break;
-		case MainMenu::OutgoingEvent::START_GAME:
-			return GameStateChange::REPLACE_PLAYING_STATE;
-			break;
-		case MainMenu::OutgoingEvent::START_EDITOR:
-			return GameStateChange::REPLACE_EDITOR_STATE;
-			break;
-		case MainMenu::OutgoingEvent::EXIT:
-			return GameStateChange::POP;
-			break;
+			switch (mMainMenu.mOutgoingEvent)
+			{
+			case MainMenu::OutgoingEvent::NO_EVENT:
+				return GameStateChange::NO_CHANGE;
+				break;
+			case MainMenu::OutgoingEvent::START_GAME:
+				return GameStateChange::REPLACE_PLAYING_STATE;
+				break;
+			case MainMenu::OutgoingEvent::START_EDITOR:
+				return GameStateChange::REPLACE_EDITOR_STATE;
+				break;
+			case MainMenu::OutgoingEvent::EXIT:
+				return GameStateChange::POP;
+				break;
+			}
 		}
+		else
+		{
+			return GameStateChange::POP;
+		}
+	}
+
+	void MainMenuState::reactOnESC()
+	{
+		mCloseMainMenu = true;
 	}
 
 }

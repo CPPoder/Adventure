@@ -169,9 +169,11 @@
     <ClInclude Include="Source\GameState\EditorState.hpp" />
     <ClInclude Include="Source\GameState\GameState.hpp" />
     <ClInclude Include="Source\GameState\MainMenuState.hpp" />
+    <ClInclude Include="Source\GameState\PlayingMenuState.hpp" />
     <ClInclude Include="Source\GameState\PlayingState.hpp" />
     <ClInclude Include="Source\Game\GameBases\Editor.hpp" />
     <ClInclude Include="Source\Game\GameBases\MainMenu.hpp" />
+    <ClInclude Include="Source\Game\GameBases\PlayingMenu.hpp" />
     <ClInclude Include="Source\Game\GameBases\World.hpp" />
     <ClInclude Include="Source\Game\Player\Player.hpp" />
     <ClInclude Include="Source\Tile\TileContents.hpp" />
@@ -199,9 +201,11 @@
     <ClCompile Include="Source\GameState\EditorState.cpp" />
     <ClCompile Include="Source\GameState\GameState.cpp" />
     <ClCompile Include="Source\GameState\MainMenuState.cpp" />
+    <ClCompile Include="Source\GameState\PlayingMenuState.cpp" />
     <ClCompile Include="Source\GameState\PlayingState.cpp" />
     <ClCompile Include="Source\Game\GameBases\Editor.cpp" />
     <ClCompile Include="Source\Game\GameBases\MainMenu.cpp" />
+    <ClCompile Include="Source\Game\GameBases\PlayingMenu.cpp" />
     <ClCompile Include="Source\Game\GameBases\World.cpp" />
     <ClCompile Include="Source\Game\Player\Player.cpp" />
     <ClCompile Include="Source\Tile\TileContents.cpp" />

@@ -26,9 +26,24 @@ namespace GameState
 		pWorld->render(renderWindow);
 	}
 
-	GameStateChange PlayingState::getGameStateChange() const
+	GameStateChange PlayingState::pollGameStateChange()
 	{
-		return GameStateChange::NO_CHANGE;
+		if (mOpenPlayingMenu)
+		{
+			mOpenPlayingMenu = false;
+			return GameStateChange::PUSH_PLAYING_MENU_STATE;
+		}
+		else
+		{
+			return GameStateChange::NO_CHANGE;
+		}
 	}
-}
+
+	void PlayingState::reactOnESC()
+	{
+		mOpenPlayingMenu = true;
+	}
+
+
+} //Namespace PlayingState
 
