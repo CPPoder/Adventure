@@ -157,6 +157,7 @@
     <ClInclude Include="..\..\..\Visual Studio Stuff\Libraries\ourMatrices.hpp" />
     <ClInclude Include="..\..\..\Visual Studio Stuff\Libraries\ourVectors.hpp" />
     <ClInclude Include="Source\Animation\Animation.hpp" />
+    <ClInclude Include="Source\Collision\CollisionArea.hpp" />
     <ClInclude Include="Source\ControlElements\Button.hpp" />
     <ClInclude Include="Source\ControlElements\ButtonSettings.hpp" />
     <ClInclude Include="Source\ControlElements\DropDownMenu.hpp" />
@@ -176,6 +177,8 @@
     <ClInclude Include="Source\Game\GameBases\PlayingMenu.hpp" />
     <ClInclude Include="Source\Game\GameBases\World.hpp" />
     <ClInclude Include="Source\Game\Player\Player.hpp" />
+    <ClInclude Include="Source\Tile\Border.hpp" />
+    <ClInclude Include="Source\Tile\BorderVertexArray.hpp" />
     <ClInclude Include="Source\Tile\TileContents.hpp" />
     <ClInclude Include="Source\Tile\TileSquareShape.hpp" />
     <ClInclude Include="Source\Tile\TileType.hpp" />
@@ -188,6 +191,7 @@
     <ClCompile Include="..\..\..\Visual Studio Stuff\Libraries\mySFMLVectorFunctions.cpp" />
     <ClCompile Include="..\..\..\Visual Studio Stuff\Libraries\myUsefulMath.cpp" />
     <ClCompile Include="Source\Animation\Animation.cpp" />
+    <ClCompile Include="Source\Collision\CollisionArea.cpp" />
     <ClCompile Include="Source\ControlElements\Button.cpp" />
     <ClCompile Include="Source\ControlElements\ButtonSettings.cpp" />
     <ClCompile Include="Source\ControlElements\DropDownMenu.cpp" />
@@ -208,6 +212,8 @@
     <ClCompile Include="Source\Game\GameBases\PlayingMenu.cpp" />
     <ClCompile Include="Source\Game\GameBases\World.cpp" />
     <ClCompile Include="Source\Game\Player\Player.cpp" />
+    <ClCompile Include="Source\Tile\Border.cpp" />
+    <ClCompile Include="Source\Tile\BorderVertexArray.cpp" />
     <ClCompile Include="Source\Tile\TileContents.cpp" />
     <ClCompile Include="Source\Tile\TileMap.cpp" />
     <ClCompile Include="Source\Tile\TileSquareShape.cpp" />

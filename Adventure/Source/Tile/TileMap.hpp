@@ -4,8 +4,10 @@
 #include "SFML\Graphics.hpp"
 
 #include "Source\Tile\TileContents.hpp"
+#include "Source\Tile\Border.hpp"
 
 #include <vector>
+#include <list>
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -15,7 +17,7 @@ class TileMap
 {
 private:
 	std::vector<std::vector<TileContents>> mMatrixOfTileContents;
-	bool mHasChanged = false;
+	std::list<Border> mListOfBorders;
 
 public:
 	TileMap();
@@ -30,6 +32,9 @@ public:
 
 	void setAt(TileContents const & tileContents, unsigned int x, unsigned int y);
 	void setAt(TileContents const & tileContents, sf::Vector2u const & pos);
+
+	void addBorder(Border const & border);
+	std::list<Border> const & getListOfBorders() const;
 
 	bool loadFromFile(std::string const & path);
 	void saveToFile(std::string const & path) const;

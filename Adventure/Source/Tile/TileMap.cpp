@@ -68,6 +68,24 @@ void TileMap::setAt(TileContents const & tileContents, sf::Vector2u const & pos)
 }
 
 
+void TileMap::addBorder(Border const & border)
+{
+	for (auto b : mListOfBorders)
+	{
+		if (b == border)
+		{
+			return;
+		}
+	}
+	mListOfBorders.push_back(border);
+}
+
+std::list<Border> const & TileMap::getListOfBorders() const
+{
+	return mListOfBorders;
+}
+
+
 bool TileMap::loadFromFile(std::string const & path)
 {
 	//Extract lines from File
@@ -76,6 +94,7 @@ bool TileMap::loadFromFile(std::string const & path)
 	if (inputFileStream.good())
 	{
 		mMatrixOfTileContents.clear();
+		mListOfBorders.clear();
 		while (inputFileStream.good())
 		{
 			std::string line;
@@ -87,12 +106,47 @@ bool TileMap::loadFromFile(std::string const & path)
 	{
 		std::cerr << "Could not open File: " << path << std::endl;
 		return false;
-		//throw "TileMap::loadFromFile(std::string const & path) : Could not open File!";
 	}
 
-	//Use extracted lines and cut into integers and write into vectors
-	std::vector<std::vector<TileType>> matOfTileTypes;
+	//linesOfFile contains now all Lines as seperate entries! Now: Cut into seperate vectors for different data structure sections!
+	std::vector<std::string> linesOfTileContents;
+	std::vector<std::string> linesOfBorders;
+	bool tileContentsSection = false;
 	for (auto line : linesOfFile)
+	{
+		if (tileContentsSection && line == "<TileContents:End>")
+		{
+			break;
+		}
+		if (tileContentsSection)
+		{
+			linesOfTileContents.push_back(line);
+		}
+		if (!tileContentsSection && line == "<TileContents:Begin>")
+		{
+			tileContentsSection = true;
+		}
+	}
+	bool bordersSection = false;
+	for (auto line : linesOfFile)
+	{
+		if (bordersSection && line == "<Borders:End>")
+		{
+			break;
+		}
+		if (bordersSection)
+		{
+			linesOfBorders.push_back(line);
+		}
+		if (!bordersSection && line == "<Borders:Begin>")
+		{
+			bordersSection = true;
+		}
+	}
+
+	//Use extracted TileContentLines, cut into integers and write into vectors
+	std::vector<std::vector<TileType>> matOfTileTypes;
+	for (auto line : linesOfTileContents)
 	{
 		std::vector<TileType> tileTypeVector;
 		if (!line.empty())
@@ -112,6 +166,19 @@ bool TileMap::loadFromFile(std::string const & path)
 		}
 	}
 
+	//Use extracted BorderLines, cut into integers and write into vectors
+	std::list<Border> listOfBorders;
+	for (auto line : linesOfBorders)
+	{
+		std::stringstream stringStream(line);
+		while (stringStream.good())
+		{
+			int p1x, p1y, p2x, p2y, type;
+			stringStream >> p1x >> p1y >> p2x >> p2y >> type;
+			listOfBorders.push_back(Border(sf::Vector2i(p1x, p1y), sf::Vector2i(p2x, p2y), static_cast<Border::Type>(type)));
+		}
+	}
+
 	//Combine all extracted data (e.g. TileType, ItemType, Border, ...)
 	mMatrixOfTileContents.reserve(matOfTileTypes.size());
 	for (auto vecOfTileType : matOfTileTypes)
@@ -126,21 +193,20 @@ bool TileMap::loadFromFile(std::string const & path)
 		}
 		mMatrixOfTileContents.push_back(vecOfTileContents);
 	}
+	mListOfBorders = listOfBorders;
 
 	return true;
 }
 
 void TileMap::saveToFile(std::string const & path) const
 {
+	//OpenFileStream
 	std::ofstream outFileStream(path, std::ios_base::trunc);
 
-	bool firstVec = true;
+	//Save TileContents
+	outFileStream << "<TileContents:Begin>" << std::endl;
 	for (auto vec : mMatrixOfTileContents)
 	{
-		if (!firstVec)
-		{
-			outFileStream << std::endl;
-		}
 		bool firstTile = true;
 		for (auto tileContents : vec)
 		{
@@ -151,9 +217,19 @@ void TileMap::saveToFile(std::string const & path) const
 			outFileStream << static_cast<int>(tileContents.tileType);
 			firstTile = false;
 		}
-		firstVec = false;;
+		outFileStream << std::endl;
 	}
+	outFileStream << "<TileContents:End>" << std::endl;
 
+	//Save Borders
+	outFileStream << "<Borders:Begin>" << std::endl;
+	for (auto border : mListOfBorders)
+	{
+		outFileStream << border.point1.x << " " << border.point1.y << " " << border.point2.x << " " << border.point2.y << " " << static_cast<int>(border.type) << std::endl;
+	}
+	outFileStream << "<Borders:End>" << std::endl;
+
+	//Close FileStream
 	outFileStream.close();
 }
 

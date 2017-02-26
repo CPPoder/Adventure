@@ -2,10 +2,12 @@
 #define PLAYER_HPP
 
 #include "Source\Animation\Animation.hpp"
+#include "Source\Collision\CollisionArea.hpp"
 
 #include "SFML\Graphics.hpp"
 
 #include "myUsefulMath.hpp"
+#include "mySFMLVectorFunctions.hpp"
 
 
 enum class PlayerState
@@ -67,6 +69,9 @@ private:
 	Animation mPlayerAnimation;
 	sf::CircleShape mPlayerShadow;
 
+	CollisionArea mPlayerCollisionArea;
+	
+
 public:
 	Player(sf::Vector2f const & position);
 	~Player();
@@ -74,7 +79,7 @@ public:
 	void update(sf::Time const & frametime, sf::RenderWindow const * renderWindow);
 	void render(sf::RenderWindow* renderWindow);
 
-	void move(sf::Vector2f const & direction);
+	void move(sf::Vector2f const & movement);
 
 	sf::Vector2f getPosition() const;
 

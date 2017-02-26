@@ -13,6 +13,7 @@ Player::Player(sf::Vector2f const & position)
 	mPlayerShadow.setOrigin(shadowRadius, shadowRadius);
 	mPlayerShadow.setPosition(mPlayerAnimation.getPosition() + sf::Vector2f(0.f, 17.f));
 
+	mPlayerCollisionArea.addShape(mySFML::Class::RectShape(position + sf::Vector2f(0.f, 10.f), sf::Vector2f(20.f, 25.f), sf::Color::Green, true).pointer);
 }
 Player::~Player()
 {
@@ -29,13 +30,15 @@ void Player::render(sf::RenderWindow* renderWindow)
 {
 	renderWindow->draw(mPlayerShadow);
 	mPlayerAnimation.render(renderWindow);
+	mPlayerCollisionArea.render(renderWindow);
 }
 
 
-void Player::move(sf::Vector2f const & direction)
+void Player::move(sf::Vector2f const & movement)
 {
-	mPlayerAnimation.move(direction);
-	mPlayerShadow.move(direction);
+	mPlayerAnimation.move(movement);
+	mPlayerShadow.move(movement);
+	mPlayerCollisionArea.move(movement);
 }
 
 
@@ -143,8 +146,6 @@ void Player::handleMovement(sf::Time const & frametime)
 	{
 		this->move(this->getUnitVectorInDirection(mPlayerDirection) * mVelocity * frametime.asSeconds());
 	}
-
-
 
 }
 

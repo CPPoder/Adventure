@@ -70,6 +70,12 @@
     <Filter Include="Quelldateien\Game\GameBases">
       <UniqueIdentifier>{71500854-4a36-4819-b2b8-da302d3bf3e1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headerdateien\Collision">
+      <UniqueIdentifier>{d651b198-a3d0-493e-b4da-890b98f72de0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\Collision">
+      <UniqueIdentifier>{009d382a-57fd-485e-9658-4d2fd0dd77d1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -168,6 +174,15 @@
     <ClInclude Include="Source\Game\GameBases\PlayingMenu.hpp">
       <Filter>Headerdateien\Game\GameBases</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Tile\Border.hpp">
+      <Filter>Headerdateien\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Tile\BorderVertexArray.hpp">
+      <Filter>Headerdateien\Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Collision\CollisionArea.hpp">
+      <Filter>Headerdateien\Collision</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -253,6 +268,15 @@
     </ClCompile>
     <ClCompile Include="Source\Game\GameBases\PlayingMenu.cpp">
       <Filter>Quelldateien\Game\GameBases</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Tile\Border.cpp">
+      <Filter>Quelldateien\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Tile\BorderVertexArray.cpp">
+      <Filter>Quelldateien\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Collision\CollisionArea.cpp">
+      <Filter>Quelldateien\Collision</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

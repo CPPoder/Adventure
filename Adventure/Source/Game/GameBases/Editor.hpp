@@ -5,6 +5,7 @@
 
 #include "Source\Tile\TileMap.hpp"
 #include "Source\Tile\TileVertexArray.hpp"
+#include "Source\Tile\BorderVertexArray.hpp"
 #include "Source\ControlElements\TextField.hpp"
 #include "Source\ControlElements\Button.hpp"
 #include "Source\Tile\TileSquareShape.hpp"
@@ -24,10 +25,16 @@ private:
 	//Interaction Variables
 	TileType mLeftMouseTileType = TileType::DIRT;
 	TileType mRightMouseTileType = TileType::GRAS;
+	bool mDrawBordersInsteadOfTiles = false;
 
 	//Tile Variables
 	TileMap mTileMap;
 	TileVertexArray mTileVertexArray;
+	BorderVertexArray mBorderVertexArray;
+	Border mBorderOfActualBorderDrawing;
+	BorderVertexArray mBorderVertexArrayOfActualBorderDrawing;
+	bool mDrawBVAOfActualBorderDrawing = false;
+	Border::Type mBorderTypeOfActualBorderDrawing = Border::Type::INSURMOUNTABLE;
 
 	//Menu Variables (Basic)
 	mySFML::Class::RectShape mMenuBackgroundRectangle;
@@ -74,6 +81,7 @@ private:
 	sf::View getInitialMenuView(sf::RenderWindow const * renderWindow) const;
 	sf::View getInitialTilesView(sf::RenderWindow const * renderWindow) const;
 	TileType getNextTileType(TileType tileType) const;
+	sf::Vector2i getNearestBorderVertex(sf::Vector2f const & mousePos) const;
 
 
 

@@ -9,6 +9,9 @@ Editor::Editor()
 	  mTilesView(this->getInitialTilesView(Framework::getRenderWindow())),
 	  mTileMap(),
 	  mTileVertexArray(mTileMap),
+	  mBorderVertexArray(mTileMap),
+	  mBorderOfActualBorderDrawing(sf::Vector2i(), sf::Vector2i(), Border::Type::INSURMOUNTABLE),
+	  mBorderVertexArrayOfActualBorderDrawing(mBorderOfActualBorderDrawing),
 	  mMenuBackgroundRectangle(sf::Vector2f(0.f, 0.f), mMenuView.getSize(), sf::Color(70, 40, 10), false, -3.f, sf::Color(50, 30, 5)),
 	  mLoadTextField(mPosOfFirstLoadSaveTextField,										mSizeOfLoadSaveTextFields, "./Data/TileMaps/", mySFML::Class::FontName::ARIAL, 2.f, mCharacterSizeOfTextFields, true, InputBehaviour::BOUNDED_FROM_BELOW, 16u),
 	  mSaveTextField(mPosOfFirstLoadSaveTextField + mRelDistBetweenLoadSaveTextFilds,	mSizeOfLoadSaveTextFields, "./Data/TileMaps/", mySFML::Class::FontName::ARIAL, 2.f, mCharacterSizeOfTextFields, true, InputBehaviour::BOUNDED_FROM_BELOW, 16u),
@@ -72,28 +75,33 @@ void Editor::update(sf::Time const & frametime, sf::RenderWindow* renderWindow)
 	}
 
 	//Draw Tiles With Mouse
-	bool leftMousePressed = sf::Mouse::isButtonPressed(sf::Mouse::Button::Left);
-	bool rightMousePressed = sf::Mouse::isButtonPressed(sf::Mouse::Button::Right);
-	sf::Vector2f mouseCoords = renderWindow->mapPixelToCoords(sf::Mouse::getPosition(*renderWindow), mTilesView);
-	bool changedTileMap = false;
-	if (mouseCoords.x > 0.f && mouseCoords.y > 0.f)
+	if (!mDrawBordersInsteadOfTiles)
 	{
-		sf::Vector2u squareNumber = static_cast<sf::Vector2u>(mouseCoords / static_cast<float>(TileMap::sSizeOfATile));
-		if (leftMousePressed && !rightMousePressed)
+		bool leftMousePressed = sf::Mouse::isButtonPressed(sf::Mouse::Button::Left);
+		bool rightMousePressed = sf::Mouse::isButtonPressed(sf::Mouse::Button::Right);
+		sf::Vector2f mouseCoords = renderWindow->mapPixelToCoords(sf::Mouse::getPosition(*renderWindow), mTilesView);
+		bool changedTileMap = false;
+		if (mouseCoords.x > 0.f && mouseCoords.y > 0.f)
 		{
-			mTileMap.setAt(mLeftMouseTileType, squareNumber);
-			changedTileMap = true;
+			sf::Vector2u squareNumber = static_cast<sf::Vector2u>(mouseCoords / static_cast<float>(TileMap::sSizeOfATile));
+			if (leftMousePressed && !rightMousePressed)
+			{
+				mTileMap.setAt(mLeftMouseTileType, squareNumber);
+				changedTileMap = true;
+			}
+			if (!leftMousePressed && rightMousePressed)
+			{
+				mTileMap.setAt(mRightMouseTileType, squareNumber);
+				changedTileMap = true;
+			}
 		}
-		if (!leftMousePressed && rightMousePressed)
+		if (changedTileMap)
 		{
-			mTileMap.setAt(mRightMouseTileType, squareNumber);
-			changedTileMap = true;
+			mTileVertexArray.setTileMap(mTileMap);
+			mBorderVertexArray.setTileMap(mTileMap);
 		}
 	}
-	if (changedTileMap)
-	{
-		mTileVertexArray.setTileMap(mTileMap);
-	}
+	
 
 	//Update TextFields
 	mLoadTextField.updateState(renderWindow, &mMenuView);
@@ -110,6 +118,7 @@ void Editor::update(sf::Time const & frametime, sf::RenderWindow* renderWindow)
 		{
 			mSaveTextField.setTextString(mLoadTextField.getTextString());
 			mTileVertexArray.setTileMap(mTileMap);
+			mBorderVertexArray.setTileMap(mTileMap);
 		}
 	}
 	if (mSaveButton.getMouseReleasedEventOccured())
@@ -143,6 +152,54 @@ void Editor::update(sf::Time const & frametime, sf::RenderWindow* renderWindow)
 		
 
 	}
+
+	//Switch between Tile-Drawing and Border-Drawing-Mode
+	if (EventManager::checkForEvent(EventManager::EventType::KEY_RELEASED))
+	{
+		if (EventManager::getReleasedKeyInfo().key == sf::Keyboard::Key::B)
+		{
+			mDrawBordersInsteadOfTiles = !mDrawBordersInsteadOfTiles;
+		}
+	}
+
+
+	//Draw Borders with Mouse
+	if (mDrawBordersInsteadOfTiles)
+	{
+		if (mDrawBVAOfActualBorderDrawing)
+		{
+			sf::Vector2f mousePos = renderWindow->mapPixelToCoords(sf::Mouse::getPosition(*renderWindow), mTilesView);
+			mBorderOfActualBorderDrawing.point2 = this->getNearestBorderVertex(mousePos);
+			mBorderVertexArrayOfActualBorderDrawing.setSingleBorder(mBorderOfActualBorderDrawing);
+			if (EventManager::checkForEvent(EventManager::EventType::MOUSE_RELEASED))
+			{
+				if (EventManager::getReleasedMouseInfo().button == sf::Mouse::Button::Left)
+				{
+					mDrawBVAOfActualBorderDrawing = false;
+					mTileMap.addBorder(mBorderOfActualBorderDrawing);
+					mBorderVertexArray.setTileMap(mTileMap);
+				}
+			}
+		}
+		else
+		{
+			if (EventManager::checkForEvent(EventManager::EventType::MOUSE_PRESSED))
+			{
+				EventManager::MouseInfo mousePressedInfo = EventManager::getPressedMouseInfo();
+				if (mousePressedInfo.button == sf::Mouse::Button::Left)
+				{
+					mDrawBVAOfActualBorderDrawing = true;
+					sf::Vector2f mousePos = renderWindow->mapPixelToCoords(mousePressedInfo.position, mTilesView);
+					sf::Vector2i nearestVertexPos = this->getNearestBorderVertex(mousePos);
+					mBorderOfActualBorderDrawing.point1 = nearestVertexPos;
+					mBorderOfActualBorderDrawing.point2 = nearestVertexPos;
+					mBorderOfActualBorderDrawing.type = mBorderTypeOfActualBorderDrawing;
+					mBorderVertexArrayOfActualBorderDrawing.setSingleBorder(mBorderOfActualBorderDrawing);
+				}
+			}
+		}
+	}
+	
 }
 
 void Editor::render(sf::RenderWindow* renderWindow)
@@ -165,6 +222,11 @@ void Editor::render(sf::RenderWindow* renderWindow)
 	//Render Tile Stuff
 	renderWindow->setView(mTilesView);
 	mTileVertexArray.render(renderWindow);
+	mBorderVertexArray.render(renderWindow);
+	if (mDrawBVAOfActualBorderDrawing)
+	{
+		mBorderVertexArrayOfActualBorderDrawing.render(renderWindow);
+	}
 
 	//Reset Initial View
 	renderWindow->setView(initialView);
@@ -210,5 +272,9 @@ TileType Editor::getNextTileType(TileType tileType) const
 	}
 }
 
+sf::Vector2i Editor::getNearestBorderVertex(sf::Vector2f const & mousePos) const
+{
+	return static_cast<sf::Vector2i>((mousePos / static_cast<float>(TileMap::sSizeOfATile) + sf::Vector2f(0.5f, 0.5f)));
+}
 
 
