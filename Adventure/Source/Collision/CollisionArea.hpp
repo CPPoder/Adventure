@@ -7,6 +7,8 @@
 
 #include "mySFMLVectorFunctions.hpp"
 
+#include "Source\Collision\Line.hpp"
+
 
 class CollisionArea
 {
@@ -30,6 +32,7 @@ public:
 	void addShape(sf::Shape* shape);
 
 	bool checkCollisionWith(sf::Shape* shape) const;
+	bool checkCollisionWith(Line const & line) const;
 
 private:
 	static bool tryToConvertToRectangleShape(sf::Shape* input, sf::RectangleShape* & output);
@@ -37,13 +40,18 @@ private:
 	static bool checkIfInputIsRectangleShapeOrCircleShape(sf::Shape* input);
 
 	static bool checkCollisionBetween(sf::Shape* s1, sf::Shape* s2);
+	static bool checkCollisionBetween(sf::Shape* s, Line l);
 	static bool checkCollisionBetween(sf::CircleShape* c1, sf::CircleShape* c2);
 	static bool checkCollisionBetween(sf::CircleShape* c, sf::RectangleShape* r);
 	static bool checkCollisionBetween(sf::RectangleShape* r1, sf::RectangleShape* r2);
+	static bool checkCollisionBetween(sf::CircleShape* c, Line const & l);
+	static bool checkCollisionBetween(sf::RectangleShape* r, Line const & l);
 
 	static sf::Shape* setOriginCorrect(sf::Shape* s);
 	static sf::CircleShape* setOriginCentered(sf::CircleShape* c);
 	static sf::RectangleShape* setOriginTopLeft(sf::RectangleShape* r);
+
+	static std::vector<sf::Vector2f> getCornerPositionsOf(sf::RectangleShape* r);
 
 };
 

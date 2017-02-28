@@ -20,11 +20,24 @@ Player::~Player()
 
 }
 
-void Player::update(sf::Time const & frametime, sf::RenderWindow const * renderWindow)
+void Player::update(sf::Time const & frametime, sf::RenderWindow const * renderWindow, TileMap const & tileMap)
 {
 	this->handleMovement(frametime);
 
 	mPlayerAnimation.update(frametime, renderWindow);
+
+	bool collision = false;
+	auto listOfBorders = tileMap.getListOfBorders();
+	for (auto& border : listOfBorders)
+	{
+		if (mPlayerCollisionArea.checkCollisionWith(Line(static_cast<sf::Vector2f>(border.point1) * static_cast<float>(TileMap::sSizeOfATile), static_cast<sf::Vector2f>(border.point2) * static_cast<float>(TileMap::sSizeOfATile))))
+		{
+			collision = true;
+			break;
+		}
+	}
+	std::cout << "Collision: " << collision << std::endl;
+
 }
 void Player::render(sf::RenderWindow* renderWindow)
 {

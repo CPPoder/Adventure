@@ -3,6 +3,7 @@
 
 #include "Source\Animation\Animation.hpp"
 #include "Source\Collision\CollisionArea.hpp"
+#include "Source\Tile\TileMap.hpp"
 
 #include "SFML\Graphics.hpp"
 
@@ -76,7 +77,7 @@ public:
 	Player(sf::Vector2f const & position);
 	~Player();
 
-	void update(sf::Time const & frametime, sf::RenderWindow const * renderWindow);
+	void update(sf::Time const & frametime, sf::RenderWindow const * renderWindow, TileMap const & tileMap);
 	void render(sf::RenderWindow* renderWindow);
 
 	void move(sf::Vector2f const & movement);

@@ -158,6 +158,7 @@
     <ClInclude Include="..\..\..\Visual Studio Stuff\Libraries\ourVectors.hpp" />
     <ClInclude Include="Source\Animation\Animation.hpp" />
     <ClInclude Include="Source\Collision\CollisionArea.hpp" />
+    <ClInclude Include="Source\Collision\Line.hpp" />
     <ClInclude Include="Source\ControlElements\Button.hpp" />
     <ClInclude Include="Source\ControlElements\ButtonSettings.hpp" />
     <ClInclude Include="Source\ControlElements\DropDownMenu.hpp" />
@@ -192,6 +193,7 @@
     <ClCompile Include="..\..\..\Visual Studio Stuff\Libraries\myUsefulMath.cpp" />
     <ClCompile Include="Source\Animation\Animation.cpp" />
     <ClCompile Include="Source\Collision\CollisionArea.cpp" />
+    <ClCompile Include="Source\Collision\Line.cpp" />
     <ClCompile Include="Source\ControlElements\Button.cpp" />
     <ClCompile Include="Source\ControlElements\ButtonSettings.cpp" />
     <ClCompile Include="Source\ControlElements\DropDownMenu.cpp" />

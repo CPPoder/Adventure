@@ -19,7 +19,7 @@ World::~World()
 void World::update(sf::Time const & frametime, sf::RenderWindow* renderWindow)
 {
 	//Update Player
-	mPlayer.update(frametime, renderWindow);
+	mPlayer.update(frametime, renderWindow, mTileMap);
 
 	//Update Wanted View
 	mWantedView.setCenter(mPlayer.getPosition());
