@@ -13,7 +13,7 @@ Player::Player(sf::Vector2f const & position)
 	mPlayerShadow.setOrigin(shadowRadius, shadowRadius);
 	mPlayerShadow.setPosition(mPlayerAnimation.getPosition() + sf::Vector2f(0.f, 17.f));
 
-	mPlayerCollisionArea.addShape(mySFML::Class::RectShape(position + sf::Vector2f(0.f, 10.f), sf::Vector2f(20.f, 25.f), sf::Color::Green, true).pointer);
+	mPlayerCollisionArea.addShape(mySFML::Class::RectShape(position + sf::Vector2f(0.f, 15.f), sf::Vector2f(15.f, 15.f), sf::Color::Green, true).pointer);
 }
 Player::~Player()
 {
@@ -22,36 +22,31 @@ Player::~Player()
 
 void Player::update(sf::Time const & frametime, sf::RenderWindow const * renderWindow, TileMap const & tileMap)
 {
-	this->handleMovement(frametime);
-
+	this->handleMovement(frametime, tileMap);
 	mPlayerAnimation.update(frametime, renderWindow);
-
-	bool collision = false;
-	auto listOfBorders = tileMap.getListOfBorders();
-	for (auto& border : listOfBorders)
-	{
-		if (mPlayerCollisionArea.checkCollisionWith(Line(static_cast<sf::Vector2f>(border.point1) * static_cast<float>(TileMap::sSizeOfATile), static_cast<sf::Vector2f>(border.point2) * static_cast<float>(TileMap::sSizeOfATile))))
-		{
-			collision = true;
-			break;
-		}
-	}
-	std::cout << "Collision: " << collision << std::endl;
-
 }
 void Player::render(sf::RenderWindow* renderWindow)
 {
 	renderWindow->draw(mPlayerShadow);
 	mPlayerAnimation.render(renderWindow);
-	mPlayerCollisionArea.render(renderWindow);
+	//mPlayerCollisionArea.render(renderWindow);
 }
 
 
-void Player::move(sf::Vector2f const & movement)
+void Player::moveObjects(sf::Vector2f const & movement)
 {
 	mPlayerAnimation.move(movement);
 	mPlayerShadow.move(movement);
 	mPlayerCollisionArea.move(movement);
+}
+
+void Player::tryToMove(sf::Vector2f const & movement, TileMap const & tileMap)
+{
+	this->moveObjects(movement);
+	if (this->checkIfCollisionOccured(tileMap))
+	{
+		this->undoLastMovement(movement);
+	}
 }
 
 
@@ -62,7 +57,7 @@ sf::Vector2f Player::getPosition() const
 
 
 
-void Player::handleMovement(sf::Time const & frametime)
+void Player::handleMovement(sf::Time const & frametime, TileMap const & tileMap)
 {
 	//Handle UserInput
 	bool keyRight = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right);
@@ -157,7 +152,7 @@ void Player::handleMovement(sf::Time const & frametime)
 	//Move Animation
 	if (mPlayerState == PlayerState::WALKING)
 	{
-		this->move(this->getUnitVectorInDirection(mPlayerDirection) * mVelocity * frametime.asSeconds());
+		this->tryToMove(this->getUnitVectorInDirection(mPlayerDirection) * mVelocity * frametime.asSeconds(), tileMap);
 	}
 
 }
@@ -211,6 +206,24 @@ void Player::changeAnimation()
 }
 
 
+bool Player::checkIfCollisionOccured(TileMap const & tileMap) const
+{
+	auto listOfBorders = tileMap.getListOfBorders();
+	for (auto& border : listOfBorders)
+	{
+		if (mPlayerCollisionArea.checkCollisionWith(Line(static_cast<sf::Vector2f>(border.point1) * static_cast<float>(TileMap::sSizeOfATile), static_cast<sf::Vector2f>(border.point2) * static_cast<float>(TileMap::sSizeOfATile))))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+void Player::undoLastMovement(sf::Vector2f const & lastMovement)
+{
+	this->moveObjects(-lastMovement);
+	this->setPlayerStateAndDirection(PlayerState::STANDING, mPlayerDirection);
+}
 
 
 

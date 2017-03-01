@@ -80,15 +80,18 @@ public:
 	void update(sf::Time const & frametime, sf::RenderWindow const * renderWindow, TileMap const & tileMap);
 	void render(sf::RenderWindow* renderWindow);
 
-	void move(sf::Vector2f const & movement);
+	void moveObjects(sf::Vector2f const & movement);
+	void tryToMove(sf::Vector2f const & movement, TileMap const & tileMap);
 
 	sf::Vector2f getPosition() const;
 
 
 private:
-	void handleMovement(sf::Time const & frametime);
+	void handleMovement(sf::Time const & frametime, TileMap const & tileMap);
 	void setPlayerStateAndDirection(PlayerState playerState, PlayerDirection playerDirection);
 	void changeAnimation();
+	bool checkIfCollisionOccured(TileMap const & tileMap) const;
+	void undoLastMovement(sf::Vector2f const & lastMovement);
 
 private:
 	static PlayerAnimationName getPlayerAnimationName(PlayerState playerState, PlayerDirection playerDirection);
