@@ -7,6 +7,8 @@
 #include "Source\Tile\TileVertexArray.hpp"
 #include "Source\Game\Player\Player.hpp"
 
+#include "Source\Framework\SoundManager.hpp"
+
 #include "mySFMLVectorFunctions.hpp"
 
 

@@ -15,6 +15,7 @@ Framework::Framework()
 	mFPSClock.restart();
 
 	TextureManager::Init();
+	SoundManager::Init();
 
 	mStackOfGameStates.push(new GameState::MainMenuState);
 }
@@ -30,6 +31,8 @@ Framework::~Framework()
 		delete mStackOfGameStates.top();
 		mStackOfGameStates.pop();
 	}
+
+	SoundManager::DeInit();
 }
 
 

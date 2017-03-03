@@ -10,6 +10,8 @@ World::World()
 	mActualView = Framework::getRenderWindow()->getView();
 	mActualView.zoom(0.5f);
 	mWantedView = mActualView;
+
+	SoundManager::playMusic(MusicName::THE_BEGINNING, 10.f);
 }
 
 World::~World()

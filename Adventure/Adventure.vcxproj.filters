@@ -186,6 +186,9 @@
     <ClInclude Include="Source\Collision\Line.hpp">
       <Filter>Headerdateien\Collision</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Framework\SoundManager.hpp">
+      <Filter>Headerdateien\Framework</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -283,6 +286,9 @@
     </ClCompile>
     <ClCompile Include="Source\Collision\Line.cpp">
       <Filter>Quelldateien\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework\SoundManager.cpp">
+      <Filter>Quelldateien\Framework</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

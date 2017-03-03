@@ -17,6 +17,7 @@
 #include "Source\GameState\PlayingMenuState.hpp"
 
 #include "Source\Framework\TextureManager.hpp"
+#include "Source\Framework\SoundManager.hpp"
 
 
 class Framework
