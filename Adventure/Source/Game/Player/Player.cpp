@@ -45,6 +45,11 @@ void Player::tryToMove(sf::Vector2f const & movement, TileMap const & tileMap)
 	this->moveObjects(movement);
 	if (this->checkIfCollisionOccured(tileMap))
 	{
+		if (mHitBorderSoundClock.getElapsedTime() > mHitBorderSoundTime)
+		{
+			mHitBorderSoundClock.restart();
+			SoundManager::playOnce(SoundName::HIT_BORDER, 10.f, sf::Vector3f(), true);
+		}
 		this->undoLastMovement(movement);
 	}
 }

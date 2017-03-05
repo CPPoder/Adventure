@@ -22,6 +22,8 @@ private:
 	sf::View mActualView;
 	sf::View mWantedView;
 
+	sf::Color mColorOfAmbientLayer = sf::Color(10, 0, 25, 0);
+
 
 public:
 	World();

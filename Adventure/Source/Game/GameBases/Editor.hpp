@@ -80,6 +80,7 @@ public:
 private:
 	sf::View getInitialMenuView(sf::RenderWindow const * renderWindow) const;
 	sf::View getInitialTilesView(sf::RenderWindow const * renderWindow) const;
+	TileType getPreviousTileType(TileType tileType) const;
 	TileType getNextTileType(TileType tileType) const;
 	sf::Vector2i getNearestBorderVertex(sf::Vector2f const & mousePos) const;
 

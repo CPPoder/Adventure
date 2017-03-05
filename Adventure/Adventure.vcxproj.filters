@@ -290,5 +290,8 @@
     <ClCompile Include="Source\Framework\SoundManager.cpp">
       <Filter>Quelldateien\Framework</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Tile\TileType.cpp">
+      <Filter>Quelldateien\Tile</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

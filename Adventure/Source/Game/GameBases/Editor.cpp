@@ -73,6 +73,15 @@ void Editor::update(sf::Time const & frametime, sf::RenderWindow* renderWindow)
 			mTilesView.move(correction * viewViewportQuotient);
 		}
 	}
+	if (EventManager::checkForEvent(EventManager::EventType::MOUSE_DRAGGED))
+	{
+		EventManager::MouseDraggedInfo draggedInfo = EventManager::getMouseDraggedInfo();
+		if (draggedInfo.button == sf::Mouse::Button::Middle)
+		{
+			sf::Vector2f draggedDistance = renderWindow->mapPixelToCoords(draggedInfo.newPosition, mTilesView) - renderWindow->mapPixelToCoords(draggedInfo.oldPosition, mTilesView);
+			mTilesView.move(-draggedDistance);
+		}
+	}
 
 	//Draw Tiles With Mouse
 	if (!mDrawBordersInsteadOfTiles)
@@ -135,17 +144,33 @@ void Editor::update(sf::Time const & frametime, sf::RenderWindow* renderWindow)
 	//Change MouseTileType
 	if (EventManager::checkForEvent(EventManager::EventType::MOUSE_PRESSED))
 	{
-		if (EventManager::getPressedMouseInfo().button == sf::Mouse::Button::Left)
+		sf::Mouse::Button button = EventManager::getPressedMouseInfo().button;
+		if ((button == sf::Mouse::Button::Left) || (button == sf::Mouse::Button::Right))
 		{
+			bool nextTileType = (button == sf::Mouse::Button::Left);
 			sf::Vector2f mousePos = static_cast<sf::Vector2f>(EventManager::getPressedMouseInfo().position);
 			if (mTileSquareShapeOfLeftMouseTileType.getGlobalBounds().contains(mousePos))
 			{
-				mLeftMouseTileType = this->getNextTileType(mLeftMouseTileType);
+				if (nextTileType)
+				{
+					mLeftMouseTileType = this->getNextTileType(mLeftMouseTileType);
+				}
+				else
+				{
+					mLeftMouseTileType = this->getPreviousTileType(mLeftMouseTileType);
+				}
 				mTileSquareShapeOfLeftMouseTileType.setTileType(mLeftMouseTileType);
 			}
 			if (mTileSquareShapeOfRightMouseTileType.getGlobalBounds().contains(mousePos))
 			{
-				mRightMouseTileType = this->getNextTileType(mRightMouseTileType);
+				if (nextTileType)
+				{
+					mRightMouseTileType = this->getNextTileType(mRightMouseTileType);
+				}
+				else
+				{
+					mRightMouseTileType = this->getPreviousTileType(mRightMouseTileType);
+				}
 				mTileSquareShapeOfRightMouseTileType.setTileType(mRightMouseTileType);
 			}
 		}
@@ -269,6 +294,17 @@ TileType Editor::getNextTileType(TileType tileType) const
 	else
 	{
 		return newTileType;
+	}
+}
+TileType Editor::getPreviousTileType(TileType tileType) const
+{
+	if (static_cast<int>(tileType) == 0)
+	{
+		return static_cast<TileType>(static_cast<int>(TileType::NUM_OF_TILE_TYPES) - 1);
+	}
+	else
+	{
+		return static_cast<TileType>(static_cast<int>(tileType) - 1);
 	}
 }
 

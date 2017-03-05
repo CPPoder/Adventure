@@ -257,6 +257,7 @@ void TileMap::outputOnTerminal() const
 
 sf::IntRect TileMap::getTextureRectForTileType(TileType tileType)
 {
-	return sf::IntRect(static_cast<int>(tileType) * sSizeOfATile, 0, sSizeOfATile, sSizeOfATile);
+	sf::Vector2u tileTypePos = TileTypePositions::getPosition(tileType);
+	return sf::IntRect(tileTypePos.x * sSizeOfATile, tileTypePos.y * sSizeOfATile, sSizeOfATile, sSizeOfATile);
 }
 

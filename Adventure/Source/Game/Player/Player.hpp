@@ -5,6 +5,8 @@
 #include "Source\Collision\CollisionArea.hpp"
 #include "Source\Tile\TileMap.hpp"
 
+#include "Source\Framework\SoundManager.hpp"
+
 #include "SFML\Graphics.hpp"
 
 #include "myUsefulMath.hpp"
@@ -71,6 +73,9 @@ private:
 	sf::CircleShape mPlayerShadow;
 
 	CollisionArea mPlayerCollisionArea;
+
+	sf::Clock mHitBorderSoundClock;
+	sf::Time const mHitBorderSoundTime = sf::seconds(0.4f);
 	
 
 public:

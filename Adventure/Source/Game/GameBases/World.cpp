@@ -46,5 +46,6 @@ void World::render(sf::RenderWindow* renderWindow)
 	mPlayer.render(renderWindow);
 
 	renderWindow->setView(originalView);
+	renderWindow->draw(*mySFML::Class::RectShape(sf::Vector2f(), originalView.getSize(), mColorOfAmbientLayer, false).pointer);
 }
 

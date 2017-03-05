@@ -5,9 +5,9 @@
 //Init
 void SoundManager::Init()
 {
-	sf::SoundBuffer* somethingSoundBuffer = new sf::SoundBuffer;
-	somethingSoundBuffer->loadFromFile("Data/Sounds/SoundEffects/Something.wav");
-	mArrayOfSoundBuffers.at(static_cast<unsigned int>(SoundName::SOMETHING)) = somethingSoundBuffer;
+	sf::SoundBuffer* hitBorderSoundBuffer = new sf::SoundBuffer;
+	hitBorderSoundBuffer->loadFromFile("Data/Sounds/SoundEffects/HitBorder.wav");
+	mArrayOfSoundBuffers.at(static_cast<unsigned int>(SoundName::HIT_BORDER)) = hitBorderSoundBuffer;
 
 	pMusic = new sf::Music;
 }

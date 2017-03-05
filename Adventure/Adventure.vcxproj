@@ -221,6 +221,7 @@
     <ClCompile Include="Source\Tile\TileContents.cpp" />
     <ClCompile Include="Source\Tile\TileMap.cpp" />
     <ClCompile Include="Source\Tile\TileSquareShape.cpp" />
+    <ClCompile Include="Source\Tile\TileType.cpp" />
     <ClCompile Include="Source\Tile\TileVertexArray.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

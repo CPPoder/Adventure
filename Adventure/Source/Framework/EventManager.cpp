@@ -149,11 +149,25 @@ void EventManager::setTextEnteredEvent(sf::String const & text)
 }
 void EventManager::checkForMouseDragging(sf::RenderWindow const * renderWindow)
 {
-	mDraggedIsMousePressed = sf::Mouse::isButtonPressed(sf::Mouse::Button::Left);
+	bool leftPressed = sf::Mouse::isButtonPressed(sf::Mouse::Button::Left);
+	bool rightPressed = sf::Mouse::isButtonPressed(sf::Mouse::Button::Right);
+	bool middlePressed = sf::Mouse::isButtonPressed(sf::Mouse::Button::Middle);
+	mDraggedIsMousePressed = leftPressed || rightPressed || middlePressed;
 	if (mDraggedIsMousePressed)
 	{
 		mDraggedNewMousePos = sf::Mouse::getPosition(*renderWindow);
-		mDraggedNewMouseButton = sf::Mouse::Button::Left;
+		if (leftPressed)
+		{
+			mDraggedNewMouseButton = sf::Mouse::Button::Left;
+		}
+		else if (rightPressed)
+		{
+			mDraggedNewMouseButton = sf::Mouse::Button::Right;
+		}
+		else if (middlePressed)
+		{
+			mDraggedNewMouseButton = sf::Mouse::Button::Middle;
+		}
 	}
 	if (mDraggedWasMousePressed && mDraggedIsMousePressed && (mDraggedOldMouseButton == mDraggedNewMouseButton) && (mDraggedOldMousePos != mDraggedNewMousePos))
 	{

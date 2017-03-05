@@ -20,7 +20,7 @@ enum class MusicName
 
 enum class SoundName
 {
-	SOMETHING,
+	HIT_BORDER,
 
 	NUM_OF_SOUND_NAMES
 };
