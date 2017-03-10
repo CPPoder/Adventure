@@ -8,8 +8,8 @@ const std::array<sf::Vector2u, static_cast<unsigned int>(TileType::NUM_OF_TILE_T
 	sf::Vector2u(1u, 0u), //Gras
 	sf::Vector2u(1u, 2u), //Dirt
 	sf::Vector2u(1u, 5u), //Water
-	sf::Vector2u(0u, 8u), //Brick
-	sf::Vector2u(1u, 8u), //Ice
+	sf::Vector2u(0u, 0u), //Empty1
+	sf::Vector2u(0u, 0u), //Empty2
 
 	sf::Vector2u(0u, 1u), //Gras Dirt Transition 1
 	sf::Vector2u(1u, 1u), //Gras Dirt Transition 2
@@ -48,10 +48,26 @@ const std::array<sf::Vector2u, static_cast<unsigned int>(TileType::NUM_OF_TILE_T
 	sf::Vector2u(1u, 6u), //Water Gras Transition 6
 	sf::Vector2u(0u, 6u), //Water Gras Transition 7
 	sf::Vector2u(0u, 5u), //Water Gras Transition 8
-	sf::Vector2u(3u, 5u), //Water Gras Transition 9
-	sf::Vector2u(4u, 5u), //Water Gras Transition 10
-	sf::Vector2u(4u, 6u), //Water Gras Transition 11
-	sf::Vector2u(3u, 6u)  //Water Gras Transition 12
+	sf::Vector2u(4u, 5u), //Water Gras Transition 9
+	sf::Vector2u(5u, 5u), //Water Gras Transition 10
+	sf::Vector2u(5u, 6u), //Water Gras Transition 11
+	sf::Vector2u(4u, 6u), //Water Gras Transition 12
+	sf::Vector2u(0u, 7u), //Water Gras Transition 13
+	sf::Vector2u(1u, 7u), //Water Gras Transition 14
+	sf::Vector2u(2u, 7u), //Water Gras Transition 15
+	sf::Vector2u(3u, 5u), //Water Gras Transition 16
+	sf::Vector2u(3u, 6u), //Water Gras Transition 17
+	sf::Vector2u(3u, 7u),  //Water Gras Transition 18
+
+	sf::Vector2u(1u, 9u), //Bricked 1
+	sf::Vector2u(0u, 8u), //Bricked 2
+	sf::Vector2u(1u, 8u), //Bricked 3
+	sf::Vector2u(2u, 8u), //Bricked 4
+	sf::Vector2u(2u, 9u), //Bricked 5
+	sf::Vector2u(2u, 10u), //Bricked 6
+	sf::Vector2u(1u, 10u), //Bricked 7
+	sf::Vector2u(0u, 10u), //Bricked 8
+	sf::Vector2u(0u, 9u)  //Bricked 9
 	
 };
 
