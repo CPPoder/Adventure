@@ -189,6 +189,9 @@
     <ClInclude Include="Source\Framework\SoundManager.hpp">
       <Filter>Headerdateien\Framework</Filter>
     </ClInclude>
+    <ClInclude Include="Source\ControlElements\CheckBox.hpp">
+      <Filter>Headerdateien\ControlElements</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -292,6 +295,9 @@
     </ClCompile>
     <ClCompile Include="Source\Tile\TileType.cpp">
       <Filter>Quelldateien\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ControlElements\CheckBox.cpp">
+      <Filter>Quelldateien\ControlElements</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

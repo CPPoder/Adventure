@@ -8,6 +8,7 @@
 #include "Source\Tile\BorderVertexArray.hpp"
 #include "Source\ControlElements\TextField.hpp"
 #include "Source\ControlElements\Button.hpp"
+#include "Source\ControlElements\CheckBox.hpp"
 #include "Source\Tile\TileSquareShape.hpp"
 #include "Source\ControlElements\DropDownMenu.hpp"
 
@@ -66,6 +67,7 @@ private:
 	sf::Vector2f const mSizeOfDropMenu						= sf::Vector2f(mSizeOfSingleDropDownMenuField.x, mSizeOfSingleDropDownMenuField.y * mNumberOfFieldsInDropMenu);
 	unsigned int const mCharacterSizeOfDropDownMenu			= 14u;
 	DropDownMenu mDropDownMenu;
+	CheckBox mCheckBox;
 
 	
 	

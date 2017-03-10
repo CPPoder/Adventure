@@ -13,6 +13,7 @@ class TextureManager
 public:
 	enum class TextureName
 	{
+		CHECK_BOX_TEXTURE_ATLAS,
 		TILE_TEXTURE_ATLAS,
 		PLAYER_TEXTURE_ATLAS,
 

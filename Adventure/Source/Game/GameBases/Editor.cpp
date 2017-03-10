@@ -20,7 +20,8 @@ Editor::Editor()
 	  mTileSquareShapeOfLeftMouseTileType(mPosOfLeftMouseTileTypeSquare, mLeftMouseTileType, 2.f),
 	  mTileSquareShapeOfRightMouseTileType(mPosOfLeftMouseTileTypeSquare + mRelDistBetweenTileTypeSquares, mRightMouseTileType, 2.f),
 	  mRectShapeOfSelectionArea(mPosOfSelectionArea, static_cast<sf::Vector2f>(mSizeOfSelectionArea * TileMap::sSizeOfATile), sf::Color::White, false, 2.f),
-	  mDropDownMenu(mPosOfDropDownMenu, mSizeOfSingleDropDownMenuField, mSizeOfDropMenu, {"Option 1", "Option 2" , "Option 3" , "Option 4" , "Option 5" , "Option 6" }, mySFML::Class::FontName::ARIAL)
+	  mDropDownMenu(mPosOfDropDownMenu, mSizeOfSingleDropDownMenuField, mSizeOfDropMenu, {"Option 1", "Option 2" , "Option 3" , "Option 4" , "Option 5" , "Option 6" }, mySFML::Class::FontName::ARIAL),
+	  mCheckBox(sf::Vector2f(50.f, 200.f), false, false, false, { 32.f, 32.f })
 {
 }
 
@@ -143,6 +144,15 @@ void Editor::update(sf::Time const & frametime, sf::RenderWindow* renderWindow)
 
 	//Update DropDownMenu
 	mDropDownMenu.update(frametime, renderWindow);
+	mCheckBox.updateState(renderWindow);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Comma))
+	{
+		mCheckBox.setActive(!mCheckBox.getIsActive());
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Period))
+	{
+		mCheckBox.setTicked(!mCheckBox.getIsTicked());
+	}
 
 	//Change MouseTileType
 	if (EventManager::checkForEvent(EventManager::EventType::MOUSE_PRESSED))
@@ -246,6 +256,7 @@ void Editor::render(sf::RenderWindow* renderWindow)
 	mTileSquareShapeOfRightMouseTileType.render(renderWindow);
 	renderWindow->draw(*mRectShapeOfSelectionArea.pointer);
 	mDropDownMenu.render(renderWindow);
+	mCheckBox.render(renderWindow);
 
 	//Render Tile Stuff
 	renderWindow->setView(mTilesView);
