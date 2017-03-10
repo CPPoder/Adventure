@@ -11,7 +11,7 @@ World::World()
 	mActualView.zoom(0.5f);
 	mWantedView = mActualView;
 
-	SoundManager::playMusic(MusicName::THE_BEGINNING, 10.f);
+	SoundManager::playMusic(MusicName::THE_BEGINNING, 25.f);
 }
 
 World::~World()

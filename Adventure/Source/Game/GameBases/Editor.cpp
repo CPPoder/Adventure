@@ -86,11 +86,14 @@ void Editor::update(sf::Time const & frametime, sf::RenderWindow* renderWindow)
 	//Draw Tiles With Mouse
 	if (!mDrawBordersInsteadOfTiles)
 	{
+		sf::Vector2i mousePixelPos = sf::Mouse::getPosition(*renderWindow);
+		sf::FloatRect rectOfTillesView = sf::FloatRect(renderWindow->getSize().x * mMenuScreenWidthRatio, 0.f, renderWindow->getSize().x * (1.f - mMenuScreenWidthRatio), static_cast<float>(renderWindow->getSize().y));
+		bool mouseIsInTilesViewport = rectOfTillesView.contains(static_cast<sf::Vector2f>(mousePixelPos));
 		bool leftMousePressed = sf::Mouse::isButtonPressed(sf::Mouse::Button::Left);
 		bool rightMousePressed = sf::Mouse::isButtonPressed(sf::Mouse::Button::Right);
 		sf::Vector2f mouseCoords = renderWindow->mapPixelToCoords(sf::Mouse::getPosition(*renderWindow), mTilesView);
 		bool changedTileMap = false;
-		if (mouseCoords.x > 0.f && mouseCoords.y > 0.f)
+		if (mouseCoords.x > 0.f && mouseCoords.y > 0.f && mouseIsInTilesViewport)
 		{
 			sf::Vector2u squareNumber = static_cast<sf::Vector2u>(mouseCoords / static_cast<float>(TileMap::sSizeOfATile));
 			if (leftMousePressed && !rightMousePressed)
