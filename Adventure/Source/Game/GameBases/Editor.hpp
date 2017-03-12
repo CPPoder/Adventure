@@ -12,20 +12,25 @@
 #include "Source\Tile\TileSquareShape.hpp"
 #include "Source\ControlElements\DropDownMenu.hpp"
 
+#include <vector>
+#include <list>
+
 
 
 class Editor
 {
 private:
+	//Fonts
+	mySFML::Class::Fonts mFonts;
+
 	//Editor Variables
 	float mMenuScreenWidthRatio = 0.3f;
-
 	sf::View mMenuView;
 	sf::View mTilesView;
 
 	//Interaction Variables
 	TileType mLeftMouseTileType = TileType::DIRT;
-	TileType mRightMouseTileType = TileType::GRAS;
+	TileType mRightMouseTileType = TileType::GRASS;
 	bool mDrawBordersInsteadOfTiles = false;
 
 	//Tile Variables
@@ -58,16 +63,32 @@ private:
 	sf::Vector2f const mRelDistBetweenTileTypeSquares		= sf::Vector2f(50.f, 0.f);
 	TileSquareShape mTileSquareShapeOfLeftMouseTileType;
 	TileSquareShape mTileSquareShapeOfRightMouseTileType;
-	sf::Vector2u const mSizeOfSelectionArea					= sf::Vector2u(7u, 10u);
-	sf::Vector2f const mPosOfSelectionArea					= sf::Vector2f(20.f, 450.f);
-	mySFML::Class::RectShape mRectShapeOfSelectionArea;
+
 	sf::Vector2f const mPosOfDropDownMenu					= sf::Vector2f(20.f, 250.f);
 	sf::Vector2f const mSizeOfSingleDropDownMenuField		= sf::Vector2f(200.f, 30.f);
 	unsigned int const mNumberOfFieldsInDropMenu			= 4u;
 	sf::Vector2f const mSizeOfDropMenu						= sf::Vector2f(mSizeOfSingleDropDownMenuField.x, mSizeOfSingleDropDownMenuField.y * mNumberOfFieldsInDropMenu);
 	unsigned int const mCharacterSizeOfDropDownMenu			= 14u;
+	std::vector<TileTypeCategory> mVectorOfTileTypeCategoriesInDropDownMenu = { TileTypeCategory::GRASS,
+																				TileTypeCategory::DIRT,
+																				TileTypeCategory::WATER,
+																				TileTypeCategory::BRICKED };
+	std::vector<std::string> mVectorOfTileTypeCategoryNamesInDropDownMenu = { "Grass", "Dirt", "Water", "Bricked" };
 	DropDownMenu mDropDownMenu;
-	CheckBox mCheckBox;
+
+	sf::Vector2u const mSizeOfSelectionArea					= sf::Vector2u(7u, 10u);
+	sf::Vector2f const mPosOfSelectionArea					= sf::Vector2f(20.f, 450.f);
+	mySFML::Class::RectShape mRectShapeOfSelectionArea;
+	std::vector<TileType> mVectorOfTileTypesInSelectionArea;
+	TileTypeCategory mActiveTileTypeCategory				= TileTypeCategory::GRASS;
+	std::vector<TileSquareShape> mVectorOfTileSquareShapesInSelectionArea;
+	sf::VertexArray mVertexArrayOfSelectionAreaGrid;
+	sf::VertexArray mVertexArrayOfLastSelection;
+
+	sf::Vector2f const mPosOfBorderDrawingModeCheckBox		= sf::Vector2f(30.f, 220.f);
+	sf::Vector2f const mRelDistOfBorderDrawingMoveText		= sf::Vector2f(25.f, 0.f);
+	CheckBox mBorderDrawingModeCheckBox;
+	mySFML::Class::Text mBorderDrawingModeText;
 
 	
 	
@@ -86,6 +107,9 @@ private:
 	TileType getNextTileType(TileType tileType) const;
 	sf::Vector2i getNearestBorderVertex(sf::Vector2f const & mousePos) const;
 
+	void handleDropDownMenuTileTypeCategoryChange();
+	void constructSelectionAreaGrid();
+	void setSelectionVertexArray(unsigned int posInVectorOfTileTypes, bool clear = false);
 
 
 };

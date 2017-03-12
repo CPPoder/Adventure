@@ -20,9 +20,14 @@ Editor::Editor()
 	  mTileSquareShapeOfLeftMouseTileType(mPosOfLeftMouseTileTypeSquare, mLeftMouseTileType, 2.f),
 	  mTileSquareShapeOfRightMouseTileType(mPosOfLeftMouseTileTypeSquare + mRelDistBetweenTileTypeSquares, mRightMouseTileType, 2.f),
 	  mRectShapeOfSelectionArea(mPosOfSelectionArea, static_cast<sf::Vector2f>(mSizeOfSelectionArea * TileMap::sSizeOfATile), sf::Color::White, false, 2.f),
-	  mDropDownMenu(mPosOfDropDownMenu, mSizeOfSingleDropDownMenuField, mSizeOfDropMenu, {"Option 1", "Option 2" , "Option 3" , "Option 4" , "Option 5" , "Option 6" }, mySFML::Class::FontName::ARIAL),
-	  mCheckBox(sf::Vector2f(50.f, 200.f), false, false, false, { 32.f, 32.f })
+	  mDropDownMenu(mPosOfDropDownMenu, mSizeOfSingleDropDownMenuField, mSizeOfDropMenu, mVectorOfTileTypeCategoryNamesInDropDownMenu, mySFML::Class::FontName::ARIAL),
+	  mBorderDrawingModeCheckBox(mPosOfBorderDrawingModeCheckBox, true, false, false),
+	  mBorderDrawingModeText(*mFonts.getFont(mySFML::Class::FontName::ARIAL), mPosOfBorderDrawingModeCheckBox + mRelDistOfBorderDrawingMoveText, "Border Drawing Mode", 14u),
+	  mVertexArrayOfSelectionAreaGrid(sf::PrimitiveType::Lines),
+	  mVertexArrayOfLastSelection(sf::PrimitiveType::LineStrip)
 {
+	this->handleDropDownMenuTileTypeCategoryChange();
+	this->constructSelectionAreaGrid();
 }
 
 Editor::~Editor()
@@ -144,59 +149,59 @@ void Editor::update(sf::Time const & frametime, sf::RenderWindow* renderWindow)
 
 	//Update DropDownMenu
 	mDropDownMenu.update(frametime, renderWindow);
-	mCheckBox.updateState(renderWindow);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Comma))
+	mBorderDrawingModeCheckBox.updateState(renderWindow);
+	TileTypeCategory newTileTypeCategory = mVectorOfTileTypeCategoriesInDropDownMenu.at(mDropDownMenu.getCurrentChoice());
+	if (newTileTypeCategory != mActiveTileTypeCategory)
 	{
-		mCheckBox.setActive(!mCheckBox.getIsActive());
+		mActiveTileTypeCategory = newTileTypeCategory;
+		this->handleDropDownMenuTileTypeCategoryChange();
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Period))
-	{
-		mCheckBox.setTicked(!mCheckBox.getIsTicked());
-	}
+	
 
 	//Change MouseTileType
-	if (EventManager::checkForEvent(EventManager::EventType::MOUSE_PRESSED))
+	if (EventManager::checkForEvent(EventManager::EventType::MOUSE_RELEASED))
 	{
-		sf::Mouse::Button button = EventManager::getPressedMouseInfo().button;
-		if ((button == sf::Mouse::Button::Left) || (button == sf::Mouse::Button::Right))
+		EventManager::MouseInfo mouseInfo = EventManager::getReleasedMouseInfo();
+		if ((mouseInfo.button == sf::Mouse::Button::Left) || (mouseInfo.button == sf::Mouse::Button::Right))
 		{
-			bool nextTileType = (button == sf::Mouse::Button::Left);
-			sf::Vector2f mousePos = static_cast<sf::Vector2f>(EventManager::getPressedMouseInfo().position);
-			if (mTileSquareShapeOfLeftMouseTileType.getGlobalBounds().contains(mousePos))
+			bool leftMouse = (mouseInfo.button == sf::Mouse::Button::Left);
+			sf::Vector2f mousePos = static_cast<sf::Vector2f>(mouseInfo.position);
+			if (mRectShapeOfSelectionArea.pointer->getGlobalBounds().contains(mousePos))
 			{
-				if (nextTileType)
+				sf::Vector2u tilePos = static_cast<sf::Vector2u>((mousePos - mPosOfSelectionArea) / static_cast<float>(TileMap::sSizeOfATile));
+				unsigned int tilePosInVector = tilePos.x + tilePos.y * mSizeOfSelectionArea.x;
+				if (tilePosInVector >= mVectorOfTileTypesInSelectionArea.size())
 				{
-					mLeftMouseTileType = this->getNextTileType(mLeftMouseTileType);
+					return;
+				}
+				this->setSelectionVertexArray(tilePosInVector);
+				TileType chosenTileType = mVectorOfTileTypesInSelectionArea.at(tilePosInVector);
+				if (leftMouse)
+				{
+					mLeftMouseTileType = chosenTileType;
+					mTileSquareShapeOfLeftMouseTileType.setTileType(chosenTileType);
 				}
 				else
 				{
-					mLeftMouseTileType = this->getPreviousTileType(mLeftMouseTileType);
+					mRightMouseTileType = chosenTileType;
+					mTileSquareShapeOfRightMouseTileType.setTileType(chosenTileType);
 				}
-				mTileSquareShapeOfLeftMouseTileType.setTileType(mLeftMouseTileType);
-			}
-			if (mTileSquareShapeOfRightMouseTileType.getGlobalBounds().contains(mousePos))
-			{
-				if (nextTileType)
-				{
-					mRightMouseTileType = this->getNextTileType(mRightMouseTileType);
-				}
-				else
-				{
-					mRightMouseTileType = this->getPreviousTileType(mRightMouseTileType);
-				}
-				mTileSquareShapeOfRightMouseTileType.setTileType(mRightMouseTileType);
 			}
 		}
-		
-
 	}
 
+
 	//Switch between Tile-Drawing and Border-Drawing-Mode
-	if (EventManager::checkForEvent(EventManager::EventType::KEY_RELEASED))
+	if (mBorderDrawingModeCheckBox.getHasChangedState())
 	{
-		if (EventManager::getReleasedKeyInfo().key == sf::Keyboard::Key::B)
+		mDrawBordersInsteadOfTiles = mBorderDrawingModeCheckBox.getIsTicked();
+		if (mDrawBordersInsteadOfTiles)
 		{
-			mDrawBordersInsteadOfTiles = !mDrawBordersInsteadOfTiles;
+			mDropDownMenu.setActive(false);
+		}
+		else
+		{
+			mDropDownMenu.setActive(true);
 		}
 	}
 
@@ -256,7 +261,14 @@ void Editor::render(sf::RenderWindow* renderWindow)
 	mTileSquareShapeOfRightMouseTileType.render(renderWindow);
 	renderWindow->draw(*mRectShapeOfSelectionArea.pointer);
 	mDropDownMenu.render(renderWindow);
-	mCheckBox.render(renderWindow);
+	mBorderDrawingModeCheckBox.render(renderWindow);
+	renderWindow->draw(*mBorderDrawingModeText.pointer);
+	for (auto tileSquareShape : mVectorOfTileSquareShapesInSelectionArea)
+	{
+		tileSquareShape.render(renderWindow);
+	}
+	renderWindow->draw(mVertexArrayOfSelectionAreaGrid);
+	renderWindow->draw(mVertexArrayOfLastSelection);
 
 	//Render Tile Stuff
 	renderWindow->setView(mTilesView);
@@ -325,6 +337,75 @@ TileType Editor::getPreviousTileType(TileType tileType) const
 sf::Vector2i Editor::getNearestBorderVertex(sf::Vector2f const & mousePos) const
 {
 	return static_cast<sf::Vector2i>((mousePos / static_cast<float>(TileMap::sSizeOfATile) + sf::Vector2f(0.5f, 0.5f)));
+}
+
+
+void Editor::handleDropDownMenuTileTypeCategoryChange()
+{
+	//Fill mVectorOfTileTypesInSelectionArea
+	mVectorOfTileTypesInSelectionArea.clear();
+	for (unsigned int i = 0; i < static_cast<unsigned int>(TileType::NUM_OF_TILE_TYPES); ++i)
+	{
+		if (TileTypeProperties::getCategory(static_cast<TileType>(i)) == mActiveTileTypeCategory)
+		{
+			mVectorOfTileTypesInSelectionArea.push_back(static_cast<TileType>(i));
+		}
+	}
+	mVectorOfTileTypesInSelectionArea.shrink_to_fit();
+
+	//Create TileSquareShapes in SelectionArea
+	mVectorOfTileSquareShapesInSelectionArea.clear();
+	unsigned int size = mVectorOfTileTypesInSelectionArea.size();
+	mVectorOfTileSquareShapesInSelectionArea.reserve(size);
+	for (unsigned int i = 0; i < size; ++i)
+	{
+		sf::Vector2u position = sf::Vector2u(i % mSizeOfSelectionArea.x, i / mSizeOfSelectionArea.x);
+		sf::Vector2f realPos = mPosOfSelectionArea + sf::Vector2f(position * TileMap::sSizeOfATile);
+		mVectorOfTileSquareShapesInSelectionArea.push_back(TileSquareShape(realPos, mVectorOfTileTypesInSelectionArea.at(i)));
+	}
+
+	//Clear Selection VertexArray
+	this->setSelectionVertexArray(0u, true);
+}
+
+
+void Editor::constructSelectionAreaGrid()
+{
+	for (unsigned int x = 1; x < mSizeOfSelectionArea.x; ++x)
+	{
+		sf::Vertex vertex1(mPosOfSelectionArea + static_cast<sf::Vector2f>(sf::Vector2u(x, 0u) * TileMap::sSizeOfATile), sf::Color::Black);
+		sf::Vertex vertex2(mPosOfSelectionArea + static_cast<sf::Vector2f>(sf::Vector2u(x, mSizeOfSelectionArea.y) * TileMap::sSizeOfATile), sf::Color::Black);
+		mVertexArrayOfSelectionAreaGrid.append(vertex1);
+		mVertexArrayOfSelectionAreaGrid.append(vertex2);
+	}
+	for (unsigned int y = 1; y < mSizeOfSelectionArea.y; ++y)
+	{
+		sf::Vertex vertex1(mPosOfSelectionArea + static_cast<sf::Vector2f>(sf::Vector2u(0u, y) * TileMap::sSizeOfATile), sf::Color::Black);
+		sf::Vertex vertex2(mPosOfSelectionArea + static_cast<sf::Vector2f>(sf::Vector2u(mSizeOfSelectionArea.x, y) * TileMap::sSizeOfATile), sf::Color::Black);
+		mVertexArrayOfSelectionAreaGrid.append(vertex1);
+		mVertexArrayOfSelectionAreaGrid.append(vertex2);
+	}
+}
+
+
+void Editor::setSelectionVertexArray(unsigned int posInVectorOfTileTypes, bool clear)
+{
+	mVertexArrayOfLastSelection.clear();
+	if (clear)
+	{
+		return;
+	}
+	sf::Vector2u pos(posInVectorOfTileTypes % mSizeOfSelectionArea.x, posInVectorOfTileTypes / mSizeOfSelectionArea.x);
+	sf::Vertex v1(mPosOfSelectionArea + static_cast<sf::Vector2f>(sf::Vector2u(pos.x + 0u, pos.y + 0u) * TileMap::sSizeOfATile), sf::Color::Red);
+	sf::Vertex v2(mPosOfSelectionArea + static_cast<sf::Vector2f>(sf::Vector2u(pos.x + 1u, pos.y + 0u) * TileMap::sSizeOfATile), sf::Color::Red);
+	sf::Vertex v3(mPosOfSelectionArea + static_cast<sf::Vector2f>(sf::Vector2u(pos.x + 1u, pos.y + 1u) * TileMap::sSizeOfATile), sf::Color::Red);
+	sf::Vertex v4(mPosOfSelectionArea + static_cast<sf::Vector2f>(sf::Vector2u(pos.x + 0u, pos.y + 1u) * TileMap::sSizeOfATile), sf::Color::Red);
+	sf::Vertex v5(mPosOfSelectionArea + static_cast<sf::Vector2f>(sf::Vector2u(pos.x + 0u, pos.y + 0u) * TileMap::sSizeOfATile), sf::Color::Red);
+	mVertexArrayOfLastSelection.append(v1);
+	mVertexArrayOfLastSelection.append(v2);
+	mVertexArrayOfLastSelection.append(v3);
+	mVertexArrayOfLastSelection.append(v4);
+	mVertexArrayOfLastSelection.append(v5);
 }
 
 

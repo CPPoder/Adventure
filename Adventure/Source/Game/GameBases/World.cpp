@@ -3,7 +3,7 @@
 #include "Source\Framework\Framework.hpp"
 
 World::World()
-	: mTileMap("./Data/TileMaps/LittleMap.tm"),
+	: mTileMap("./Data/TileMaps/AnotherMap.tm"),
 	  mTileVertexArray(mTileMap),
 	  mPlayer(sf::Vector2f(200.f, 200.f))
 {
