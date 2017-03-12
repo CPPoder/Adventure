@@ -5,7 +5,7 @@
 CheckBox::CheckBox(sf::Vector2f const & position, bool active, bool ticked, bool centeredOrigin, sf::Vector2f const & size)
 	: mCheckBoxAnimation(TextureManager::TextureName::CHECK_BOX_TEXTURE_ATLAS, { { 0.f, 0.f },{ 16.f, 0.f },{ 0.f, 16.f },{ 16.f, 16.f } }, sf::Vector2f(16.f, 16.f), { 0u }, 0u, sf::seconds(1000.f), position, centeredOrigin)
 {
-	this->changeStateTo(active, ticked);
+	this->changeStateTo(active, ticked, true);
 	this->setSize(size);
 }
 
@@ -99,9 +99,9 @@ bool CheckBox::getHasChangedState()
 
 
 //Internal Functions
-void CheckBox::changeStateTo(bool active, bool ticked)
+void CheckBox::changeStateTo(bool active, bool ticked, bool changeStateGuaranteed)
 {
-	if (mIsActive != active || mIsTicked != ticked)
+	if (mIsActive != active || mIsTicked != ticked || changeStateGuaranteed)
 	{
 		mIsActive = active;
 		mIsTicked = ticked;

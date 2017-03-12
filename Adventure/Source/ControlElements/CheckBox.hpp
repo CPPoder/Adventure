@@ -39,7 +39,7 @@ public:
 
 
 private:
-	void changeStateTo(bool active, bool ticked);
+	void changeStateTo(bool active, bool ticked, bool changeStateGuaranteed = false);
 
 };
 
