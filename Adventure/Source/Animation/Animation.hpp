@@ -41,6 +41,9 @@ private:
 public:
 	//Constructors & Destructor
 	Animation(TextureManager::TextureName textureAtlasName, TextRectPositions const & textRectPositions, sf::Vector2f const & sizeOfTextRect, AnimProgram const & animProgram, AnimState initialAnimState, sf::Time const & animTime, sf::Vector2f const & position, bool centeredOrigin = true);
+	Animation(Animation const &) = delete;
+	Animation& operator=(Animation const &) = delete;
+	
 	~Animation();
 
 	//Getter

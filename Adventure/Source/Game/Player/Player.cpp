@@ -23,7 +23,10 @@ Player::~Player()
 void Player::update(sf::Time const & frametime, sf::RenderWindow const * renderWindow, TileMap const & tileMap)
 {
 	this->handleMovement(frametime, tileMap);
+	this->handleFireBallCreation();
 	mPlayerAnimation.update(frametime, renderWindow);
+
+
 }
 void Player::render(sf::RenderWindow* renderWindow)
 {
@@ -58,6 +61,12 @@ void Player::tryToMove(sf::Vector2f const & movement, TileMap const & tileMap)
 sf::Vector2f Player::getPosition() const
 {
 	return mPlayerAnimation.getPosition();
+}
+
+
+std::list<Magic::FireBall*>& Player::getAccessToListOfFireBalls()
+{
+	return mListOfFireBalls;
 }
 
 
@@ -141,7 +150,7 @@ void Player::handleMovement(sf::Time const & frametime, TileMap const & tileMap)
 			this->setPlayerStateAndDirection(PlayerState::WALKING, newDirection);
 		}
 	}
-	else // mPlayerState == PlayerState::WALKING
+	else if (mPlayerState == PlayerState::WALKING) // mPlayerState == PlayerState::WALKING
 	{
 		if (newDirectionExists)
 		{
@@ -163,12 +172,35 @@ void Player::handleMovement(sf::Time const & frametime, TileMap const & tileMap)
 }
 
 
+void Player::handleFireBallCreation()
+{
+	if (mPlayerState != PlayerState::SHOOT_FIRE_BALL)
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::K) && mFireBallCoolDownClock.getElapsedTime() > mFireBallCoolDown)
+		{
+			//Go into ShootFireBall State
+			this->setPlayerStateAndDirection(PlayerState::SHOOT_FIRE_BALL, mPlayerDirection);
+		}
+	}
+	else
+	{
+		if (mActualStateClock.getElapsedTime() > mTimeToShootFireBall)
+		{
+			//Return to Standing State and Create FireBall
+			this->setPlayerStateAndDirection(PlayerState::STANDING, mPlayerDirection);
+			mListOfFireBalls.push_back(new Magic::FireBall(this->calculateFireBallPosition(), this->calculateFireBallVelocity(), this->calculateFireBallDamage()));
+			mFireBallCoolDownClock.restart();
+		}
+	}
+
+}
 
 
 void Player::setPlayerStateAndDirection(PlayerState playerState, PlayerDirection playerDirection)
 {
 	mPlayerState = playerState;
 	mPlayerDirection = playerDirection;
+	mActualStateClock.restart();
 	PlayerAnimationName newAnim = this->getPlayerAnimationName(mPlayerState, mPlayerDirection);
 	if (newAnim != mPlayerAnimationName)
 	{
@@ -207,6 +239,18 @@ void Player::changeAnimation()
 	case PlayerAnimationName::WALKING_DOWN:
 		mPlayerAnimation.useAnimationProgram(mAnimProgramOfWalkingDown, mAnimProgramOfWalkingDown.front());
 		break;
+	case PlayerAnimationName::SHOOT_FIRE_BALL_RIGHT:
+		mPlayerAnimation.useAnimationProgram(mAnimProgramOfShootingFireBallRight, mAnimProgramOfShootingFireBallRight.front());
+		break;
+	case PlayerAnimationName::SHOOT_FIRE_BALL_UP:
+		mPlayerAnimation.useAnimationProgram(mAnimProgramOfShootingFireBallUp, mAnimProgramOfShootingFireBallUp.front());
+		break;
+	case PlayerAnimationName::SHOOT_FIRE_BALL_LEFT:
+		mPlayerAnimation.useAnimationProgram(mAnimProgramOfShootingFireBallLeft, mAnimProgramOfShootingFireBallLeft.front());
+		break;
+	case PlayerAnimationName::SHOOT_FIRE_BALL_DOWN:
+		mPlayerAnimation.useAnimationProgram(mAnimProgramOfShootingFireBallDown, mAnimProgramOfShootingFireBallDown.front());
+		break;
 	}
 }
 
@@ -228,6 +272,21 @@ void Player::undoLastMovement(sf::Vector2f const & lastMovement)
 {
 	this->moveObjects(-lastMovement);
 	this->setPlayerStateAndDirection(PlayerState::STANDING, mPlayerDirection);
+}
+
+
+
+sf::Vector2f Player::calculateFireBallPosition() const
+{
+	return mPlayerAnimation.getPosition();
+}
+sf::Vector2f Player::calculateFireBallVelocity() const
+{
+	return this->getUnitVectorInDirection(mPlayerDirection) * 200.f;
+}
+float Player::calculateFireBallDamage() const
+{
+	return 1.f;
 }
 
 
@@ -326,6 +385,53 @@ PlayerAnimationName Player::getPlayerAnimationName(PlayerState playerState, Play
 		case PlayerDirection::DOWN_RIGHT:
 		{
 			return PlayerAnimationName::WALKING_RIGHT;
+			break;
+		}
+		}
+		break;
+	}
+	case PlayerState::SHOOT_FIRE_BALL:
+	{
+		switch (playerDirection)
+		{
+		case PlayerDirection::RIGHT:
+		{
+			return PlayerAnimationName::SHOOT_FIRE_BALL_RIGHT;
+			break;
+		}
+		case PlayerDirection::RIGHT_UP:
+		{
+			return PlayerAnimationName::SHOOT_FIRE_BALL_RIGHT;
+			break;
+		}
+		case PlayerDirection::UP:
+		{
+			return PlayerAnimationName::SHOOT_FIRE_BALL_UP;
+			break;
+		}
+		case PlayerDirection::UP_LEFT:
+		{
+			return PlayerAnimationName::SHOOT_FIRE_BALL_LEFT;
+			break;
+		}
+		case PlayerDirection::LEFT:
+		{
+			return PlayerAnimationName::SHOOT_FIRE_BALL_LEFT;
+			break;
+		}
+		case PlayerDirection::LEFT_DOWN:
+		{
+			return PlayerAnimationName::SHOOT_FIRE_BALL_LEFT;
+			break;
+		}
+		case PlayerDirection::DOWN:
+		{
+			return PlayerAnimationName::SHOOT_FIRE_BALL_DOWN;
+			break;
+		}
+		case PlayerDirection::DOWN_RIGHT:
+		{
+			return PlayerAnimationName::SHOOT_FIRE_BALL_RIGHT;
 			break;
 		}
 		}

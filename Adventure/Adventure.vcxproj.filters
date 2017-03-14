@@ -76,6 +76,12 @@
     <Filter Include="Quelldateien\Collision">
       <UniqueIdentifier>{009d382a-57fd-485e-9658-4d2fd0dd77d1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headerdateien\Game\Magic">
+      <UniqueIdentifier>{4f686c4b-8253-4054-baa5-71cd06a4da22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\Game\Magic">
+      <UniqueIdentifier>{f92c1308-e33d-4d8b-b4ce-80a8a96d692a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -192,6 +198,12 @@
     <ClInclude Include="Source\ControlElements\CheckBox.hpp">
       <Filter>Headerdateien\ControlElements</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Game\Magic\FireBall.hpp">
+      <Filter>Headerdateien\Game\Magic</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Magic\Ball.hpp">
+      <Filter>Headerdateien\Game\Magic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -298,6 +310,12 @@
     </ClCompile>
     <ClCompile Include="Source\ControlElements\CheckBox.cpp">
       <Filter>Quelldateien\ControlElements</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Magic\FireBall.cpp">
+      <Filter>Quelldateien\Game\Magic</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Magic\Ball.cpp">
+      <Filter>Quelldateien\Game\Magic</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

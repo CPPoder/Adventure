@@ -6,6 +6,7 @@
 #include "Source\Tile\TileMap.hpp"
 #include "Source\Tile\TileVertexArray.hpp"
 #include "Source\Game\Player\Player.hpp"
+#include "Source\Game\Magic\FireBall.hpp"
 
 #include "Source\Framework\SoundManager.hpp"
 
@@ -21,6 +22,8 @@ private:
 	Player mPlayer;
 	sf::View mActualView;
 	sf::View mWantedView;
+
+	std::list<Magic::FireBall*> mListOfFireBalls;
 
 	sf::Color mColorOfAmbientLayer = sf::Color(10, 0, 25, 0);
 

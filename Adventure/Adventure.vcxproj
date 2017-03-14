@@ -179,6 +179,8 @@
     <ClInclude Include="Source\Game\GameBases\MainMenu.hpp" />
     <ClInclude Include="Source\Game\GameBases\PlayingMenu.hpp" />
     <ClInclude Include="Source\Game\GameBases\World.hpp" />
+    <ClInclude Include="Source\Game\Magic\Ball.hpp" />
+    <ClInclude Include="Source\Game\Magic\FireBall.hpp" />
     <ClInclude Include="Source\Game\Player\Player.hpp" />
     <ClInclude Include="Source\Tile\Border.hpp" />
     <ClInclude Include="Source\Tile\BorderVertexArray.hpp" />
@@ -217,6 +219,8 @@
     <ClCompile Include="Source\Game\GameBases\MainMenu.cpp" />
     <ClCompile Include="Source\Game\GameBases\PlayingMenu.cpp" />
     <ClCompile Include="Source\Game\GameBases\World.cpp" />
+    <ClCompile Include="Source\Game\Magic\Ball.cpp" />
+    <ClCompile Include="Source\Game\Magic\FireBall.cpp" />
     <ClCompile Include="Source\Game\Player\Player.cpp" />
     <ClCompile Include="Source\Tile\Border.cpp" />
     <ClCompile Include="Source\Tile\BorderVertexArray.cpp" />
