@@ -3,9 +3,9 @@
 #include "Source\Framework\Framework.hpp"
 
 World::World()
-	: mTileMap("./Data/TileMaps/AnotherMap.tm"),
+	: mTileMap("./Data/TileMaps/Map.tm"),
 	  mTileVertexArray(mTileMap),
-	  mPlayer(sf::Vector2f(200.f, 200.f))
+	  mPlayer(sf::Vector2f(400.f, 200.f))
 {
 	mActualView = Framework::getRenderWindow()->getView();
 	mActualView.zoom(0.5f);

@@ -29,8 +29,8 @@ private:
 	sf::View mTilesView;
 
 	//Interaction Variables
-	TileType mLeftMouseTileType = TileType::DIRT;
-	TileType mRightMouseTileType = TileType::GRASS;
+	TileType mLeftMouseTileType = 1u;
+	TileType mRightMouseTileType = 1u;
 	bool mDrawBordersInsteadOfTiles = false;
 
 	//Tile Variables

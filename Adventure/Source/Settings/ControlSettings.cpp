@@ -11,7 +11,7 @@ namespace Settings
 	}
 	bool ControlSettings::checkIfKeyBelongsToAction(sf::Keyboard::Key key, Action action)
 	{
-		return getKeySetOfAction(action).count(key);
+		return (getKeySetOfAction(action).count(key) != 0);
 	}
 	bool ControlSettings::checkIfSomeKeyOfActionIsPressed(Action action)
 	{

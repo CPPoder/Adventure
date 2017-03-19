@@ -54,7 +54,7 @@ void TileMap::setAt(TileContents const & tileContents, unsigned int x, unsigned 
 		unsigned int xDiff = x - xSize;
 		for (unsigned int i = 0; i < xDiff + 1; ++i)
 		{
-			mMatrixOfTileContents.at(y).push_back(TileContents(TileType::VOID));
+			mMatrixOfTileContents.at(y).push_back(TileContents(0u));
 		}
 	}
 	mMatrixOfTileContents.at(y).shrink_to_fit();

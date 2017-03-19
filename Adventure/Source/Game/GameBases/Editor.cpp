@@ -312,10 +312,10 @@ sf::View Editor::getInitialTilesView(sf::RenderWindow const * renderWindow) cons
 
 TileType Editor::getNextTileType(TileType tileType) const
 {
-	TileType newTileType = static_cast<TileType>(static_cast<int>(tileType) + 1);
-	if (newTileType == TileType::NUM_OF_TILE_TYPES)
+	TileType newTileType = tileType + 1;
+	if (newTileType == TileTypeProperties::sNumberOfTileTypes)
 	{
-		return static_cast<TileType>(0);
+		return 0u;
 	}
 	else
 	{
@@ -324,13 +324,13 @@ TileType Editor::getNextTileType(TileType tileType) const
 }
 TileType Editor::getPreviousTileType(TileType tileType) const
 {
-	if (static_cast<int>(tileType) == 0)
+	if (tileType == 0u)
 	{
-		return static_cast<TileType>(static_cast<int>(TileType::NUM_OF_TILE_TYPES) - 1);
+		return (TileTypeProperties::sNumberOfTileTypes - 1u);
 	}
 	else
 	{
-		return static_cast<TileType>(static_cast<int>(tileType) - 1);
+		return (tileType - 1u);
 	}
 }
 
@@ -344,7 +344,7 @@ void Editor::handleDropDownMenuTileTypeCategoryChange()
 {
 	//Fill mVectorOfTileTypesInSelectionArea
 	mVectorOfTileTypesInSelectionArea.clear();
-	for (unsigned int i = 0; i < static_cast<unsigned int>(TileType::NUM_OF_TILE_TYPES); ++i)
+	for (unsigned int i = 0; i < TileTypeProperties::sNumberOfTileTypes; ++i)
 	{
 		if (TileTypeProperties::getCategory(static_cast<TileType>(i)) == mActiveTileTypeCategory)
 		{
