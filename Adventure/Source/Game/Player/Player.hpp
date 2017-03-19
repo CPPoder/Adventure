@@ -8,6 +8,8 @@
 
 #include "Source\Framework\SoundManager.hpp"
 
+#include "Source\Settings\ControlSettings.hpp"
+
 #include "SFML\Graphics.hpp"
 
 #include "myUsefulMath.hpp"

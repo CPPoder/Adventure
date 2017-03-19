@@ -82,6 +82,12 @@
     <Filter Include="Quelldateien\Game\Magic">
       <UniqueIdentifier>{f92c1308-e33d-4d8b-b4ce-80a8a96d692a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headerdateien\Settings">
+      <UniqueIdentifier>{869072b5-1f03-4108-bbbd-f8049a231028}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\Settings">
+      <UniqueIdentifier>{b004b289-0b9e-4d61-8261-e58b6d2bd0b2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -204,6 +210,9 @@
     <ClInclude Include="Source\Game\Magic\Ball.hpp">
       <Filter>Headerdateien\Game\Magic</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Settings\ControlSettings.hpp">
+      <Filter>Headerdateien\Settings</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -316,6 +325,9 @@
     </ClCompile>
     <ClCompile Include="Source\Game\Magic\Ball.cpp">
       <Filter>Quelldateien\Game\Magic</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Settings\ControlSettings.cpp">
+      <Filter>Quelldateien\Settings</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

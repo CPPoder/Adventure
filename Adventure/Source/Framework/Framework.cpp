@@ -55,7 +55,7 @@ void Framework::handleEvents()
 			{
 				mStackOfGameStates.top()->reactOnESC();
 			}
-			if (mEvent.key.code == sf::Keyboard::Key::Space)
+			if (Settings::ControlSettings::checkIfKeyBelongsToAction(mEvent.key.code, Settings::ControlSettings::Action::CHANGE_FPS_VISIBILITY))
 			{
 				mShowFPS = !mShowFPS;
 			}

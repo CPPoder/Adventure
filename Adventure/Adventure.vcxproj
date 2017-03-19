@@ -182,6 +182,7 @@
     <ClInclude Include="Source\Game\Magic\Ball.hpp" />
     <ClInclude Include="Source\Game\Magic\FireBall.hpp" />
     <ClInclude Include="Source\Game\Player\Player.hpp" />
+    <ClInclude Include="Source\Settings\ControlSettings.hpp" />
     <ClInclude Include="Source\Tile\Border.hpp" />
     <ClInclude Include="Source\Tile\BorderVertexArray.hpp" />
     <ClInclude Include="Source\Tile\TileContents.hpp" />
@@ -222,6 +223,7 @@
     <ClCompile Include="Source\Game\Magic\Ball.cpp" />
     <ClCompile Include="Source\Game\Magic\FireBall.cpp" />
     <ClCompile Include="Source\Game\Player\Player.cpp" />
+    <ClCompile Include="Source\Settings\ControlSettings.cpp" />
     <ClCompile Include="Source\Tile\Border.cpp" />
     <ClCompile Include="Source\Tile\BorderVertexArray.cpp" />
     <ClCompile Include="Source\Tile\TileContents.cpp" />

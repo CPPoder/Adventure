@@ -19,6 +19,8 @@
 #include "Source\Framework\TextureManager.hpp"
 #include "Source\Framework\SoundManager.hpp"
 
+#include "Source\Settings\ControlSettings.hpp"
+
 
 class Framework
 {

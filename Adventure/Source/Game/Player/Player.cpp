@@ -74,10 +74,10 @@ std::list<Magic::FireBall*>& Player::getAccessToListOfFireBalls()
 void Player::handleMovement(sf::Time const & frametime, TileMap const & tileMap)
 {
 	//Handle UserInput
-	bool keyRight = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right);
-	bool keyUp = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up);
-	bool keyLeft = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left);
-	bool keyDown = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down);
+	bool keyRight = Settings::ControlSettings::checkIfSomeKeyOfActionIsPressed(Settings::ControlSettings::Action::WALK_RIGHT);
+	bool keyUp = Settings::ControlSettings::checkIfSomeKeyOfActionIsPressed(Settings::ControlSettings::Action::WALK_UP);
+	bool keyLeft = Settings::ControlSettings::checkIfSomeKeyOfActionIsPressed(Settings::ControlSettings::Action::WALK_LEFT);
+	bool keyDown = Settings::ControlSettings::checkIfSomeKeyOfActionIsPressed(Settings::ControlSettings::Action::WALK_DOWN);
 
 	bool right = (keyRight && !keyUp && !keyLeft && !keyDown);
 	bool rightUp = (keyRight && keyUp && !keyLeft && !keyDown);
@@ -176,7 +176,7 @@ void Player::handleFireBallCreation()
 {
 	if (mPlayerState != PlayerState::SHOOT_FIRE_BALL)
 	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::K) && mFireBallCoolDownClock.getElapsedTime() > mFireBallCoolDown)
+		if (Settings::ControlSettings::checkIfSomeKeyOfActionIsPressed(Settings::ControlSettings::Action::ATTACK) && mFireBallCoolDownClock.getElapsedTime() > mFireBallCoolDown)
 		{
 			//Go into ShootFireBall State
 			this->setPlayerStateAndDirection(PlayerState::SHOOT_FIRE_BALL, mPlayerDirection);
@@ -278,7 +278,8 @@ void Player::undoLastMovement(sf::Vector2f const & lastMovement)
 
 sf::Vector2f Player::calculateFireBallPosition() const
 {
-	return mPlayerAnimation.getPosition();
+	sf::Vector2f const correctionDueToHandPos = sf::Vector2f(8.f, 4.f);
+	return mPlayerAnimation.getPosition() + correctionDueToHandPos;
 }
 sf::Vector2f Player::calculateFireBallVelocity() const
 {
