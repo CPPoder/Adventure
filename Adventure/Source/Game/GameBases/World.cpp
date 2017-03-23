@@ -12,8 +12,6 @@ World::World()
 	mWantedView = mActualView;
 
 	SoundManager::playMusic(MusicName::THE_BEGINNING, 25.f);
-
-	mListOfFireBalls.push_back(new Magic::FireBall(sf::Vector2f(100.f, 100.f), sf::Vector2f(250.f, 0.f), 1.f));
 }
 
 World::~World()

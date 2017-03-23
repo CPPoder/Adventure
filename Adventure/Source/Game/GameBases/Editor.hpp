@@ -41,6 +41,11 @@ private:
 	BorderVertexArray mBorderVertexArrayOfActualBorderDrawing;
 	bool mDrawBVAOfActualBorderDrawing = false;
 	Border::Type mBorderTypeOfActualBorderDrawing = Border::Type::INSURMOUNTABLE;
+	sf::VertexArray mVertexArrayOfTilesAreaGrid;
+	sf::Vector2i mLeftUpNeededTilesGridVertexPos;
+	sf::Vector2i mRightDownNeededTilesGridVertexPos;
+	bool mDrawVertexArrayOfTilesAreaGrid = true;
+	sf::Color mColorOfTilesAreaGrid = sf::Color::Red;
 
 	//Menu Variables (Basic)
 	mySFML::Class::RectShape mMenuBackgroundRectangle;
@@ -59,12 +64,12 @@ private:
 	Button mSaveButton;
 
 	//Menu Variables (TileType Selection)
-	sf::Vector2f const mPosOfLeftMouseTileTypeSquare		= sf::Vector2f(50.f, 150.f);
-	sf::Vector2f const mRelDistBetweenTileTypeSquares		= sf::Vector2f(50.f, 0.f);
+	sf::Vector2f const mPosOfLeftMouseTileTypeSquare		= sf::Vector2f(70.f, 320.f);
+	sf::Vector2f const mRelDistBetweenTileTypeSquares		= sf::Vector2f(60.f, 0.f);
 	TileSquareShape mTileSquareShapeOfLeftMouseTileType;
 	TileSquareShape mTileSquareShapeOfRightMouseTileType;
 
-	sf::Vector2f const mPosOfDropDownMenu					= sf::Vector2f(20.f, 250.f);
+	sf::Vector2f const mPosOfDropDownMenu					= sf::Vector2f(20.f, 400.f);
 	sf::Vector2f const mSizeOfSingleDropDownMenuField		= sf::Vector2f(200.f, 30.f);
 	unsigned int const mNumberOfFieldsInDropMenu			= 4u;
 	sf::Vector2f const mSizeOfDropMenu						= sf::Vector2f(mSizeOfSingleDropDownMenuField.x, mSizeOfSingleDropDownMenuField.y * mNumberOfFieldsInDropMenu);
@@ -85,11 +90,18 @@ private:
 	sf::VertexArray mVertexArrayOfSelectionAreaGrid;
 	sf::VertexArray mVertexArrayOfLastSelection;
 
-	sf::Vector2f const mPosOfBorderDrawingModeCheckBox		= sf::Vector2f(30.f, 220.f);
+	sf::Vector2f const mPosOfBorderDrawingModeCheckBox		= sf::Vector2f(30.f, 370.f);
 	sf::Vector2f const mRelDistOfBorderDrawingMoveText		= sf::Vector2f(25.f, 0.f);
 	CheckBox mBorderDrawingModeCheckBox;
 	mySFML::Class::Text mBorderDrawingModeText;
 
+
+	//Menu Variables (Tiles Grid Selection)
+	sf::Vector2f const mPosOfGridDrawingCheckBox			= sf::Vector2f(30.f, 130.f);
+	sf::Vector2f const mRelDistOfGridDrawingText			= sf::Vector2f(25.f, 0.f);
+	CheckBox mGridDrawingCheckBox;
+	mySFML::Class::Text mGridDrawingText;
+	
 	
 	
 
@@ -109,6 +121,8 @@ private:
 
 	void handleDropDownMenuTileTypeCategoryChange();
 	void constructSelectionAreaGrid();
+	void changeTilesAreaGridIfNeeded();
+	void constructTilesAreaGrid();
 	void setSelectionVertexArray(unsigned int posInVectorOfTileTypes, bool clear = false);
 
 

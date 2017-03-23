@@ -24,10 +24,14 @@ Editor::Editor()
 	  mBorderDrawingModeCheckBox(mPosOfBorderDrawingModeCheckBox, true, false, false),
 	  mBorderDrawingModeText(*mFonts.getFont(mySFML::Class::FontName::ARIAL), mPosOfBorderDrawingModeCheckBox + mRelDistOfBorderDrawingMoveText, "Border Drawing Mode", 14u),
 	  mVertexArrayOfSelectionAreaGrid(sf::PrimitiveType::Lines),
-	  mVertexArrayOfLastSelection(sf::PrimitiveType::LineStrip)
+	  mVertexArrayOfLastSelection(sf::PrimitiveType::LineStrip),
+	  mVertexArrayOfTilesAreaGrid(sf::PrimitiveType::Lines),
+	  mGridDrawingCheckBox(mPosOfGridDrawingCheckBox, true, mDrawVertexArrayOfTilesAreaGrid, false),
+	  mGridDrawingText(*mFonts.getFont(mySFML::Class::FontName::ARIAL), mPosOfGridDrawingCheckBox + mRelDistOfGridDrawingText, "Draw Grid", 14u)
 {
 	this->handleDropDownMenuTileTypeCategoryChange();
 	this->constructSelectionAreaGrid();
+	this->changeTilesAreaGridIfNeeded();
 }
 
 Editor::~Editor()
@@ -77,6 +81,7 @@ void Editor::update(sf::Time const & frametime, sf::RenderWindow* renderWindow)
 
 			mTilesView.zoom(zoomFactor);
 			mTilesView.move(correction * viewViewportQuotient);
+			this->changeTilesAreaGridIfNeeded();
 		}
 	}
 	if (EventManager::checkForEvent(EventManager::EventType::MOUSE_DRAGGED))
@@ -86,6 +91,7 @@ void Editor::update(sf::Time const & frametime, sf::RenderWindow* renderWindow)
 		{
 			sf::Vector2f draggedDistance = renderWindow->mapPixelToCoords(draggedInfo.newPosition, mTilesView) - renderWindow->mapPixelToCoords(draggedInfo.oldPosition, mTilesView);
 			mTilesView.move(-draggedDistance);
+			this->changeTilesAreaGridIfNeeded();
 		}
 	}
 
@@ -205,6 +211,14 @@ void Editor::update(sf::Time const & frametime, sf::RenderWindow* renderWindow)
 		}
 	}
 
+	//Switch on/off Grid
+	mGridDrawingCheckBox.updateState(renderWindow);
+	if (mGridDrawingCheckBox.getHasChangedState())
+	{
+		mDrawVertexArrayOfTilesAreaGrid = mGridDrawingCheckBox.getIsTicked();
+		this->changeTilesAreaGridIfNeeded();
+	}
+
 
 	//Draw Borders with Mouse
 	if (mDrawBordersInsteadOfTiles)
@@ -260,7 +274,6 @@ void Editor::render(sf::RenderWindow* renderWindow)
 	mTileSquareShapeOfLeftMouseTileType.render(renderWindow);
 	mTileSquareShapeOfRightMouseTileType.render(renderWindow);
 	renderWindow->draw(*mRectShapeOfSelectionArea.pointer);
-	mDropDownMenu.render(renderWindow);
 	mBorderDrawingModeCheckBox.render(renderWindow);
 	renderWindow->draw(*mBorderDrawingModeText.pointer);
 	for (auto tileSquareShape : mVectorOfTileSquareShapesInSelectionArea)
@@ -269,6 +282,9 @@ void Editor::render(sf::RenderWindow* renderWindow)
 	}
 	renderWindow->draw(mVertexArrayOfSelectionAreaGrid);
 	renderWindow->draw(mVertexArrayOfLastSelection);
+	mDropDownMenu.render(renderWindow);
+	mGridDrawingCheckBox.render(renderWindow);
+	renderWindow->draw(*mGridDrawingText.pointer);
 
 	//Render Tile Stuff
 	renderWindow->setView(mTilesView);
@@ -277,6 +293,10 @@ void Editor::render(sf::RenderWindow* renderWindow)
 	if (mDrawBVAOfActualBorderDrawing)
 	{
 		mBorderVertexArrayOfActualBorderDrawing.render(renderWindow);
+	}
+	if (mDrawVertexArrayOfTilesAreaGrid)
+	{
+		renderWindow->draw(mVertexArrayOfTilesAreaGrid);
 	}
 
 	//Reset Initial View
@@ -384,6 +404,46 @@ void Editor::constructSelectionAreaGrid()
 		sf::Vertex vertex2(mPosOfSelectionArea + static_cast<sf::Vector2f>(sf::Vector2u(mSizeOfSelectionArea.x, y) * TileMap::sSizeOfATile), sf::Color::Black);
 		mVertexArrayOfSelectionAreaGrid.append(vertex1);
 		mVertexArrayOfSelectionAreaGrid.append(vertex2);
+	}
+}
+
+
+void Editor::changeTilesAreaGridIfNeeded()
+{
+	if (!mDrawVertexArrayOfTilesAreaGrid)
+	{
+		return;
+	}
+
+	sf::Vector2f centerOfTilesView = mTilesView.getCenter();
+	sf::Vector2f sizeOfTilesView = mTilesView.getSize();
+	sf::Vector2f leftUpPosOfTilesView = centerOfTilesView - sizeOfTilesView / 2.f;
+
+	sf::Vector2i newLeftUpVertex = static_cast<sf::Vector2i>(leftUpPosOfTilesView / static_cast<float>(TileMap::sSizeOfATile));
+	sf::Vector2i newRightDownVertex = static_cast<sf::Vector2i>((leftUpPosOfTilesView + sizeOfTilesView) / static_cast<float>(TileMap::sSizeOfATile)) + sf::Vector2i(1, 1);
+
+	bool newLeftUpIsEqual = (newLeftUpVertex == mLeftUpNeededTilesGridVertexPos);
+	bool newRightDownIsEqual = (newRightDownVertex == mRightDownNeededTilesGridVertexPos);
+	if (!(newLeftUpIsEqual && newRightDownIsEqual))
+	{
+		mLeftUpNeededTilesGridVertexPos = newLeftUpVertex;
+		mRightDownNeededTilesGridVertexPos = newRightDownVertex;
+		this->constructTilesAreaGrid();
+	}
+}
+
+void Editor::constructTilesAreaGrid()
+{
+	mVertexArrayOfTilesAreaGrid.clear();
+	for (int x = mLeftUpNeededTilesGridVertexPos.x; x <= mRightDownNeededTilesGridVertexPos.x; ++x)
+	{
+		mVertexArrayOfTilesAreaGrid.append(sf::Vertex(static_cast<sf::Vector2f>(sf::Vector2i(x, mLeftUpNeededTilesGridVertexPos.y) * static_cast<int>(TileMap::sSizeOfATile)), mColorOfTilesAreaGrid));
+		mVertexArrayOfTilesAreaGrid.append(sf::Vertex(static_cast<sf::Vector2f>(sf::Vector2i(x, mRightDownNeededTilesGridVertexPos.y) * static_cast<int>(TileMap::sSizeOfATile)), mColorOfTilesAreaGrid));
+	}
+	for (int y = mLeftUpNeededTilesGridVertexPos.y; y <= mRightDownNeededTilesGridVertexPos.y; ++y)
+	{
+		mVertexArrayOfTilesAreaGrid.append(sf::Vertex(static_cast<sf::Vector2f>(sf::Vector2i(mLeftUpNeededTilesGridVertexPos.x, y) * static_cast<int>(TileMap::sSizeOfATile)), mColorOfTilesAreaGrid));
+		mVertexArrayOfTilesAreaGrid.append(sf::Vertex(static_cast<sf::Vector2f>(sf::Vector2i(mRightDownNeededTilesGridVertexPos.x, y) * static_cast<int>(TileMap::sSizeOfATile)), mColorOfTilesAreaGrid));
 	}
 }
 
