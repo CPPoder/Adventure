@@ -212,6 +212,26 @@ void Editor::update(sf::Time const & frametime, sf::RenderWindow* renderWindow)
 	}
 
 	//Switch on/off Grid
+	constexpr float gridSizeLimit = 5000.f;
+	if (mTilesView.getSize().x > gridSizeLimit)
+	{
+		mGridDrawingCheckBox.setActive(false);
+		mGridDrawingCheckBox.setTicked(false);
+	}
+	else if (!mGridDrawingCheckBox.getIsActive())
+	{
+		mGridDrawingCheckBox.setActive(true);
+	}
+	if (mGridDrawingCheckBox.getIsActive())
+	{
+		if (EventManager::checkForEvent(EventManager::EventType::KEY_RELEASED))
+		{
+			if (EventManager::getReleasedKeyInfo().key == sf::Keyboard::Key::Space)
+			{
+				mGridDrawingCheckBox.setTicked(!mGridDrawingCheckBox.getIsTicked());
+			}
+		}
+	}
 	mGridDrawingCheckBox.updateState(renderWindow);
 	if (mGridDrawingCheckBox.getHasChangedState())
 	{
@@ -422,12 +442,15 @@ void Editor::changeTilesAreaGridIfNeeded()
 	sf::Vector2i newLeftUpVertex = static_cast<sf::Vector2i>(leftUpPosOfTilesView / static_cast<float>(TileMap::sSizeOfATile));
 	sf::Vector2i newRightDownVertex = static_cast<sf::Vector2i>((leftUpPosOfTilesView + sizeOfTilesView) / static_cast<float>(TileMap::sSizeOfATile)) + sf::Vector2i(1, 1);
 
-	bool newLeftUpIsEqual = (newLeftUpVertex == mLeftUpNeededTilesGridVertexPos);
-	bool newRightDownIsEqual = (newRightDownVertex == mRightDownNeededTilesGridVertexPos);
+	sf::Vector2i newTrimmedLeftUp = mySFML::Simple::trim(sf::Vector2i(0, 0), newLeftUpVertex, newLeftUpVertex);
+	sf::Vector2i newTrimmedRightDown = mySFML::Simple::trim(sf::Vector2i(0, 0), newRightDownVertex, newRightDownVertex);
+
+	bool newLeftUpIsEqual = (newTrimmedLeftUp == mLeftUpNeededTilesGridVertexPos);
+	bool newRightDownIsEqual = (newTrimmedRightDown == mRightDownNeededTilesGridVertexPos);
 	if (!(newLeftUpIsEqual && newRightDownIsEqual))
 	{
-		mLeftUpNeededTilesGridVertexPos = newLeftUpVertex;
-		mRightDownNeededTilesGridVertexPos = newRightDownVertex;
+		mLeftUpNeededTilesGridVertexPos = newTrimmedLeftUp;
+		mRightDownNeededTilesGridVertexPos = newTrimmedRightDown;
 		this->constructTilesAreaGrid();
 	}
 }
