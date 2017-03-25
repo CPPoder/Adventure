@@ -19,7 +19,10 @@ class World
 private:
 	TileMap mTileMap;
 	TileVertexArray mTileVertexArray;
+	sf::Sprite mSpriteOfWaterWaves;
+	
 	Player mPlayer;
+
 	sf::View mActualView;
 	sf::View mWantedView;
 
@@ -35,6 +38,9 @@ public:
 	void update(sf::Time const & frametime, sf::RenderWindow* renderWindow);
 	void render(sf::RenderWindow* renderWindow);
 
+
+private:
+	sf::IntRect calculateWaterWavesTextureRect() const;
 
 };
 

@@ -1,6 +1,8 @@
 #ifndef TILEMAP_HPP
 #define TILEMAP_HPP
 
+#include "myUsefulMath.hpp"
+
 #include "SFML\Graphics.hpp"
 
 #include "Source\Tile\TileContents.hpp"
@@ -41,6 +43,7 @@ public:
 
 	unsigned int getYSize() const;
 	unsigned int getXSizeAt(unsigned int y) const;
+	sf::Vector2u getSize() const;
 
 	void outputOnTerminal() const;
 

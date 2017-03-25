@@ -16,6 +16,11 @@ void TextureManager::Init()
 	sf::Texture* playerTextureAtlas = new sf::Texture;
 	playerTextureAtlas->loadFromFile("./Data/Textures/Player_T.png");
 	mMapOfTextures.insert(std::make_pair(TextureManager::TextureName::PLAYER_TEXTURE_ATLAS, playerTextureAtlas));
+
+	sf::Texture* waterWavesTexture = new sf::Texture;
+	waterWavesTexture->loadFromFile("./Data/Textures/WaterWaves.png");
+	waterWavesTexture->setRepeated(true);
+	mMapOfTextures.insert(std::make_pair(TextureManager::TextureName::WATER_WAVES_TEXTURE, waterWavesTexture));
 }
 
 sf::Texture const * TextureManager::getTexture(TextureName textureName)

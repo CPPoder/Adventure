@@ -241,6 +241,16 @@ unsigned int TileMap::getXSizeAt(unsigned int y) const
 {
 	return mMatrixOfTileContents.at(y).size();
 }
+sf::Vector2u TileMap::getSize() const
+{
+	unsigned int ySize = this->getYSize();
+	unsigned int xSize = 0u;
+	for (unsigned int y = 0; y < ySize; ++y)
+	{
+		xSize = myMath::Simple::max(xSize, this->getXSizeAt(y));
+	}
+	return sf::Vector2u(xSize, ySize);
+}
 
 void TileMap::outputOnTerminal() const
 {

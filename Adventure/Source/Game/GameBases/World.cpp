@@ -5,8 +5,12 @@
 World::World()
 	: mTileMap("./Data/TileMaps/Map.tm"),
 	  mTileVertexArray(mTileMap),
+	  mSpriteOfWaterWaves(*TextureManager::getTexture(TextureManager::TextureName::WATER_WAVES_TEXTURE)),
 	  mPlayer(sf::Vector2f(400.f, 200.f))
 {
+	mSpriteOfWaterWaves.setPosition(sf::Vector2f());
+	mSpriteOfWaterWaves.setTextureRect(this->calculateWaterWavesTextureRect());
+
 	mActualView = Framework::getRenderWindow()->getView();
 	mActualView.zoom(0.5f);
 	mWantedView = mActualView;
@@ -25,6 +29,9 @@ World::~World()
 
 void World::update(sf::Time const & frametime, sf::RenderWindow* renderWindow)
 {
+	//Update WaterWaves
+	mSpriteOfWaterWaves.setTextureRect(this->calculateWaterWavesTextureRect());
+
 	//Update Player
 	mPlayer.update(frametime, renderWindow, mTileMap);
 
@@ -72,6 +79,7 @@ void World::render(sf::RenderWindow* renderWindow)
 	sf::View originalView = renderWindow->getView();
 	renderWindow->setView(mActualView);
 
+	renderWindow->draw(mSpriteOfWaterWaves);
 	mTileVertexArray.render(renderWindow);
 	mPlayer.render(renderWindow);
 	for (auto& fireBall : mListOfFireBalls)
@@ -84,3 +92,36 @@ void World::render(sf::RenderWindow* renderWindow)
 	renderWindow->draw(*mySFML::Class::RectShape(sf::Vector2f(), originalView.getSize(), mColorOfAmbientLayer, false).pointer);
 }
 
+
+
+
+
+sf::IntRect World::calculateWaterWavesTextureRect() const
+{
+	unsigned int constexpr numberOfWaveStates = 32u;
+	sf::Time const timeOfFullWaveCycle = sf::seconds(8.0f);
+	static sf::Clock waveClock;
+	static sf::Time timeSinceLastWaveStateChange(sf::Time::Zero);
+	timeSinceLastWaveStateChange += waveClock.restart();
+	static unsigned int actualWaveState(0u);
+	bool waveStateHasChanged = false;
+	if (timeSinceLastWaveStateChange >= timeOfFullWaveCycle / static_cast<float>(numberOfWaveStates))
+	{
+		timeSinceLastWaveStateChange -= timeOfFullWaveCycle / static_cast<float>(numberOfWaveStates);
+		waveStateHasChanged = true;
+		++actualWaveState;
+		if (actualWaveState >= numberOfWaveStates)
+		{
+			actualWaveState = 0u;
+		}
+	}
+	static bool firstCalculationOfWavesTextureRect(true);
+	static sf::IntRect actualIntRect;
+	if (waveStateHasChanged || firstCalculationOfWavesTextureRect)
+	{
+		firstCalculationOfWavesTextureRect = false;
+		sf::Vector2u tileMapSize = mTileMap.getSize();
+		actualIntRect = sf::IntRect(-static_cast<int>(actualWaveState), -static_cast<int>(actualWaveState), tileMapSize.x * TileMap::sSizeOfATile, tileMapSize.y * TileMap::sSizeOfATile);
+	}
+	return actualIntRect;
+}
