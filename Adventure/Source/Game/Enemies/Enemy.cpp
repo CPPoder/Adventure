@@ -5,6 +5,15 @@
 namespace Enemy
 {
 
+	Enemy::Enemy(StatusValues const & statusValues)
+		: mStatusValues(statusValues)
+	{
+	}
+
+	Enemy::~Enemy()
+	{
+	}
+
 
 
 

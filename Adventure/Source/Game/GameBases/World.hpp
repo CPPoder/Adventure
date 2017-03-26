@@ -8,6 +8,8 @@
 #include "Source\Game\Player\Player.hpp"
 #include "Source\Game\Magic\FireBall.hpp"
 
+#include "Source\Game\Enemies\Wolf.hpp"
+
 #include "Source\Framework\SoundManager.hpp"
 
 #include "mySFMLVectorFunctions.hpp"
@@ -22,6 +24,7 @@ private:
 	sf::Sprite mSpriteOfWaterWaves;
 	
 	Player mPlayer;
+	Enemy::Wolf mWolf;
 
 	sf::View mActualView;
 	sf::View mWantedView;

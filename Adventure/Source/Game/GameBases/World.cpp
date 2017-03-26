@@ -6,7 +6,8 @@ World::World()
 	: mTileMap("./Data/TileMaps/Map.tm"),
 	  mTileVertexArray(mTileMap),
 	  mSpriteOfWaterWaves(*TextureManager::getTexture(TextureManager::TextureName::WATER_WAVES_TEXTURE)),
-	  mPlayer(sf::Vector2f(400.f, 200.f))
+	  mPlayer(sf::Vector2f(400.f, 500.f)),
+	  mWolf(sf::Vector2f(500.f, 50.f))
 {
 	mSpriteOfWaterWaves.setPosition(sf::Vector2f());
 	mSpriteOfWaterWaves.setTextureRect(this->calculateWaterWavesTextureRect());
@@ -34,6 +35,9 @@ void World::update(sf::Time const & frametime, sf::RenderWindow* renderWindow)
 
 	//Update Player
 	mPlayer.update(frametime, renderWindow, mTileMap);
+
+	//Update Wolf
+	mWolf.update(frametime, renderWindow, mTileMap);
 
 	//Update FireBalls
 	std::list<Magic::FireBall*>& playersFireBallList = mPlayer.getAccessToListOfFireBalls();
@@ -82,6 +86,7 @@ void World::render(sf::RenderWindow* renderWindow)
 	renderWindow->draw(mSpriteOfWaterWaves);
 	mTileVertexArray.render(renderWindow);
 	mPlayer.render(renderWindow);
+	mWolf.render(renderWindow);
 	for (auto& fireBall : mListOfFireBalls)
 	{
 		fireBall->render(renderWindow);

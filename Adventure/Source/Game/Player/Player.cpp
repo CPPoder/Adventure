@@ -25,8 +25,6 @@ void Player::update(sf::Time const & frametime, sf::RenderWindow const * renderW
 	this->handleMovement(frametime, tileMap);
 	this->handleFireBallCreation();
 	mPlayerAnimation.update(frametime, renderWindow);
-
-
 }
 void Player::render(sf::RenderWindow* renderWindow)
 {
@@ -452,7 +450,7 @@ sf::Vector2f Player::getUnitVectorInDirection(PlayerDirection direction)
 		return sf::Vector2f(1.f, -1.f) / myMath::Const::SQRT2f;
 	case PlayerDirection::UP:
 		return sf::Vector2f(0.f, -1.f);
-		case PlayerDirection::UP_LEFT:
+	case PlayerDirection::UP_LEFT:
 		return sf::Vector2f(-1.f, -1.f) / myMath::Const::SQRT2f;
 	case PlayerDirection::LEFT:
 		return sf::Vector2f(-1.f, 0.f);

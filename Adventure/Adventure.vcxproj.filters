@@ -94,6 +94,12 @@
     <Filter Include="Quelldateien\Game\Enemies">
       <UniqueIdentifier>{9b54aa29-a3c1-4867-9cf3-0f7397cc76ff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headerdateien\Game\BattleSystem">
+      <UniqueIdentifier>{46a50440-4739-45fb-9bff-46a0a0fd48df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\Game\BattleSystem">
+      <UniqueIdentifier>{8dc8887f-f22d-4c8f-ba96-e7a1c0579aa1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -225,6 +231,9 @@
     <ClInclude Include="Source\Game\Enemies\Wolf.hpp">
       <Filter>Headerdateien\Game\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Game\BattleSystem\StatusValues.hpp">
+      <Filter>Headerdateien\Game\BattleSystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -346,6 +355,9 @@
     </ClCompile>
     <ClCompile Include="Source\Game\Enemies\Wolf.cpp">
       <Filter>Quelldateien\Game\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\BattleSystem\StatusValues.cpp">
+      <Filter>Quelldateien\Game\BattleSystem</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
