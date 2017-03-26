@@ -88,6 +88,12 @@
     <Filter Include="Quelldateien\Settings">
       <UniqueIdentifier>{b004b289-0b9e-4d61-8261-e58b6d2bd0b2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headerdateien\Game\Enemies">
+      <UniqueIdentifier>{fa83cd2a-5870-4d52-a54e-13e471a1c907}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\Game\Enemies">
+      <UniqueIdentifier>{9b54aa29-a3c1-4867-9cf3-0f7397cc76ff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -213,6 +219,12 @@
     <ClInclude Include="Source\Settings\ControlSettings.hpp">
       <Filter>Headerdateien\Settings</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Game\Enemies\Enemy.hpp">
+      <Filter>Headerdateien\Game\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Enemies\Wolf.hpp">
+      <Filter>Headerdateien\Game\Enemies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -328,6 +340,12 @@
     </ClCompile>
     <ClCompile Include="Source\Settings\ControlSettings.cpp">
       <Filter>Quelldateien\Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Enemies\Enemy.cpp">
+      <Filter>Quelldateien\Game\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Enemies\Wolf.cpp">
+      <Filter>Quelldateien\Game\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

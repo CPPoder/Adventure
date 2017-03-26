@@ -175,6 +175,8 @@
     <ClInclude Include="Source\GameState\MainMenuState.hpp" />
     <ClInclude Include="Source\GameState\PlayingMenuState.hpp" />
     <ClInclude Include="Source\GameState\PlayingState.hpp" />
+    <ClInclude Include="Source\Game\Enemies\Enemy.hpp" />
+    <ClInclude Include="Source\Game\Enemies\Wolf.hpp" />
     <ClInclude Include="Source\Game\GameBases\Editor.hpp" />
     <ClInclude Include="Source\Game\GameBases\MainMenu.hpp" />
     <ClInclude Include="Source\Game\GameBases\PlayingMenu.hpp" />
@@ -216,6 +218,8 @@
     <ClCompile Include="Source\GameState\MainMenuState.cpp" />
     <ClCompile Include="Source\GameState\PlayingMenuState.cpp" />
     <ClCompile Include="Source\GameState\PlayingState.cpp" />
+    <ClCompile Include="Source\Game\Enemies\Enemy.cpp" />
+    <ClCompile Include="Source\Game\Enemies\Wolf.cpp" />
     <ClCompile Include="Source\Game\GameBases\Editor.cpp" />
     <ClCompile Include="Source\Game\GameBases\MainMenu.cpp" />
     <ClCompile Include="Source\Game\GameBases\PlayingMenu.cpp" />
