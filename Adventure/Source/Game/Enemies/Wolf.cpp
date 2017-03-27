@@ -7,7 +7,8 @@ namespace Enemy
 
 	Wolf::Wolf(sf::Vector2f const & position)
 		: Enemy::Enemy(StatusValues(20, 0, 0, 0, 0, 0, 0, 40)),
-		  mWolfAnimation(TextureManager::TextureName::WOLF_TEXTURE_ATLAS, sWolfAnimTextRectPositions, sSizeOfWolfTextRect, sAnimProgramOfStandingDown, sAnimProgramOfStandingDown.front(), sf::seconds(sPixelPerJumpStep / StatusValues::convertSpeedIntoPixelPerSecond(mStatusValues.speed)), position)
+		  mWolfAnimation(TextureManager::TextureName::WOLF_TEXTURE_ATLAS, sWolfAnimTextRectPositions, sSizeOfWolfTextRect, sAnimProgramOfStandingDown, sAnimProgramOfStandingDown.front(), sf::seconds(sPixelPerJumpStep / StatusValues::convertSpeedIntoPixelPerSecond(mStatusValues.speed)), position),
+		  mWolfBrain(WolfMovementBehaviour::STATIC)
 	{
 		mWolfAnimationName = WolfAnimationName::STANDING_DOWN;
 		mWolfCollisionArea.addShape(mySFML::Class::RectShape(position + sf::Vector2f(0.f, 15.f), sf::Vector2f(15.f, 15.f), sf::Color::Green, true).pointer);
@@ -48,8 +49,9 @@ namespace Enemy
 	void Wolf::handleMovement(sf::Time const & frametime, TileMap const & tileMap)
 	{
 		//Somehow get next WolfMovement
-		WolfState newWolfState = WolfState::WALKING;
-		WolfDirection newWolfDirection = WolfDirection::DOWN;
+		WolfMovement newWolfMovement = mWolfBrain.getNextWolfMovement(WolfMovementInput());
+		WolfState newWolfState = newWolfMovement.wolfState;
+		WolfDirection newWolfDirection = newWolfMovement.wolfDirection;
 
 		//Set WolfState and Animation
 		this->setWolfStateAndDirection(newWolfState, newWolfDirection);

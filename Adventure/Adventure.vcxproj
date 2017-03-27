@@ -176,8 +176,10 @@
     <ClInclude Include="Source\GameState\PlayingMenuState.hpp" />
     <ClInclude Include="Source\GameState\PlayingState.hpp" />
     <ClInclude Include="Source\Game\BattleSystem\StatusValues.hpp" />
+    <ClInclude Include="Source\Game\Enemies\WolfBrain.hpp" />
     <ClInclude Include="Source\Game\Enemies\Enemy.hpp" />
     <ClInclude Include="Source\Game\Enemies\Wolf.hpp" />
+    <ClInclude Include="Source\Game\Enemies\WolfStates.hpp" />
     <ClInclude Include="Source\Game\GameBases\Editor.hpp" />
     <ClInclude Include="Source\Game\GameBases\MainMenu.hpp" />
     <ClInclude Include="Source\Game\GameBases\PlayingMenu.hpp" />
@@ -220,6 +222,7 @@
     <ClCompile Include="Source\GameState\PlayingMenuState.cpp" />
     <ClCompile Include="Source\GameState\PlayingState.cpp" />
     <ClCompile Include="Source\Game\BattleSystem\StatusValues.cpp" />
+    <ClCompile Include="Source\Game\Enemies\WolfBrain.cpp" />
     <ClCompile Include="Source\Game\Enemies\Enemy.cpp" />
     <ClCompile Include="Source\Game\Enemies\Wolf.cpp" />
     <ClCompile Include="Source\Game\GameBases\Editor.cpp" />

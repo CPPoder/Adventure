@@ -234,6 +234,12 @@
     <ClInclude Include="Source\Game\BattleSystem\StatusValues.hpp">
       <Filter>Headerdateien\Game\BattleSystem</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Game\Enemies\WolfStates.hpp">
+      <Filter>Headerdateien\Game\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Enemies\WolfBrain.hpp">
+      <Filter>Headerdateien\Game\Enemies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -358,6 +364,9 @@
     </ClCompile>
     <ClCompile Include="Source\Game\BattleSystem\StatusValues.cpp">
       <Filter>Quelldateien\Game\BattleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Enemies\WolfBrain.cpp">
+      <Filter>Quelldateien\Game\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

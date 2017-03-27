@@ -4,42 +4,12 @@
 #include "Source\Game\Enemies\Enemy.hpp"
 #include "Source\Animation\Animation.hpp"
 #include "Source\Collision\CollisionArea.hpp"
+#include "Source\Game\Enemies\WolfStates.hpp"
+#include "Source\Game\Enemies\WolfBrain.hpp"
 
 
 namespace Enemy
 {
-
-	enum class WolfState
-	{
-		STANDING,
-		WALKING
-	};
-
-	enum class WolfDirection
-	{
-		RIGHT,
-		RIGHT_UP,
-		UP,
-		UP_LEFT,
-		LEFT,
-		LEFT_DOWN,
-		DOWN,
-		DOWN_RIGHT
-	};
-
-	enum class WolfAnimationName
-	{
-		STANDING_RIGHT,
-		STANDING_UP,
-		STANDING_LEFT,
-		STANDING_DOWN,
-		WALKING_RIGHT,
-		WALKING_UP,
-		WALKING_LEFT,
-		WALKING_DOWN
-	};
-
-
 
 	class Wolf : public Enemy
 	{
@@ -65,6 +35,8 @@ namespace Enemy
 		Animation mWolfAnimation;
 
 		CollisionArea mWolfCollisionArea;
+
+		WolfBrain mWolfBrain;
 
 
 
