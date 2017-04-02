@@ -6,7 +6,7 @@ namespace Enemy
 {
 
 	Wolf::Wolf(sf::Vector2f const & position)
-		: Enemy::Enemy(StatusValues(20, 0, 0, 0, 0, 0, 0, 40)),
+		: Enemy::Enemy(StatusValues(20, 0, 0, 0, 0, 0, 0, 45)),
 		  mWolfAnimation(TextureManager::TextureName::WOLF_TEXTURE_ATLAS, sWolfAnimTextRectPositions, sSizeOfWolfTextRect, sAnimProgramOfStandingDown, sAnimProgramOfStandingDown.front(), sf::seconds(sPixelPerJumpStep / StatusValues::convertSpeedIntoPixelPerSecond(mStatusValues.speed)), position),
 		  mWolfBrain(WolfMovementBehaviour::STATIC)
 	{
@@ -264,9 +264,9 @@ namespace Enemy
 
 	const sf::Vector2f Wolf::sSizeOfWolfTextRect = sf::Vector2f(64.f, 64.f);
 	const Animation::TextRectPositions Wolf::sWolfAnimTextRectPositions = {
-		{ 0.f, 0.f },{ 32.f, 0.f },{ 64.f, 0.f },			//Right
-		{ 0.f, 64.f },{ 32.f, 64.f },{ 64.f, 64.f },		//Up
-		{ 0.f, 128.f },{ 32.f, 128.f },{ 64.f, 128.f },		//Left
+		{ 0.f, 64.f },{ 64.f, 64.f },{ 128.f, 64.f },		//Right
+		{ 0.f, 192.f },{ 64.f, 192.f },{ 128.f, 192.f },		//Up
+		{ 128.f, 128.f },{ 64.f, 128.f },{ 0.f, 128.f },		//Left
 		{ 0.f, 0.f },{ 64.f, 0.f },{ 128.f, 0.f }			//Down
 	};
 	const Animation::AnimProgram Wolf::sAnimProgramOfStandingRight = { 0u };

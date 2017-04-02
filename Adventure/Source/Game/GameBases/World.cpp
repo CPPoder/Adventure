@@ -6,7 +6,7 @@ World::World()
 	: mTileMap("./Data/TileMaps/Map.tm"),
 	  mTileVertexArray(mTileMap),
 	  mSpriteOfWaterWaves(*TextureManager::getTexture(TextureManager::TextureName::WATER_WAVES_TEXTURE)),
-	  mPlayer(sf::Vector2f(400.f, 500.f)),
+	  mPlayer(sf::Vector2f(400.f, 200.f)),
 	  mWolf(sf::Vector2f(500.f, 50.f))
 {
 	mSpriteOfWaterWaves.setPosition(sf::Vector2f());
