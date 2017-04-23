@@ -51,4 +51,27 @@ bool Line::intersects(Line const & line, sf::Vector2f & intersectionPoint) const
 	return (t >= 0 && t <= 1 && s >= 0 && s <= 1);
 }
 
+bool Line::contains(sf::Vector2f const & point, float tolerance) const
+{
+	sf::Vector2f diffOfVerts = this->vertex2 - this->vertex1;
+	sf::Vector2f newPoint = point;
+	sf::Vector2f newVert1 = this->vertex1;
+	sf::Vector2f newVert2 = this->vertex2;
+	sf::Vector2f newDiffOfVerts = diffOfVerts;
+	if (myMath::Simple::abs(diffOfVerts.x) < myMath::Simple::abs(diffOfVerts.y))
+	{
+		newPoint = mySFML::Simple::swapXandY(point);
+		newVert1 = mySFML::Simple::swapXandY(this->vertex1);
+		newVert2 = mySFML::Simple::swapXandY(this->vertex2);
+		newDiffOfVerts = mySFML::Simple::swapXandY(diffOfVerts);
+	}
+	float m = newDiffOfVerts.y / newDiffOfVerts.x;
+	float t = newVert1.y - m * newVert1.x;
+
+	bool liesOnInfiniteLine = (myMath::Simple::abs(m * point.x + t - point.y) < tolerance);
+	bool liesBetweenVerts = ((myMath::Simple::min(newVert1.x, newVert2.x) < newPoint.x + tolerance) && (newPoint.x - tolerance < myMath::Simple::max(newVert1.x, newVert2.x)));
+
+	return (liesOnInfiniteLine && liesBetweenVerts);
+}
+
 

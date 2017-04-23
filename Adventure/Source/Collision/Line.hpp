@@ -23,6 +23,7 @@ public:
 	float projectPointOnLine(sf::Vector2f const & point) const;
 
 	bool intersects(Line const & line, sf::Vector2f & intersectionPoint = sf::Vector2f()) const;
+	bool contains(sf::Vector2f const & point, float tolerance = 1.0E-05f) const;
 
 };
 

@@ -2,6 +2,7 @@
 #include "Source\Collision\CollisionArea.hpp"
 
 #include <functional>
+#include <array>
 
 
 //Constructors
@@ -201,6 +202,52 @@ bool CollisionArea::checkCollisionBetween(sf::CircleShape* c1, sf::CircleShape* 
 }
 bool CollisionArea::checkCollisionBetween(sf::CircleShape* c, sf::RectangleShape* r)
 {
+	//Check 3 things: Is c completely inside r? Does c overlap with any corner of r? Does c overlap with any edge of r?
+
+	//Extract data
+	sf::FloatRect localBounds(r->getLocalBounds());
+	sf::Vector2f localBoundsTopLeft(localBounds.left, localBounds.top);
+	sf::Vector2f localBoundsSize(localBounds.width, localBounds.height);
+	sf::Transform trafo(r->getTransform());
+	std::array<sf::Vector2f, 4u> arrayOfTransformedPoints;
+	arrayOfTransformedPoints.at(0) = trafo.transformPoint(localBoundsTopLeft);
+	arrayOfTransformedPoints.at(1) = trafo.transformPoint(localBoundsTopLeft + sf::Vector2f(0.f, localBoundsSize.y));
+	arrayOfTransformedPoints.at(2) = trafo.transformPoint(localBoundsTopLeft + localBoundsSize);
+	arrayOfTransformedPoints.at(3) = trafo.transformPoint(localBoundsTopLeft + sf::Vector2f(localBoundsSize.x, 0.f));
+	std::array<Line, 4u> arrayOfLines;
+	arrayOfLines.at(0) = Line(arrayOfTransformedPoints.at(0), arrayOfTransformedPoints.at(1));
+	arrayOfLines.at(1) = Line(arrayOfTransformedPoints.at(1), arrayOfTransformedPoints.at(2));
+	arrayOfLines.at(2) = Line(arrayOfTransformedPoints.at(2), arrayOfTransformedPoints.at(3));
+	arrayOfLines.at(3) = Line(arrayOfTransformedPoints.at(3), arrayOfTransformedPoints.at(0));
+	float radius = c->getRadius();
+	sf::Vector2f center = c->getPosition();
+
+	//Check if c overlaps with any corner
+	for (auto point : arrayOfTransformedPoints)
+	{
+		if (mySFML::Simple::lengthOf(center - point) < radius)
+		{
+			return true;
+		}
+	}
+
+	//Check if c overlaps with any edge
+	for (auto edge : arrayOfLines)
+	{
+		if (checkCollisionBetween(c, edge))
+		{
+			return true;
+		}
+	}
+
+	//Check if c is completely inside of r
+	sf::Transform inverseTrafo(r->getInverseTransform());
+	sf::Vector2f centerAfterInverseTrafo(inverseTrafo.transformPoint(center));
+	if (r->getLocalBounds().contains(centerAfterInverseTrafo))
+	{
+		return true;
+	}
+
 	return false;
 }
 bool CollisionArea::checkCollisionBetween(sf::RectangleShape* r1, sf::RectangleShape* r2)
@@ -272,9 +319,57 @@ bool CollisionArea::checkCollisionBetween(sf::RectangleShape* r1, sf::RectangleS
 		return true;
 	}
 }
-bool CollisionArea::checkCollisionBetween(sf::CircleShape* c, Line const & l)
+bool CollisionArea::checkCollisionBetween(sf::CircleShape* c, Line const & l) //Ignores Scale and Rotation
 {
-	return true;
+	//Check if one or both points of l lie in c
+	sf::Vector2f center = c->getPosition();
+	sf::Vector2f vertex1 = l.vertex1;
+	sf::Vector2f vertex2 = l.vertex2;
+	float r = c->getRadius();
+	if (mySFML::Simple::lengthOf(center - vertex1) < r || mySFML::Simple::lengthOf(center - vertex2) < r)
+	{
+		return true;
+	}
+	else
+	{
+		//Calculate transformed vertices, such that the circle is centered
+		sf::Vector2f newVertex1 = vertex1 - center;
+		sf::Vector2f newVertex2 = vertex2 - center;
+		sf::Vector2f diffOfNewVerts = newVertex2 - newVertex1;
+		if (myMath::Simple::abs(diffOfNewVerts.x) < myMath::Simple::abs(diffOfNewVerts.y))
+		{
+			//Swap x and y in order to get a safe m calculation (Circle is symmetric, thus not affected!)
+			diffOfNewVerts = mySFML::Simple::swapXandY(diffOfNewVerts);
+			diffOfNewVerts = mySFML::Simple::swapXandY(newVertex1);
+			diffOfNewVerts = mySFML::Simple::swapXandY(newVertex2);
+		}
+		float m = diffOfNewVerts.y / diffOfNewVerts.x;
+		float t = newVertex1.y - m * newVertex1.x;
+
+		//Check if line goes through circleShape
+		float discriminant = 4 * m * m * t * t - 4 * (m * m + 1) * (t * t - r * r);
+		if (discriminant < 0.f)
+		{
+			return false;
+		}
+		else
+		{
+			//Check if the solutions are not only solutions of the infinite line
+			Line newLine(newVertex1, newVertex2);
+			float solution1x = (-2 * m * t + sqrt(discriminant)) / (2 * (m * m + 1));
+			float solution2x = (-2 * m * t - sqrt(discriminant)) / (2 * (m * m + 1));
+			sf::Vector2f sol1(solution1x, m * solution1x + t);
+			sf::Vector2f sol2(solution2x, m * solution2x + t);
+			if (newLine.contains(sol1) || newLine.contains(sol2))
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+	}
 }
 bool CollisionArea::checkCollisionBetween(sf::RectangleShape* r, Line const & l)
 {
